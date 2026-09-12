@@ -37,10 +37,18 @@ jobs:
             exit 1
           fi
 
+      # Two greps, because they need different sensitivity. Names are matched
+      # case-insensitively; home-directory paths must be case-SENSITIVE, or every
+      # `/api/users/` in an example matches `/Users/` and the build fails on nothing.
       - name: No personal or client identifiers
         run: |
-          if grep -rinE 'donwi|titahspace|mumpuni|mktech|iconpln|/Users/|/home/[a-z]' \
-               --include='*.md' skills/ ; then
-            echo "::error::a personal or client identifier reached a public skill"
-            exit 1
+          fail=0
+          if grep -rinE 'donwi|titahspace|mumpuni|mktech|iconpln' --include='*.md' skills/ ; then
+            echo "::error::a personal or client name reached a public skill"
+            fail=1
           fi
+          if grep -rnE '/(Users|home)/[A-Za-z][A-Za-z0-9._-]*' --include='*.md' skills/ ; then
+            echo "::error::a home-directory path reached a public skill"
+            fail=1
+          fi
+          exit $fail
