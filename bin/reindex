@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Regenerates index.json from skills/*/SKILL.md. Zero dependencies.
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+out="$ROOT/index.json"; first=1
+
+{ echo '{'; echo '  "generated": "'"$(date -u +%FT%TZ)"'",'; echo '  "skills": ['; } > "$out"
+for d in "$ROOT"/skills/*/; do
+  [ -f "$d/SKILL.md" ] || continue
+  name="$(basename "$d")"
+  pack="$(sed -n 's/^pack:[[:space:]]*//p' "$d/SKILL.md" | head -1)"
+  desc="$(awk '
+      NR==1 && $0=="---" { inFm=1; next }
+      inFm && $0=="---"  { exit }
+      !inFm              { exit }
+      /^description:/    { f=1; sub(/^description:[ ]*>?-?[ ]*/,""); if (length($0)) print; next }
+      f && /^[A-Za-z_][A-Za-z0-9_]*:/ { exit }
+      f                  { sub(/^[ \t]+/,""); print }
+    ' "$d/SKILL.md" | tr '\n' ' ' | sed 's/  */ /g; s/[[:space:]]*$//; s/"/\\"/g')"
+  refs="$(find "$d" -type f ! -name SKILL.md | wc -l | tr -d ' ')"
+  [ "$first" = 1 ] || echo ',' >> "$out"; first=0
+  printf '    {"name": "%s", "pack": "%s", "path": "skills/%s/SKILL.md", "references": %s, "description": "%s"}' \
+    "$name" "${pack:-core}" "$name" "$refs" "$desc" >> "$out"
+done
+{ echo; echo '  ]'; echo '}'; } >> "$out"
+echo "index.json: $(grep -c '"name"' "$out") skills"
