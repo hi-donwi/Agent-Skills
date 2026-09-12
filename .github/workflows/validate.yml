@@ -23,11 +23,19 @@ jobs:
           done
           exit $fail
 
+      # reindex stamps a fresh "generated" time on every run, so comparing the raw
+      # file would always differ. What must not drift is the skill list itself.
       - name: index.json is current
         run: |
+          cp index.json /tmp/index.committed
           ./bin/reindex
-          git diff --exit-code index.json \
-            || { echo "::error::index.json is stale - run ./bin/reindex and commit"; exit 1; }
+          if ! diff -q <(grep -v '"generated"' /tmp/index.committed) \
+                       <(grep -v '"generated"' index.json) >/dev/null; then
+            echo "::error::index.json is stale - run ./bin/reindex and commit it"
+            diff <(grep -v '"generated"' /tmp/index.committed) \
+                 <(grep -v '"generated"' index.json) || true
+            exit 1
+          fi
 
       - name: No personal or client identifiers
         run: |
