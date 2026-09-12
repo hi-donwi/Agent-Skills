@@ -1,0 +1,5 @@
+# Codex skill config (optional). Lets Codex select this skill implicitly when a
+# task matches the SKILL.md description; it can still be invoked explicitly as
+# $web-development. See https://developers.openai.com/codex/skills
+policy:
+  allow_implicit_invocation: true

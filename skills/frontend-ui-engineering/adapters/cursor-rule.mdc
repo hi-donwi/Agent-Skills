@@ -1,0 +1,18 @@
+---
+description: Production frontend UI engineering standards
+globs: ["**/*.tsx", "**/*.ts", "**/*.jsx", "**/*.js", "**/*.css", "**/*.scss", "app/**", "src/**", "components/**"]
+alwaysApply: false
+---
+
+# Frontend UI Engineering
+
+Full skill: [SKILL.md](mdc:.agents/skills/frontend-ui-engineering/SKILL.md).
+
+- Read existing tokens/components before inventing new visual language.
+- Declare colors, type, spacing, radius, elevation, icon style, motion, and
+  breakpoints before substantial UI code.
+- Build loading, empty, error, focus, disabled, success, and validation states.
+- Verify keyboard access, visible focus, contrast, responsive widths, and reduced
+  motion.
+- Avoid generic AI UI: purple gradients, oversized rounded cards, stock card
+  grids, fake content, and emoji icons.

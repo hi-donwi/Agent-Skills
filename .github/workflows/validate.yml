@@ -1,0 +1,38 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Every skill has a SKILL.md with name, pack and description
+        run: |
+          fail=0
+          for d in skills/*/; do
+            f="$d/SKILL.md"
+            [ -f "$f" ] || { echo "::error::$d has no SKILL.md"; fail=1; continue; }
+            for key in name pack description; do
+              grep -q "^$key:" "$f" || { echo "::error::$f is missing '$key:'"; fail=1; }
+            done
+          done
+          exit $fail
+
+      - name: index.json is current
+        run: |
+          ./bin/reindex
+          git diff --exit-code index.json \
+            || { echo "::error::index.json is stale - run ./bin/reindex and commit"; exit 1; }
+
+      - name: No personal or client identifiers
+        run: |
+          if grep -rinE 'donwi|titahspace|mumpuni|mktech|iconpln|/Users/|/home/[a-z]' \
+               --include='*.md' skills/ ; then
+            echo "::error::a personal or client identifier reached a public skill"
+            exit 1
+          fi
