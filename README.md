@@ -121,6 +121,36 @@ the library and workspace currently depend on this field.
 
 The `skill-creator` skill in this repository walks through writing a good one.
 
+## Quality checks
+
+Run these commands from this repository after a skill change:
+
+```bash
+./bin/reindex
+python3 -B bin/validate.py
+python3 -B -m unittest discover -s tests -v
+```
+
+The validator checks canonical metadata, name and description limits, known packs,
+local entrypoint links, resource paths, symlink escapes, nested discovery leaks,
+and agreement between the source, index, and README catalog. The regression suite
+uses disposable catalogs; it needs no network, credentials, or third-party packages.
+
+Required metadata follows the existing reindex format: unquoted single-line name
+and pack, and a plain single-line or folded (`>` / `>-`) description. The validator
+is not a general YAML parser; optional metadata needs separate YAML validation.
+Local links are checked in SKILL.md outside fenced examples, including inline
+Markdown links, reference definitions, and backtick resource paths. Remote links,
+anchor existence, supporting-document links, and arbitrary CommonMark syntax are
+outside this check's coverage.
+
+Behavioral evaluation is separate. Give an evaluator synthetic requests and the
+minimum necessary artifacts, keep expected outcomes out of its input, and record
+selected skills, actual tool actions, outputs, candidate hashes, and limitations.
+Use a disposable fixture repository for Git tasks. A hypothetical response is
+decision evidence, not a successful runtime security test. Re-run affected cases
+after fixes and retain both original and replay results.
+
 ## Licence
 
 MIT — see [LICENSE](LICENSE).
