@@ -5,7 +5,18 @@ on:
     branches: [main]
   pull_request:
 
+# Secret + dependency gate via the pinned agent-secure engine (see
+# hi-donwi/Agent-Secure). Skills are prose, so the scan is mostly a supply-
+# chain tripwire; no allow entries - the verdict must be a clean pass.
 jobs:
+  security:
+    uses: hi-donwi/Agent-Secure/.github/workflows/agent-secure-gate.yml@dc9c533d6caade6b3e2f309cef473252c2daab3b
+    with:
+      root: .
+      engine_version: v0.1.1
+      gitleaks_version: 8.30.1
+      osv_scanner_version: 2.5.1
+
   validate:
     runs-on: ubuntu-latest
     steps:
