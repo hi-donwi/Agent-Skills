@@ -77,3 +77,6 @@ jobs:
 
       - name: Resolve every quoted skill resource
         run: python3 bin/validate.py
+
+      - name: Validator regression tests
+        run: python3 -B -m unittest discover -s tests -v

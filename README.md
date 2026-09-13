@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-38 skills, grouped into packs. Nothing here is specific to one company,
+42 skills, grouped into packs. Nothing here is specific to one company,
 client, or codebase.
 
 ## Why a separate repository
@@ -37,7 +37,7 @@ Language-agnostic. How to plan, build, review, debug, ship, and keep a codebase 
 | [`dependency-audit`](skills/dependency-audit/SKILL.md) | adding dependencies, fixing audit findings, upgrading packages, or reducing dependency surface |
 | [`deprecation-and-migration`](skills/deprecation-and-migration/SKILL.md) | removing old systems, APIs, or features. migrating users from one implementation to another. deciding whether to maintain or sunset existing code |
 | [`documentation-and-adrs`](skills/documentation-and-adrs/SKILL.md) | making architectural decisions, changing public APIs, shipping features, or when you need to record context that future engineers and agents will… |
-| [`doubt-driven-development`](skills/doubt-driven-development/SKILL.md) | correctness matters more than speed, when working in unfamiliar code, when stakes are high (production, security-sensitive logic, irreversible… |
+| [`doubt-driven-development`](skills/doubt-driven-development/SKILL.md) | challenging consequential technical decisions with evidence and bounded review |
 | [`git-workflow`](skills/git-workflow/SKILL.md) | committing, branching, writing commit/PR messages, resolving conflicts, or structuring a change for review |
 | [`incremental-implementation`](skills/incremental-implementation/SKILL.md) | implementing any feature or change that touches more than one file. you're about to write a large amount of code at once, or when a task feels too… |
 | [`observability`](skills/observability/SKILL.md) | shipping production code, diagnosing runtime behavior, or making systems operable |
@@ -56,10 +56,15 @@ Context, skills, and tool integration — the practice of directing agents well.
 
 | Skill | Use it when |
 |---|---|
-| [`context-engineering`](skills/context-engineering/SKILL.md) | starting a new session, when agent output quality degrades, when switching between tasks, or when you need to configure rules files and context… |
+| [`agent-handoff`](skills/agent-handoff/SKILL.md) | resuming another agent or teammate, preparing a handoff, or coordinating explicitly authorized parallel work |
+| [`ai-tool-security`](skills/ai-tool-security/SKILL.md) | reviewing agent tool permissions, prompt injection boundaries, or outbound AI data |
+| [`context-engineering`](skills/context-engineering/SKILL.md) | selecting and refreshing relevant context for the active task |
+| [`context-privacy`](skills/context-privacy/SKILL.md) | deciding where multi-client context, team memory, local notes, and credentials belong |
 | [`mcp-builder`](skills/mcp-builder/SKILL.md) | exposing external APIs/data/actions to agents |
-| [`skill-creator`](skills/skill-creator/SKILL.md) | the user wants to create, scaffold, or refactor a skill, asks how SKILL.md and its frontmatter should look, or wants a skill to work across Claude… |
-| [`using-agent-skills`](skills/using-agent-skills/SKILL.md) | starting a session or when you need to discover which skill applies to the current task. This is the meta-skill that governs how all other skills… |
+| [`skill-creator`](skills/skill-creator/SKILL.md) | creating or upgrading reusable skills in the source library |
+| [`skill-evaluation`](skills/skill-evaluation/SKILL.md) | checking skill routing, task outcomes, and behavior across versions |
+| [`using-agent-skills`](skills/using-agent-skills/SKILL.md) | selecting the smallest useful set from the installed catalog |
+
 
 ### `web` — web and frontend
 
@@ -100,14 +105,51 @@ skills/<name>/
 
 Required frontmatter: `name`, `pack`, `description`. The description should say **when to
 use it** and, where it helps, when *not* to — that sentence is what routing matches on.
+The required top-level `pack` field is a library extension. Strict consumers of the
+[Agent Skills specification](https://agentskills.io/specification) may need an adapter;
+the library and workspace currently depend on this field.
 
 ## Adding or changing a skill
 
 1. Write or edit `skills/<name>/SKILL.md`.
-2. Run `./bin/reindex` and commit the updated `index.json`.
-3. No personal, client, or company identifiers — CI fails the build on them.
+2. Exercise representative requests and failure cases; label manual walkthroughs
+   separately from actual model executions. See the
+   [evaluation scenarios](skills/skill-evaluation/references/scenarios.md).
+3. Run `./bin/reindex` and `python3 bin/validate.py`; update this catalog and count.
+4. No personal, client, or company identifiers — CI fails the build on them.
+5. Include the updated `index.json` when committing the reviewed change.
 
 The `skill-creator` skill in this repository walks through writing a good one.
+
+## Quality checks
+
+Run these commands from this repository after a skill change:
+
+```bash
+./bin/reindex
+python3 -B bin/validate.py
+python3 -B -m unittest discover -s tests -v
+```
+
+The validator checks canonical metadata, name and description limits, known packs,
+local entrypoint links, resource paths, symlink escapes, nested discovery leaks,
+and agreement between the source, index, and README catalog. The regression suite
+uses disposable catalogs; it needs no network, credentials, or third-party packages.
+
+Required metadata follows the existing reindex format: unquoted single-line name
+and pack, and a plain single-line or folded (`>` / `>-`) description. The validator
+is not a general YAML parser; optional metadata needs separate YAML validation.
+Local links are checked in SKILL.md outside fenced examples, including inline
+Markdown links, reference definitions, and backtick resource paths. Remote links,
+anchor existence, supporting-document links, and arbitrary CommonMark syntax are
+outside this check's coverage.
+
+Behavioral evaluation is separate. Give an evaluator synthetic requests and the
+minimum necessary artifacts, keep expected outcomes out of its input, and record
+selected skills, actual tool actions, outputs, candidate hashes, and limitations.
+Use a disposable fixture repository for Git tasks. A hypothetical response is
+decision evidence, not a successful runtime security test. Re-run affected cases
+after fixes and retain both original and replay results.
 
 ## Licence
 
