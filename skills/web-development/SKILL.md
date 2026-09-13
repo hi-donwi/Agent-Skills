@@ -149,7 +149,9 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
 
 ## Scroll-synced hero video
 - Load `web-development` scroll-video guidance below for pre-rendered scroll MP4 heroes.
-- Encode with all-keyframe ffmpeg scripts (`video/optimize.sh` or `scripts/optimize-video.sh`).
+- Inspect the project's existing video encoding command before use. If an all-keyframe
+  encode is needed, verify the installed ffmpeg options and add a project-owned script;
+  this skill does not bundle a video encoder.
 - Wire through `SmoothHeroVideo`-style component: scroll layer + optional idle layer, posters,
   `mediaUrl()` for CDN/R2, `heroLayout` object-position per demo.
 - On bugs: isolate poster-only vs scroll vs idle using the Scroll-synced hero video steps here,

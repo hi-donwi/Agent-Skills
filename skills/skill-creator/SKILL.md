@@ -2,58 +2,60 @@
 name: skill-creator
 pack: agent
 description: >-
-  Author a new Agent Skill for this library in the canonical format. Use when the
-  user wants to create, scaffold, or refactor a skill, asks how SKILL.md and its
-  frontmatter should look, or wants a skill to work across Claude Code, Codex,
-  Cursor, Kilocode, Copilot, Gemini, and Aider. Do not use for editing app code
-  that merely happens to live next to skills.
+  Create or upgrade a reusable skill in this library. Use when authoring skill
+  instructions, triggers, templates, or supporting resources. Do not use for
+  application code or edits to generated workspace skill copies.
 ---
 
 # Skill Creator
 
-Create skills that are portable, discoverable, and progressively disclosed.
-Skills are the workflow format; plugins are the installable distribution unit when
-you need to bundle skills with apps, MCP servers, commands, assets, or marketplace metadata.
+## Overview
+Author focused workflows in the source library so consumers can restore a reviewed version.
 
 ## When to use
-- Adding a new capability to `.agents/skills/`.
-- Standardizing or fixing an existing skill's format.
+- Adding a capability absent from the catalog.
+- Correcting unclear triggers, stale instructions, or unusable resources.
 
 ## Process
-1. **Pick a single capability.** One skill = one coherent job. Split if it grows two purposes.
-2. **Name it** lowercase-with-hyphens; the folder name must equal the frontmatter `name`.
-3. **Write the frontmatter** (`name`, `description`). The `description` must state **what it
-   does AND when to use it AND when NOT to** — this is what agents match on. Front-load the
-   strongest trigger phrases because long skill lists may truncate descriptions. Optional
-   keys: `license`, `allowed-tools`, `metadata`.
-4. **Write the body** with these sections: Overview · When to use · Process · Red flags ·
-   Verification. Keep it under ~500 lines; use imperative, step-by-step instructions.
-5. **Add resources only if they earn their place:** `references/` (load-on-demand docs),
-   `scripts/` (deterministic helpers, zero-dependency), `templates/`, `examples/`, `assets/`.
-6. **Make it Codex-native** (optional): add `agents/openai.yaml` only when metadata or policy
-   earns its place. Use the current shape:
-
-   ```yaml
-   policy:
-     allow_implicit_invocation: true
-   ```
-
-   Set `false` for skills that should only run when explicitly invoked.
-7. **Register it:** add a line to `.agents/skills/README.md`; ensure root `AGENTS.md`,
-   `.cursor/rules/skills.mdc`, and `.kilocode/rules/skills.md` point to it; symlink it in
-   `.claude/skills/` and `.codex/skills/` when those folders are used.
-8. **Distribute intentionally:** keep repo-scoped skills in `.agents/skills`; package as a
-   plugin only when other developers need installable distribution or bundled app/MCP support.
+1. Inspect the existing catalog and likely neighboring skills. Define a concrete
+   task the candidate improves; extend an existing skill when its responsibility fits.
+2. Edit skills/<name>/SKILL.md in this source repository. Materialized workspace
+   copies are generated; do not patch them or create consumer-specific symlinks here.
+3. Use a folder-matching lowercase name, at most 64 characters, with single hyphens.
+   Supply name, description, and this library's required pack field (core, agent,
+   web, or java). Keep descriptions under 1024 characters and distinguish nearby tasks.
+   The pack field is a library extension, not part of the standard field set.
+4. Start with Overview, When to use, Process, Red flags, and Verification. Keep
+   only instructions that change decisions; use references for substantial conditional
+   detail. Target a concise entry point and stay below 500 lines.
+5. Preserve the user's scope and authorization. Do not mandate repeated approval,
+   paid tools, extra providers, or delegation as a side effect of loading a skill.
+   Include a useful fallback when a nonessential capability is unavailable.
+6. Add resources only for concrete reuse. Templates use a name such as
+   skill-template.md, never a nested SKILL.md that can leak into discovery.
+   Check local links and use available sibling skills only as optional routing.
+7. Add positive, negative-routing, and failure scenarios before declaring a substantial
+   revision ready. Use skill-evaluation if available; otherwise record the fixtures,
+   expected outcomes, observed results, and verification limits directly.
+8. Run ./bin/reindex and python3 bin/validate.py. Update the root README catalog
+   and count. Review the diff for private identifiers and unintended resource changes.
+9. Distribute through the consumer's supported update and lock workflow after the
+   source revision is reviewed. Do not silently switch a consumer to an unpublished branch.
 
 ## Red flags
-- A vague description that omits *when* to use it → the skill never triggers.
-- Dumping a long document into `SKILL.md` instead of linking `references/`.
-- Scripts with third-party dependencies (prefer stdlib so they run anywhere).
-- Creating many overlapping skills that compete for the same trigger.
-- Adding a plugin when a local repo skill is enough.
+- Editing a generated copy and expecting the change to survive sync.
+- Catch-all descriptions that compete with every other skill.
+- Treating frontmatter validation as proof of useful agent behavior.
+- Hardcoded tool invocations or resources that do not exist in the target environment.
 
 ## Verification
-- `name` == folder name; frontmatter parses; description names when-to-use and when-not.
-- Body has the standard sections and stays under the length budget.
-- The skill is listed in the catalog and discoverable by Claude Code, Cursor, KiloCode, and
-  Codex in this workspace.
+- Name, pack, description, references, README, and index agree.
+- Scenarios check actual decisions; unexecuted evaluations are disclosed.
+- Generic library files contain no organization-specific context.
+
+## References
+- [Agent Skills specification](https://agentskills.io/specification): consult for
+  format constraints and optional fields; retain this library's pack extension
+  until its consumers and validators are migrated together.
+- [Starter template](templates/skill-template/skill-template.md): copy and replace
+  placeholders when scaffolding a new skill; keep its filename out of discovery.

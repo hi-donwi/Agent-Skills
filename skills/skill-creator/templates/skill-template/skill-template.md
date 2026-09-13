@@ -1,16 +1,19 @@
 ---
 name: my-skill-name
+pack: agent
 description: >-
   One or two sentences: WHAT this skill does, WHEN to use it (front-load the
   strongest trigger phrases), and WHEN NOT to use it. This text is what agents
   match on, so be specific and concrete.
 # Optional:
 # license: MIT
-# allowed-tools: [Read, Edit, Bash]
+# allowed-tools: Read Edit Bash
 # metadata: { version: "1.0.0" }
 ---
 
 # My Skill Name
+
+## Overview
 
 One-line overview of the capability.
 
@@ -28,3 +31,4 @@ One-line overview of the capability.
 
 ## Verification
 - How to confirm the work is correct and complete.
+- Include a positive request, a nearby non-match, and a failure case with observable outcomes.
