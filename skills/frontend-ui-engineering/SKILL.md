@@ -402,7 +402,7 @@ See `references/component-reuse.md` for implementation patterns.
 
 ## See Also
 
-For detailed accessibility requirements and testing tools, see `references/accessibility-checklist.md`.
+For detailed accessibility requirements and testing tools, see `references/production-ui-checklist.md`.
 
 ## Common Rationalizations
 

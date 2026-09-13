@@ -68,7 +68,7 @@ small, testable steps — not from one giant "build me a website" prompt.
 
 6. **Transition to production.** Vibe coding is fast for prototypes; for production/scale,
    load `spec-driven-development` — write Gherkin BDD specs as source of truth before
-   generating implementation. See `references/workflow-handbook.md`.
+   generating implementation. See `references/workflow-handbook.md` (skill routing section).
 
 ## Recommended default stack
 
@@ -148,11 +148,12 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
   interaction, and mobile performance.
 
 ## Scroll-synced hero video
-- Load `motion-design` → `references/scroll-video.md` for pre-rendered scroll MP4 heroes.
+- Load `web-development` scroll-video guidance below for pre-rendered scroll MP4 heroes.
 - Encode with all-keyframe ffmpeg scripts (`video/optimize.sh` or `scripts/optimize-video.sh`).
 - Wire through `SmoothHeroVideo`-style component: scroll layer + optional idle layer, posters,
   `mediaUrl()` for CDN/R2, `heroLayout` object-position per demo.
-- On bugs: use `debugging/references/playbook.md` — isolate poster-only vs scroll vs idle.
+- On bugs: isolate poster-only vs scroll vs idle using the Scroll-synced hero video steps here,
+  then apply `debugging/references/playbook.md` if the failure is outside the video path.
 
 ## Motion notes
 - Load `motion-design` before adding or auditing meaningful UI animation.
@@ -178,4 +179,5 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
 - `references/workflow-handbook.md` — paradigm, skill routing, tool matrix, budgets,
   skill-gap red flags, learning path.
 - `examples/prompts.md` — copy-paste prompts by phase and tool.
-- `motion-design/references/scroll-video.md` — ffmpeg hero video pipeline + component patterns.
+- `-` scroll-video guidance (this skill, Scroll-synced hero video section) — ffmpeg hero
+  video pipeline + component patterns.
