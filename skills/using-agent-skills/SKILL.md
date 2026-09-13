@@ -111,7 +111,7 @@ Your job is surgical precision, not unsolicited renovation.
 
 Every skill includes a verification step. A task is not complete until verification passes. "Seems right" is never sufficient — there must be evidence (passing tests, build output, runtime data).
 
-Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. See `references/definition-of-done.md`. It complements each task's acceptance criteria rather than replacing them.
+Per-skill verification is the local check. The project-wide bar that applies to *every* change, regardless of which skill is active, is the Definition of Done: tests pass, no regressions, behavior verified at runtime, docs updated. It complements each task's acceptance criteria rather than replacing them.
 
 ## Failure Modes to Avoid
 
@@ -178,7 +178,7 @@ Not every task needs every skill. A bug fix might only need: `debugging` → `te
 | Build | frontend-ui-engineering | Production-quality UI with accessibility |
 | Build | api-design | Stable interfaces with clear contracts |
 | Verify | test-driven-development | Failing test first, then make it pass |
-| Verify | webapp-testing | Real browser runtime verification; use `references/devtools-mcp.md` for Chrome DevTools MCP |
+| Verify | webapp-testing | Real browser runtime verification; use its `webapp-testing/references/devtools-mcp.md` for Chrome DevTools MCP |
 | Verify | debugging | Reproduce → localize → fix → guard |
 | Review | code-review | Five-axis review with quality gates |
 | Review | code-simplification | Preserve behavior while reducing unnecessary complexity |

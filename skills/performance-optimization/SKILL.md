@@ -315,7 +315,7 @@ npx lhci autorun
 
 ## See Also
 
-For detailed performance checklists, optimization commands, and anti-pattern reference, see `references/performance-checklist.md`.
+For the measurement-first workflow, profiling tools, and anti-patterns, see Step 2 (Identify the Bottleneck) and Step 3 (Fix Common Anti-Patterns) above.
 
 
 ## Common Rationalizations

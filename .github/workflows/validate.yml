@@ -9,7 +9,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Every skill has a SKILL.md with name, pack and description
         run: |
@@ -52,3 +52,16 @@ jobs:
             fail=1
           fi
           exit $fail
+
+  # reindex counts files and CI checks frontmatter, but neither notices a
+  # quoted resource path that resolves to nothing. A dead reference sends the
+  # consumer of a skill to a file that does not exist, so resolution is its
+  # own gate: frontmatter agreement, references/ and examples/ paths,
+  # cross-skill pointers, template discovery leaks, and file types.
+  resources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Resolve every quoted skill resource
+        run: python3 bin/validate.py
