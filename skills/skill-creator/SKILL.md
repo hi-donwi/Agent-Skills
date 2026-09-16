@@ -26,6 +26,9 @@ Author focused workflows in the source library so consumers can restore a review
    Supply name, description, and this library's required `metadata.pack` (core,
    agent, web, or java). Keep descriptions under 1024 characters and distinguish
    nearby tasks. Pack is catalog grouping stored in the spec `metadata` map.
+   Optional spec fields (`license`, `compatibility`, `allowed-tools`) are
+   top-level plain scalars; extra string keys go under `metadata`. Do not put
+   YAML comments in the frontmatter — the validator is not a general YAML parser.
 4. Start with Overview, When to use, Process, Red flags, and Verification. Keep
    only instructions that change decisions; use references for substantial conditional
    detail. Target a concise entry point and stay below 500 lines.

@@ -38,6 +38,19 @@ class ValidationTests(unittest.TestCase):
     def test_valid_skill(self):
         self.assertEqual([], self.errors())
 
+    def test_bundled_template_validates(self):
+        src = Path(__file__).resolve().parents[1] / 'skills/skill-creator/templates/skill-template/skill-template.md'
+        dest = self.skills / 'my-skill-name'
+        dest.mkdir()
+        (dest / 'SKILL.md').write_text(src.read_text())
+        errors = []
+        validator.validate_skill(dest, errors)
+        self.assertEqual([], errors)
+
+    def test_frontmatter_comments_are_rejected(self):
+        self.write(extra='# license: MIT\n')
+        self.assertTrue(any('invalid frontmatter line' in error for error in self.errors()))
+
     def test_invalid_names(self):
         for name in ['Upper', '-example', 'example-', 'two--words', 'a' * 65]:
             with self.subTest(name=name):
