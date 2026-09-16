@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-42 skills, grouped into packs. Nothing here is specific to one company,
+43 skills, grouped into packs. Nothing here is specific to one company,
 client, or codebase.
 
 ## Why a separate repository
@@ -73,6 +73,7 @@ Context, skills, and tool integration — the practice of directing agents well.
 | Skill | Use it when |
 |---|---|
 | [`frontend-ui-engineering`](skills/frontend-ui-engineering/SKILL.md) | building or modifying user-facing interfaces, components, layouts, or stateful interactions |
+| [`uidl-runtime`](skills/uidl-runtime/SKILL.md) | creating or changing a UIDL document, schema, DataAdapter, bind/query/expr/mutate behaviour, or the validate/compile CLI |
 | [`web-development`](skills/web-development/SKILL.md) | Build high-quality, modern websites with AI coding agents using the "vibe coding" workflow — including premium marketing sites, SaaS UIs, and… |
 | [`web-perf`](skills/web-perf/SKILL.md) | asked to audit, profile, debug, or optimize page load performance, Lighthouse scores, or site speed |
 | [`webapp-testing`](skills/webapp-testing/SKILL.md) | asked to verify a feature works in the browser, reproduce a UI bug, or add e2e coverage |

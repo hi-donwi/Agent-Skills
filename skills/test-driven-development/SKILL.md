@@ -23,7 +23,7 @@ Write a failing test before writing the code that makes it pass. For bug fixes, 
 
 **Related:** For browser-based changes, combine TDD with runtime verification using Chrome DevTools MCP — see the Browser Testing section below.
 
-## The TDD Cycle
+## Process
 
 ```
     RED                GREEN              REFACTOR

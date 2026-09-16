@@ -36,7 +36,7 @@ Do not argue about formatting in review. Spotless has already decided.
 
 ---
 
-## Recurring decisions
+## Process
 
 ### Record or class?
 
@@ -76,7 +76,7 @@ public record PageRequest(int page, int size, String sortField, String sortDir) 
 `Optional` is a **return type** only. Not a field, not a parameter.
 
 ```java
-public Optional<Vendor> findByNpwp(String taxId) { ... }        // right
+public Optional<Vendor> findByTaxId(String taxId) { ... }        // right
 public Vendor getById(Long id) { ... }                          // right, throws if absent
 public void update(Long id, Optional<String> name) { ... }      // wrong
 ```
@@ -87,7 +87,7 @@ Three, all extending `AppException`, all carrying an `ErrorCode`:
 
 ```java
 throw new NotFoundException(ErrorCode.VENDOR_NOT_FOUND, "vendor id=" + id);
-throw new ValidationException(ErrorCode.VENDOR_tax ID_DUPLICATE, "taxId=" + taxId);
+throw new ValidationException(ErrorCode.VENDOR_TAX_ID_DUPLICATE, "taxId=" + taxId);
 throw new ConflictException(ErrorCode.ORDER_ALREADY_APPROVED, "id=" + id);
 ```
 
@@ -177,7 +177,7 @@ if (amount.compareTo(BigDecimal.ZERO) > 0) { ... }
 ```java
 private static final Logger log = Logger.getLogger(VendorService.class);
 
-log.infof("vendor created id=%d taxId=%s", id, maskNpwp(taxId));
+log.infof("vendor created id=%d taxId=%s", id, maskTaxId(taxId));
 ```
 
 Parameterised, not concatenated. Never `System.out`. Never sensitive data.
@@ -192,7 +192,7 @@ Parameterised, not concatenated. Never `System.out`. Never sensitive data.
 - Do not abbreviate: `orderType`, not `procType`.
 - Booleans read as assertions: `active`, `approved` — not `flag`, `status1`.
 
-## Review triggers
+## Red flags
 
 | Item | Threshold | Usually means |
 |---|---|---|
@@ -202,7 +202,7 @@ Parameterised, not concatenated. Never `System.out`. Never sensitive data.
 | Nesting | > 3 | Needs early returns |
 | "and" in a method name | — | It is two methods |
 
-## Review checklist
+## Verification
 
 - [ ] DTOs are `record`s with no setters
 - [ ] No `null` returned for a collection
