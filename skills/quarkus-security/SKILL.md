@@ -31,7 +31,7 @@ a technical incident — it is a legal and data-integrity problem.
 
 ---
 
-## Closed by default
+## Process
 
 Every HTTP method requires an **explicit** role annotation:
 
@@ -147,7 +147,7 @@ on an unindexed column from crippling the database.
 | Name | Generate a UUID; keep the original as metadata |
 | Location | Object storage, outside the webroot |
 | Access | Through an authorised endpoint, not a direct URL |
-| Scanning | Antivirus before others can download it `[PENDING CLIENT]` |
+| Scanning | Antivirus before others can download it |
 
 A client-supplied filename may contain `../` or `..\`. Joining it into a path is path
 traversal. **Always** generate a new name.
@@ -197,7 +197,14 @@ it from history, and anyone who already cloned still has it.
 
 ---
 
-## Security review checklist
+## Red flags
+- An endpoint without `@RolesAllowed` or a deliberate `@PermitAll`
+- Filtering rows in memory after `listAll()`
+- Dynamic `ORDER BY` from unallowlisted input
+- Uploads trusted by `Content-Type` or original filename
+- Returning an entity (hashes and internals leak)
+
+## Verification
 
 For every PR touching auth, user input, or files:
 

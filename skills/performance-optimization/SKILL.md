@@ -29,7 +29,7 @@ Measure before optimizing. Performance work without measurement is guessing — 
 | **INP** (Interaction to Next Paint) | ≤ 200ms | ≤ 500ms | > 500ms |
 | **CLS** (Cumulative Layout Shift) | ≤ 0.1 | ≤ 0.25 | > 0.25 |
 
-## The Optimization Workflow
+## Process
 
 ```
 1. MEASURE  → Establish baseline with real data

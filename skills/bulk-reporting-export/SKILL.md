@@ -37,7 +37,7 @@ place that touches whole datasets rather than one page.
 
 ---
 
-## The rule that prevents most of the damage
+## Process
 
 **Never hold a full result set in memory.** Not in a `List`, not in a DTO collection, not in
 an in-memory workbook.
@@ -262,7 +262,13 @@ but must not download another unit's report. Ownership and unit scope are checke
 Heap stays under 1 GB regardless of report size. If it does not, something is still being
 buffered.
 
-## Pitfalls
+## Verification
+- Heap stays bounded as row count grows (stream, do not buffer)
+- Jobs survive restart (state not only in memory)
+- Downloads check owner/unit, not just role
+- Duplicate submit is idempotent
+
+## Red flags
 
 | Pitfall | Symptom |
 |---|---|

@@ -16,11 +16,13 @@ metadata:
 
 # Web Development
 
+## Overview
+
 Treat the agent as a fast execution engine; you supply **vision, architecture, and taste**.
 Quality comes from giving the agent context and constraints up front, then iterating in
 small, testable steps — not from one giant "build me a website" prompt.
 
-## When to use this skill
+## When to use
 - Scaffolding or redesigning a website / web app with an AI agent.
 - Building an immersive 3D or scroll-driven site.
 - The user wants a sensible default stack and enforceable quality rules for agent work.
@@ -33,7 +35,7 @@ small, testable steps — not from one giant "build me a website" prompt.
 - Use `threejs-webgl` for Three.js, React Three Fiber, WebGL, shaders, GLTF/GLB, and
   interactive 3D scene verification.
 
-## Workflow: Context → Prompt → Run → Edit → Verify
+## Process
 
 1. **Define context first (do this before generating code).**
    - Write a short PRD: core features, audience, key user flows.
@@ -164,7 +166,13 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
   while rare brand moments can be more expressive.
 - Always implement `prefers-reduced-motion` behavior.
 
-## Anti-patterns
+## Verification
+- Lint, unit tests, and e2e pass for the changed surface
+- LCP / INP / CLS budgets in the project rules still hold
+- `prefers-reduced-motion` is implemented for motion/3D
+- Diff was reviewed; no secrets or extra dependencies landed
+
+## Red flags
 - Prompting without a PRD / rules file → hallucinated structure and inconsistent output.
 - "Impressive-looking" UI with no performance discipline or tests.
 - Adding 3D/motion everywhere instead of where it earns its cost.

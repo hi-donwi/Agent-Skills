@@ -7,7 +7,18 @@ metadata:
 
 # Web Performance Audit
 
+## Overview
+
 Audit web page performance using Chrome DevTools MCP tools. This skill focuses on Core Web Vitals, network optimization, and high-level accessibility gaps.
+
+## When to use
+- Auditing, profiling, or optimizing page load, Lighthouse scores, or Core Web Vitals.
+- Chrome DevTools MCP tools are available (verify first).
+
+## Red flags
+- Recommending changes with 0ms estimated impact.
+- Continuing the audit when MCP tools are unavailable.
+- Vague advice ("optimize images") instead of a named resource and expected saving.
 
 ## FIRST: Verify MCP Tools Available
 
@@ -42,7 +53,7 @@ Ask the user to add this to their MCP config:
 | Request details | `get_network_request(reqid: <id>)` |
 | A11y snapshot | `take_snapshot(verbose: true)` |
 
-## Workflow
+## Process
 
 Copy this checklist to track progress:
 
@@ -185,7 +196,7 @@ Also check `package.json` for framework dependencies and build scripts.
 - Look for gzip/brotli compression in build output or server config
 - Check for source maps in production builds (should be external or disabled)
 
-## Output Format
+## Verification
 
 Present findings as:
 
