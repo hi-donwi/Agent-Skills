@@ -15,7 +15,7 @@ metadata:
 ## Overview
 Dependencies are code you ship and operate. Add and upgrade them deliberately.
 
-## When to Use
+## When to use
 
 - Adding a new production dependency.
 - Handling `npm audit`, `pnpm audit`, `cargo audit`, Dependabot, Snyk, OSV, or
@@ -56,7 +56,7 @@ Dependencies are code you ship and operate. Add and upgrade them deliberately.
 - Verify artifact checksums and immutable references when upgrading executable
   tooling. A matching checksum proves integrity against that checksum source, not trust.
 
-## Red Flags
+## Red flags
 
 - Adding a dependency for a trivial helper.
 - Ignoring lockfile changes.

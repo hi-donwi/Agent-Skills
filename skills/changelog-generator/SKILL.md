@@ -15,7 +15,7 @@ metadata:
 
 Translate technical change history into accurate, useful release communication.
 
-## When to Use
+## When to use
 
 - Preparing release notes, changelog entries, upgrade notes, or stakeholder
   change summaries.
@@ -36,7 +36,7 @@ Translate technical change history into accurate, useful release communication.
    changes, known issues, and rollback notes.
 6. **Verify facts.** Match every claim to a commit, PR, issue, or diff.
 
-## Red Flags
+## Red flags
 
 - Promising benefits not visible in the change history.
 - Leaking internal tickets, secrets, customer names, or security details.

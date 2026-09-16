@@ -16,7 +16,7 @@ metadata:
 
 Make production behavior visible enough to debug without guesswork.
 
-## When to Use
+## When to use
 
 - Shipping a new production service, job, feature flag, integration, or critical
   user flow.
@@ -41,7 +41,7 @@ Make production behavior visible enough to debug without guesswork.
 7. **Verify in runtime.** Generate a test event and confirm logs, metrics, traces,
    and alerts appear with useful context.
 
-## Red Flags
+## Red flags
 
 - Logs that are free-form strings with no IDs or outcome fields.
 - Alerts on every exception instead of user-impacting symptoms.
