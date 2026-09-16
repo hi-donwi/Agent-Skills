@@ -15,12 +15,14 @@ metadata:
 
 # REST API Contract
 
+## Overview
+
 Full rules: `.agents/standards/core/api-contract.md`. This is how to decide.
 
 With a large API built by more than one developer in parallel, consistency is not
 aesthetics — every divergent shape is one more adapter the frontend has to write.
 
-## Use when
+## When to use
 - Designing a new endpoint (before coding)
 - Choosing a status code or response shape
 - Introducing a new error
@@ -29,7 +31,7 @@ aesthetics — every divergent shape is one more adapter the frontend has to wri
 
 ---
 
-## Design first, code second
+## Process
 
 Fill in `.agents/templates/endpoint-spec.md` before writing code. Five minutes here saves a
 contract change after the frontend has started consuming it.
@@ -110,7 +112,7 @@ For sequential scrolling over very large datasets, use a cursor and write an ADR
   "status": 422,
   "detail": "Vendor tax ID is already registered to PT ABC",
   "instance": "/api/v1/catalog/vendors",
-  "code": "VENDOR_tax ID_DUPLICATE",
+  "code": "VENDOR_TAX_ID_DUPLICATE",
   "traceId": "b7c3f1a9e2d4",
   "errors": [{ "field": "taxId", "message": "already registered" }]
 }
@@ -176,7 +178,14 @@ unnoticed.
 When unsure: imagine an old client that has not changed. Does it still work? Then it is not
 breaking.
 
-## Checklist
+## Red flags
+- Verbs in the URL path
+- Unpaginated collections
+- Money as a JSON number
+- Entities returned as JSON
+- Errors constructed in a resource instead of the global mapper
+
+## Verification
 
 - [ ] Path: `/api/v1/<module>/<plural-kebab-case-resource>`
 - [ ] No verbs in the path

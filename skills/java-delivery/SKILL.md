@@ -28,7 +28,7 @@ Full rules: `.agents/standards/java/build-ci.md`. This is the workflow.
 
 ---
 
-## Build setup
+## Process
 
 The wrapper is committed and is the only supported entry point:
 
@@ -93,10 +93,9 @@ Rules:
 
 ### Verify Docker on the runner before Stage 2
 
-Integration tests need Testcontainers, which needs Docker. `[PENDING CLIENT]` — confirm the
-client's GitLab/Jenkins runner permits it. If it does not, that changes the test strategy,
-and it must be known before development starts, not discovered during Stage 4 when the
-integration environment is being assembled.
+Integration tests need Testcontainers, which needs Docker. Confirm the
+CI runner permits it. If it does not, that changes the test strategy, and it must be
+known before development starts, not discovered when assembling the integration environment.
 
 ---
 
@@ -137,9 +136,9 @@ Release checklist:
 
 ## Deployment
 
-`[PENDING CLIENT]` — the client's DevOps sets the target. Two supported shapes.
+Two supported deploy shapes; pick the one the host already operates.
 
-**systemd**, as in the demo:
+**systemd**:
 
 ```ini
 [Unit]
@@ -189,6 +188,13 @@ a hiccup, turning a recoverable incident into an outage (`quarkus-observability`
 
 ---
 
+## Verification
+- [ ] Pipeline green on `main`
+- [ ] `./mvnw verify` is the documented entry point
+- [ ] Same artifact promoted from staging to production
+- [ ] Previous artifact retained and redeployable
+- [ ] Rollback path confirmed
+
 ## Rollback
 
 Every release must be reversible before it is released.
@@ -222,7 +228,7 @@ since the backup. Design so that the application can go back without the databas
 
 ---
 
-## Pitfalls
+## Red flags
 
 | Pitfall | Consequence |
 |---|---|

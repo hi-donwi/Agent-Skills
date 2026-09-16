@@ -40,7 +40,7 @@ The parent skill for day-to-day backend work. The binding rules live in
 
 ---
 
-## Workflow for a new endpoint
+## Process
 
 The order is deliberate: contract first, tests second, implementation last.
 
@@ -199,7 +199,14 @@ The gap between `.local/demo` and the standards:
 The demo is a proof of concept that worked, not a foundation. Copying its patterns into a
 large API multiplies every gap in that table once per endpoint.
 
-## Pitfalls
+## Verification
+- [ ] Resource has no queries or business rules
+- [ ] Response is a `record`, not an entity
+- [ ] Config is `@ConfigMapping`, not `ConfigProvider.getConfig()`
+- [ ] REST clients live in a `*Client` type
+- [ ] Tests cover the service rule and the HTTP contract separately
+
+## Red flags
 
 - **`@Transactional` on a resource** — wraps JSON serialisation, holds the DB connection.
 - **Entities as responses** — leaks internal columns, couples HTTP to the schema.

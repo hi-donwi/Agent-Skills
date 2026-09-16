@@ -28,7 +28,7 @@ Full rules: `.agents/standards/java/database.md`. This is the workflow and the p
 
 ---
 
-## Workflow for a new table
+## Process
 
 **1 — Migration first.** The schema is the source of truth; the entity follows it.
 
@@ -90,7 +90,7 @@ existing row.
 @ApplicationScoped
 public class VendorRepository implements PanacheRepository<Vendor> {
 
-    public Optional<Vendor> findByNpwp(String taxId) {
+    public Optional<Vendor> findByTaxId(String taxId) {
         return find("taxId = ?1 and deletedAt is null", taxId).firstResultOptional();
     }
 
@@ -245,7 +245,14 @@ public class SummaryRepository {
 Always parameters (`?1`, `:name`), **never** string concatenation of user input. Dynamic
 `ORDER BY` uses an allowlist — see `quarkus-security`.
 
-## Pitfalls
+## Verification
+- [ ] Migration exists before the entity change
+- [ ] New columns are nullable or backfilled
+- [ ] `@Transactional` is on the service, not the resource
+- [ ] Collection queries cannot N+1
+- [ ] Report aggregations run in SQL, not in Java
+
+## Red flags
 
 | Pitfall | Consequence |
 |---|---|

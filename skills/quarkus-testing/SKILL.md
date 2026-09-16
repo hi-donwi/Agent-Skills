@@ -30,7 +30,7 @@ module A still works after module B changed.
 
 ---
 
-## Pick the right level
+## Process
 
 ```
 Business rules, mappers, validators   -> unit, no @QuarkusTest        (< 10 ms)
@@ -51,27 +51,27 @@ class VendorServiceTest {
     private final VendorService service = new VendorService(repo);
 
     @Test
-    void rejectsAlreadyRegisteredNpwp() {
-        when(repo.findByNpwp("012345678901234"))
+    void rejectsAlreadyRegisteredTaxId() {
+        when(repo.findByTaxId("012345678901234"))
                 .thenReturn(Optional.of(new Vendor("PT ABC")));
 
         var request = new CreateVendorRequest("PT XYZ", "012345678901234", COMPANY);
 
         assertThatThrownBy(() -> service.create(request))
                 .isInstanceOf(ValidationException.class)
-                .extracting("code").isEqualTo(ErrorCode.VENDOR_tax ID_DUPLICATE);
+                .extracting("code").isEqualTo(ErrorCode.VENDOR_TAX_ID_DUPLICATE);
     }
 
     @Test
-    void savesVendorWithUniqueNpwp() { ... }
+    void savesVendorWithUniqueTaxId() { ... }
 }
 ```
 
 This is the second reason for rejecting Panache active record: a static
-`Vendor.findByNpwp(...)` cannot be mocked without PowerMock. Constructor injection makes
+`Vendor.findByTaxId(...)` cannot be mocked without PowerMock. Constructor injection makes
 services testable in milliseconds.
 
-**Test names describe behaviour**, not the method: `rejectsAlreadyRegisteredNpwp`, not
+**Test names describe behaviour**, not the method: `rejectsAlreadyRegisteredTaxId`, not
 `testCreate2`. The test name is what someone reads when CI goes red.
 
 ## Integration tests
@@ -97,9 +97,9 @@ class VendorResourceIT {
     }
 
     @Test
-    void duplicateNpwpReturns422WithStableCode() {
+    void duplicateTaxIdReturns422WithStableCode() {
         // ...
-        .then().statusCode(422).body("code", equalTo("VENDOR_tax ID_DUPLICATE"));
+        .then().statusCode(422).body("code", equalTo("VENDOR_TAX_ID_DUPLICATE"));
     }
 }
 ```
@@ -174,7 +174,13 @@ required field appears, those 40 tests have to be edited one at a time.
 Test data uses obviously fictional names: `PT Example One`, tax ID `000000000000000`.
 **Never** a production dump or real client data.
 
-## Coverage
+## Red flags
+- `@QuarkusTest` on a pure domain rule
+- H2 instead of Testcontainers PostgreSQL
+- Tests that pass only because they share mutated state
+- No failing test before a bugfix
+
+## Verification
 
 ```bash
 ./mvnw verify                 # unit + integration + JaCoCo gate

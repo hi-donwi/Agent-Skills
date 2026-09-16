@@ -53,6 +53,7 @@ Route by the user's intended outcome and the installed catalog, then load detail
 | Commit or organize branches | git-workflow | changelog-generator for release notes |
 | Change build or deployment gates | ci-cd | stack-specific delivery skill |
 | Build a UI | frontend-ui-engineering | webapp-testing |
+| Author or change a UIDL document or runtime | uidl-runtime | frontend-ui-engineering for non-UIDL UI |
 | Change service contracts | api-design | rest-api-contract or stack-specific skill |
 
 This is a routing aid, not a required lifecycle. Use other installed specialist

@@ -31,7 +31,7 @@ developer cleverness — it is whether there is a `traceId` to follow.
 
 ---
 
-## Correlation ID — install this first
+## Process
 
 Without it, finding one user's request across two services' logs is a blind text search.
 
@@ -188,7 +188,13 @@ An alert that fires often without requiring action gets ignored, and then the im
 gets ignored with it. If an alert requires no action three times in a row, raise its
 threshold or delete it.
 
-## Pre-staging checklist
+## Red flags
+- Logs without `traceId` / `requestId`
+- Liveness probes that check the database
+- Alerts on every exception instead of user-visible symptoms
+- `System.out` or unstructured log lines in request paths
+
+## Verification
 
 - [ ] JSON logging enabled in non-dev profiles
 - [ ] `X-Request-Id` accepted, generated, returned, in the MDC, and in the error `traceId`

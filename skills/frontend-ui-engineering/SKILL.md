@@ -1,6 +1,6 @@
 ---
 name: frontend-ui-engineering
-description: Builds production-quality UIs and maintainable component architectures. Use when building or modifying user-facing interfaces, components, layouts, or stateful interactions. Do not use for backend-only or non-UI changes.
+description: Builds production-quality UIs and maintainable component architectures. Use when building or modifying user-facing interfaces, components, layouts, or stateful interactions. Do not use for backend-only or non-UI changes, or for schema-driven UIDL documents (uidl-runtime).
 metadata:
   pack: web
 ---
@@ -19,7 +19,7 @@ Build production-quality user interfaces that are accessible, performant, and vi
 - Adding interactivity or state management
 - Fixing visual or UX issues
 
-## Component Architecture
+## Process
 
 ### File Structure
 
