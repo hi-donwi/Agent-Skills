@@ -1,6 +1,5 @@
 ---
 name: quarkus-testing
-pack: java
 description: >-
   Write tests for a Quarkus backend: fast unit tests without @QuarkusTest, integration tests
   with @QuarkusTest and Testcontainers PostgreSQL (not H2), RestAssured, authorisation tests,
@@ -9,15 +8,17 @@ description: >-
   tests, setting up Testcontainers, or when coverage is below the gate. Do not use for
   diagnosing production issues (quarkus-observability) or non-test performance tuning
   (bulk-reporting-export).
-keywords: test, testing, junit, mock, testcontainer, coverage, jacoco, assertion, restassured, flaky, fixture, quarkustest, integration test, unit test
+metadata:
+  pack: java
+  keywords: test, testing, junit, mock, testcontainer, coverage, jacoco, assertion, restassured, flaky, fixture, quarkustest, integration test, unit test
 ---
 
 # Quarkus Testing
 
 Full rules: `.agents/standards/java/testing.md`. This is how to write them.
 
-With 145 endpoints and two developers in parallel, tests are the only way to know module A
-still works after module B changed.
+With many endpoints and more than one developer in parallel, tests are the only way to know
+module A still works after module B changed.
 
 ## Use when
 - Adding an endpoint or business rule
@@ -86,10 +87,10 @@ class VendorResourceIT {
                   {"name":"PT XYZ","taxId":"012345678901234","type":"COMPANY"}
                   """)
         .when()
-            .post("/api/v1/masterdata/vendors")
+            .post("/api/v1/catalog/vendors")
         .then()
             .statusCode(201)
-            .header("Location", matchesPattern(".*/api/v1/masterdata/vendors/\\d+"))
+            .header("Location", matchesPattern(".*/api/v1/catalog/vendors/\\d+"))
             .body("name", equalTo("PT XYZ"));
     }
 
@@ -137,15 +138,15 @@ bug is not yet understood — and what you "fixed" may not be the cause.
 
 ```java
 @Test
-void vendorCannotViewHps() {
-    given().auth().oauth2(vendorToken())
-    .when().get("/api/v1/orders/{id}/reserve-price", id)
+void supplierCannotViewListPrice() {
+    given().auth().oauth2(supplierToken())
+    .when().get("/api/v1/orders/{id}/list-price", id)
     .then().statusCode(403);
 }
 ```
 
-The rule "a vendor must not see the reserve price before opening" is only real if a test goes red when
-someone loosens it.
+The rule "a supplier must not see a confidential list price before it is published" is only
+real if a test goes red when someone loosens it.
 
 ## What does not need tests
 

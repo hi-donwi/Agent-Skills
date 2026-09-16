@@ -1,6 +1,5 @@
 ---
 name: bulk-reporting-export
-pack: java
 description: >-
   Build large reporting and export endpoints that do not exhaust memory: streaming XLSX with
   Apache POI SXSSF, PDF with OpenPDF, ZIP packaging, database-side aggregation, async job
@@ -10,14 +9,15 @@ description: >-
   or when adding progress reporting for a long-running job. Do not use for ordinary
   paginated list endpoints (rest-api-contract) or general query tuning
   (quarkus-persistence).
-keywords: export, report, reporting, xlsx, excel, pdf, zip, poi, sxssf, streaming, memory, oom, out of memory, async job, sse, progress, download, spool, aggregate, summary
+metadata:
+  pack: java
+  keywords: export, report, reporting, xlsx, excel, pdf, zip, poi, sxssf, streaming, memory, oom, out of memory, async job, sse, progress, download, spool, aggregate, summary
 ---
 
 # Bulk Reporting & Export
 
-The reporting module is 86 of 145 endpoints — 59 % of the backend scope. It is also where
-memory and latency problems appear first, because it is the only place that touches whole
-datasets rather than one page.
+Reporting is usually where memory and latency problems appear first, because it is the
+place that touches whole datasets rather than one page.
 
 ## Use when
 - Building any endpoint in the `reporting` module
