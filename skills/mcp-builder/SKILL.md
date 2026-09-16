@@ -17,7 +17,7 @@ metadata:
 Expose tools to agents through narrow, well-described, permission-aware MCP
 interfaces.
 
-## When to Use
+## When to use
 
 - Building an MCP server for a service, database, internal system, or workflow.
 - Reviewing MCP tool schemas, auth, permissions, or safety.
@@ -39,7 +39,7 @@ interfaces.
 7. **Document setup.** Transport, environment variables, credentials, local dev,
    and verification commands.
 
-## Red Flags
+## Red flags
 
 - One giant `run_any_query` or `call_any_endpoint` tool exposed by default.
 - Tools with vague names or unbounded string input.
