@@ -1,6 +1,5 @@
 ---
 name: quarkus-persistence
-pack: java
 description: >-
   Work with data in Quarkus: JPA entities, PanacheRepository, forward-only Flyway migrations
   that are safe on populated tables, PostgreSQL schema conventions, audit columns, soft
@@ -9,7 +8,9 @@ description: >-
   slow request or N+1, deciding a transaction boundary, or designing a new table. Do not use
   for API response shape (rest-api-contract), large file exports (bulk-reporting-export), or
   domain business rules (the organisation domain skill under context/skills/).
-keywords: entity, panache, repository, flyway, migration, query, transaction, index, n+1, database, sql, jpa, hibernate, schema, table, column, soft delete, audit column, postgres
+metadata:
+  pack: java
+  keywords: entity, panache, repository, flyway, migration, query, transaction, index, n+1, database, sql, jpa, hibernate, schema, table, column, soft delete, audit column, postgres
 ---
 
 # Quarkus Persistence
@@ -30,7 +31,7 @@ Full rules: `.agents/standards/java/database.md`. This is the workflow and the p
 **1 — Migration first.** The schema is the source of truth; the entity follows it.
 
 ```sql
--- V20260912_1430__masterdata_vendor.sql
+-- V20260912_1430__catalog_vendor.sql
 CREATE TABLE vendor (
     id          BIGINT       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name        VARCHAR(200) NOT NULL,
@@ -131,12 +132,12 @@ The `order` table will be large. What locks:
 
 ```sql
 -- WRONG — rewrites the whole table
-ALTER TABLE order ADD COLUMN reserve_price NUMERIC(18,2) NOT NULL DEFAULT 0;
+ALTER TABLE order ADD COLUMN currency CHAR(3) NOT NULL DEFAULT 'USD';
 
 -- RIGHT — three steps
-ALTER TABLE order ADD COLUMN reserve_price NUMERIC(18,2);
-UPDATE order SET reserve_price = 0 WHERE reserve_price IS NULL;
-ALTER TABLE order ALTER COLUMN reserve_price SET NOT NULL;
+ALTER TABLE order ADD COLUMN currency CHAR(3);
+UPDATE order SET currency = 'USD' WHERE currency IS NULL;
+ALTER TABLE order ALTER COLUMN currency SET NOT NULL;
 ```
 
 Indexes on large tables:

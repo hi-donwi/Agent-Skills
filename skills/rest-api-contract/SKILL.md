@@ -1,6 +1,5 @@
 ---
 name: rest-api-contract
-pack: core
 description: >-
   Design and review REST contracts: URL shape and HTTP method choice, status codes, uniform
   pagination and filtering, RFC 9457 problem+json errors with stable ErrorCodes, date/money/
@@ -9,15 +8,17 @@ description: >-
   choosing a status code, shaping an error response, updating the OpenAPI spec, or judging
   whether a change is breaking. Do not use for internal implementation (quarkus-service),
   queries (quarkus-persistence), or roles and authorisation (quarkus-security).
-keywords: api, contract, openapi, swagger, status code, pagination, paging, filter, error response, problem json, versioning, breaking change, dto, request, response
+metadata:
+  pack: core
+  keywords: api, contract, openapi, swagger, status code, pagination, paging, filter, error response, problem json, versioning, breaking change, dto, request, response
 ---
 
 # REST API Contract
 
 Full rules: `.agents/standards/core/api-contract.md`. This is how to decide.
 
-With 145 endpoints built by two developers in parallel, consistency is not aesthetics —
-every divergent shape is one more adapter the frontend has to write.
+With a large API built by more than one developer in parallel, consistency is not
+aesthetics — every divergent shape is one more adapter the frontend has to write.
 
 ## Use when
 - Designing a new endpoint (before coding)
@@ -76,7 +77,7 @@ the answer is no → logging in again will not help.
 ## Pagination — one shape everywhere
 
 ```
-GET /api/v1/masterdata/vendors?q=abc&page=0&size=50&sort=name,asc
+GET /api/v1/catalog/vendors?q=abc&page=0&size=50&sort=name,asc
 ```
 
 ```json
@@ -108,7 +109,7 @@ For sequential scrolling over very large datasets, use a cursor and write an ADR
   "title": "Validation failed",
   "status": 422,
   "detail": "Vendor tax ID is already registered to PT ABC",
-  "instance": "/api/v1/masterdata/vendors",
+  "instance": "/api/v1/catalog/vendors",
   "code": "VENDOR_tax ID_DUPLICATE",
   "traceId": "b7c3f1a9e2d4",
   "errors": [{ "field": "taxId", "message": "already registered" }]
@@ -139,7 +140,7 @@ same `traceId`.
 | Enum | `UPPER_SNAKE` | `CONSTRUCTION_SERVICES` |
 
 Money as a JSON number passes through JavaScript's `double` and loses precision. In a system
-holding contract values and reserve price, rounding that surfaces in a report is a defect, not an
+holding contract values and list prices, rounding that surfaces in a report is a defect, not an
 inconvenience. String in JSON, `BigDecimal` in Java.
 
 ## OpenAPI

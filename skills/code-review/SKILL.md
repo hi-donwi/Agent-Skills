@@ -1,11 +1,12 @@
 ---
 name: code-review
-pack: core
 description: >-
   Review a diff or PR across correctness, design, tests, security, and clarity,
   and give actionable, prioritized feedback. Use when asked to review code, before
   merging a change, or to self-review a diff. Do not use to author large new
   features from scratch (use the build skills) — this reviews existing changes.
+metadata:
+  pack: core
 ---
 
 # Code Review & Quality

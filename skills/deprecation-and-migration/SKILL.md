@@ -1,7 +1,8 @@
 ---
 name: deprecation-and-migration
-pack: core
-description: Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code.
+description: Manages deprecation and migration. Use when removing old systems, APIs, or features. Use when migrating users from one implementation to another. Use when deciding whether to maintain or sunset existing code. Do not use for ordinary refactors that keep the same public contract, or for git history rewrites.
+metadata:
+  pack: core
 ---
 
 # Deprecation and Migration

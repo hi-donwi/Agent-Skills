@@ -24,8 +24,11 @@ class ValidationTests(unittest.TestCase):
         self.addCleanup(self.patch.stop)
         self.write()
 
-    def write(self, name='example', pack='agent', description='Useful workflow.', body='', extra=''):
-        (self.skill / 'SKILL.md').write_text(f'---\nname: {name}\npack: {pack}\ndescription: {description}\n{extra}---\n# Example\n{body}\n')
+    def write(self, name='example', pack='agent', description='Useful workflow.', body='', extra='', meta_extra=''):
+        (self.skill / 'SKILL.md').write_text(
+            f'---\nname: {name}\ndescription: {description}\n{extra}'
+            f'metadata:\n  pack: {pack}\n{meta_extra}---\n# Example\n{body}\n'
+        )
 
     def errors(self):
         errors = []
@@ -47,6 +50,38 @@ class ValidationTests(unittest.TestCase):
         self.write(pack='missing-pack')
         self.assertTrue(self.errors())
 
+    def test_top_level_pack_is_rejected(self):
+        self.write(extra='pack: core\n')
+        self.assertTrue(any('unexpected field' in error for error in self.errors()))
+
+    def test_unknown_top_level_field_is_rejected(self):
+        self.write(extra='keywords: example\n')
+        self.assertTrue(any('unexpected field' in error for error in self.errors()))
+
+    def test_optional_spec_fields_are_allowed(self):
+        self.write(extra='license: MIT\ncompatibility: Requires git\nallowed-tools: Read\n')
+        self.assertEqual([], self.errors())
+
+    def test_metadata_extra_string_keys_are_allowed(self):
+        self.write(meta_extra='  version: 1.0\n')
+        self.assertEqual([], self.errors())
+
+    def test_oversized_compatibility_is_rejected(self):
+        self.write(extra=f'compatibility: {"x" * 501}\n')
+        self.assertTrue(self.errors())
+
+    def test_flow_style_metadata_is_rejected(self):
+        (self.skill / 'SKILL.md').write_text(
+            '---\nname: example\ndescription: Useful workflow.\nmetadata: {pack: agent}\n---\n# Example\n'
+        )
+        self.assertTrue(self.errors())
+
+    def test_missing_metadata_pack_is_rejected(self):
+        (self.skill / 'SKILL.md').write_text(
+            '---\nname: example\ndescription: Useful workflow.\n---\n# Example\n'
+        )
+        self.assertTrue(any('metadata.pack' in error for error in self.errors()))
+
     def test_empty_and_oversized_descriptions(self):
         for value in ['>-', "''", '""', 'x' * 1025]:
             with self.subTest(value=value[:30]):
@@ -64,7 +99,7 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual([], self.errors())
 
     def test_duplicate_required_field(self):
-        self.write(extra='pack: core\n')
+        self.write(extra='name: other\n')
         self.assertTrue(self.errors())
 
     def test_missing_markdown_resources(self):

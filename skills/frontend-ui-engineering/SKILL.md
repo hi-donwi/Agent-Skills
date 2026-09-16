@@ -1,7 +1,8 @@
 ---
 name: frontend-ui-engineering
-pack: web
 description: Builds production-quality UIs and maintainable component architectures. Use when building or modifying user-facing interfaces, components, layouts, or stateful interactions. Do not use for backend-only or non-UI changes.
+metadata:
+  pack: web
 ---
 
 # Frontend UI Engineering

@@ -1,10 +1,11 @@
 ---
 name: skill-evaluation
-pack: agent
 description: >-
   Evaluate whether a skill routes correctly and improves task outcomes. Use when
   adding or revising skills, investigating misfires, or comparing skill versions.
   Do not use as a substitute for testing application code.
+metadata:
+  pack: agent
 ---
 
 # Skill Evaluation

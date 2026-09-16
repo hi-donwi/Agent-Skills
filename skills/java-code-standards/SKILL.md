@@ -1,6 +1,5 @@
 ---
 name: java-code-standards
-pack: java
 description: >-
   Write and review Java 21 to the standards in this workspace: records and immutability, null and Optional
   handling, a domain exception hierarchy carrying stable ErrorCodes, logging, pattern
@@ -9,7 +8,9 @@ description: >-
   shape or return type, or enforcing Spotless formatting. Do not use for endpoint shape
   (rest-api-contract), queries and entities (quarkus-persistence), or module structure and
   CDI (quarkus-service).
-keywords: java, code style, record, exception, errorcode, null, optional, naming, refactor, readability, lombok, bigdecimal, spotless, switch, text block
+metadata:
+  pack: java
+  keywords: java, code style, record, exception, errorcode, null, optional, naming, refactor, readability, lombok, bigdecimal, spotless, switch, text block
 ---
 
 # Java 21 Code Standards
@@ -92,7 +93,7 @@ throw new ConflictException(ErrorCode.ORDER_ALREADY_APPROVED, "id=" + id);
 may change; the code may not.
 
 Exception messages target the **developer** and carry debugging context (IDs, values), but
-never sensitive data (passwords, reserve price, document contents).
+never sensitive data (passwords, confidential prices, document contents).
 
 ---
 

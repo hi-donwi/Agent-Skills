@@ -1,10 +1,11 @@
 ---
 name: doubt-driven-development
-pack: core
 description: >-
   Challenge a consequential technical decision against its contract and evidence.
   Use for uncertain architecture, security boundaries, or irreversible changes.
   Do not use for mechanical edits or as a mandatory external review on every task.
+metadata:
+  pack: core
 ---
 
 # Doubt-Driven Development

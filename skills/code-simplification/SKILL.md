@@ -1,7 +1,8 @@
 ---
 name: code-simplification
-pack: core
-description: Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity.
+description: Simplifies code for clarity. Use when refactoring code for clarity without changing behavior. Use when code works but is harder to read, maintain, or extend than it should be. Use when reviewing code that has accumulated unnecessary complexity. Do not use when changing behavior, fixing bugs, or adding features.
+metadata:
+  pack: core
 ---
 
 # Code Simplification

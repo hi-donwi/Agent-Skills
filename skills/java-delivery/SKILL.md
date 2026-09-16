@@ -1,6 +1,5 @@
 ---
 name: java-delivery
-pack: java
 description: >-
   Build, ship, and operate the Quarkus backend: Maven Wrapper and parent POM setup, enforcer
   and Spotless and JaCoCo and dependency-check plugins, CI pipeline stages and quality gates,
@@ -9,7 +8,9 @@ description: >-
   fixing a build, adding a CI stage, preparing a release, deploying to staging or production,
   writing a runbook, or planning a rollback. Do not use for application security in code
   (quarkus-security) or runtime telemetry design (quarkus-observability).
-keywords: build, maven, mvnw, pom, ci, cd, pipeline, deploy, deployment, release, versioning, rollback, docker, container, systemd, artifact, staging, production, runbook, enforcer
+metadata:
+  pack: java
+  keywords: build, maven, mvnw, pom, ci, cd, pipeline, deploy, deployment, release, versioning, rollback, docker, container, systemd, artifact, staging, production, runbook, enforcer
 ---
 
 # Java Delivery

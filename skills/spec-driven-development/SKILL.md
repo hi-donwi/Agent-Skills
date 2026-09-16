@@ -1,7 +1,8 @@
 ---
 name: spec-driven-development
-pack: core
-description: Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when requirements are unclear, ambiguous, or only exist as a vague idea.
+description: Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when requirements are unclear, ambiguous, or only exist as a vague idea. Do not use when a spec already exists, or for small bugfixes that do not change intended behaviour.
+metadata:
+  pack: core
 ---
 
 # Spec-Driven Development

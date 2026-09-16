@@ -1,11 +1,12 @@
 ---
 name: security-hardening
-pack: core
 description: >-
   Find and fix common security weaknesses (OWASP-style) and manage secrets safely.
   Use when reviewing code for vulnerabilities, handling auth/input/untrusted data,
   before shipping anything internet-facing, or when secrets/keys are involved. Do
   not use for offensive security, exploitation, or attacking systems you don't own.
+metadata:
+  pack: core
 ---
 
 # Security & Hardening

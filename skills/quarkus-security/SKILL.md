@@ -1,6 +1,5 @@
 ---
 name: quarkus-security
-pack: java
 description: >-
   Apply and review backend security in Quarkus: Argon2id, Redis-backed sessions and cookies,
   closed-by-default RBAC with @RolesAllowed, data-level authorisation pushed into queries,
@@ -9,15 +8,17 @@ description: >-
   needs a role, accepting user input or files, building dynamic sort/filter, reviewing a PR
   that touches auth or sensitive data, or handling secrets. Do not use for error response
   shape (rest-api-contract) or infrastructure/network security (java-delivery).
-keywords: auth, authentication, authorisation, authorization, login, session, password, hashing, argon, role, permission, rbac, security, injection, upload, secret, cors, token, header, allowlist
+metadata:
+  pack: java
+  keywords: auth, authentication, authorisation, authorization, login, session, password, hashing, argon, role, permission, rbac, security, injection, upload, secret, cors, token, header, allowlist
 ---
 
 # Quarkus Security
 
 Full rules: `.agents/standards/java/security.md`. This is how to apply them.
 
-This system holds vendor records, reserve price values, and tender award decisions. A leak here is not
-a technical incident — it is a legal and order-integrity problem.
+This system holds customer records, contract values, and award decisions. A leak here is not
+a technical incident — it is a legal and data-integrity problem.
 
 ## Use when
 - Touching login, sessions, or passwords
@@ -48,7 +49,7 @@ void everyEndpointDeclaresARole() {
 }
 ```
 
-With 145 endpoints, one omission will slip past a quick manual review sooner or later.
+With many endpoints, one omission will slip past a quick manual review sooner or later.
 
 ## Data-level authorisation
 
@@ -70,10 +71,10 @@ in a heap dump and in any log that prints it.
 
 ### Domain rules that need their own tests
 
-- A vendor **never** sees the reserve price before bid opening
-- A vendor **never** sees another vendor's bid
+- A supplier **never** sees a confidential list price before it is published
+- A supplier **never** sees another supplier's offer
 - An auditor is read-only, without exception
-- A committee member manages only their own unit's orders
+- A staff member manages only their own unit's orders
 
 These are business rules, not configuration. They belong in the organisation's domain
 skill under `context/skills/`, not here.
@@ -206,5 +207,5 @@ For every PR touching auth, user input, or files:
 - [ ] No entity returned as a response
 - [ ] No new secrets
 - [ ] Errors expose no internal detail
-- [ ] Passwords/tokens/reserve price are not logged
+- [ ] Passwords/tokens/confidential fields are not logged
 - [ ] A test proves the wrong role is rejected

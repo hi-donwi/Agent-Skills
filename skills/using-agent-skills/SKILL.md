@@ -1,10 +1,11 @@
 ---
 name: using-agent-skills
-pack: agent
 description: >-
   Select the smallest set of available skills for a task. Use at task start or
   when the kind of work changes. Do not turn skill discovery into a mandatory
   sequence for simple edits.
+metadata:
+  pack: agent
 ---
 
 # Using Agent Skills
