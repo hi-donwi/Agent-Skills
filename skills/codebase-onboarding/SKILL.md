@@ -16,7 +16,7 @@ metadata:
 
 Learn the shape of the codebase before changing it.
 
-## When to Use
+## When to use
 
 - New repository, unfamiliar module, large refactor, or architecture question.
 - You need to identify entry points, ownership boundaries, or risky files.
@@ -37,7 +37,7 @@ Learn the shape of the codebase before changing it.
 6. **Produce an onboarding map.** Include architecture summary, key files,
    commands, risks, and recommended next reads.
 
-## Red Flags
+## Red flags
 
 - Editing before identifying the owning module and tests.
 - Treating generated/vendor/build output as source.
