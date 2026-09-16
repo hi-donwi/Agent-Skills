@@ -1,11 +1,12 @@
 ---
 name: webapp-testing
-pack: web
 description: >-
   Test a running web application end-to-end with a real browser (Playwright) to
   verify UI flows, forms, and runtime behavior. Use when asked to verify a feature
   works in the browser, reproduce a UI bug, or add e2e coverage. Do not use for
   pure unit/logic testing (use test-driven-development) or for load testing.
+metadata:
+  pack: web
 ---
 
 # Webapp Testing

@@ -1,11 +1,12 @@
 ---
 name: git-workflow
-pack: core
 description: >-
   Use git well: atomic commits, clear messages, sensible branching, and clean
   PRs. Use when committing, branching, writing commit/PR messages, resolving
   conflicts, or structuring a change for review. Do not use for non-git VCS or for
   rewriting already-pushed shared history without explicit instruction.
+metadata:
+  pack: core
 ---
 
 # Git Workflow & Versioning

@@ -1,12 +1,13 @@
 ---
 name: dependency-audit
-pack: core
 description: >-
   Audit, upgrade, or rationalize third-party dependencies for security,
   licensing, maintenance, bundle/runtime impact, and supply-chain risk. Use when
   adding dependencies, fixing audit findings, upgrading packages, or reducing
   dependency surface. Do not use for application logic bugs unrelated to external
   packages.
+metadata:
+  pack: core
 ---
 
 # Dependency Audit

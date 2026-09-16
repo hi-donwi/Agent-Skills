@@ -2,10 +2,11 @@
 """Validate the library's canonical metadata, local resources, and catalog.
 
 Standard library only. This is not a general YAML or CommonMark parser: required
-metadata uses plain single-line values or folded descriptions (> / >-), matching
-bin/reindex. Resource checks cover inline Markdown links, link definitions, and
-backtick resource paths outside fenced examples. Remote URLs and anchors are not
-fetched or validated. Optional YAML metadata is outside this parser's scope.
+name/description use plain single-line values or a folded description (> / >-),
+and pack lives under a block `metadata` map, matching bin/reindex. Resource
+checks cover inline Markdown links, link definitions, and backtick resource
+paths outside fenced examples. Remote URLs and anchors are not fetched or
+validated. Flow-style YAML and nested metadata values are rejected.
 """
 from pathlib import Path
 import json
@@ -16,49 +17,117 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / 'skills'
 PACKS = {'core', 'agent', 'web', 'java'}
+ALLOWED_FIELDS = {'name', 'description', 'license', 'compatibility', 'allowed-tools', 'metadata'}
 RESOURCE = r'(?:references|examples|templates|scripts|assets|agents)/'
 EXTENSIONS = {'.md', '.mdc', '.sh', '.js', '.mjs', '.ts', '.tsx', '.py', '.json', '.toml', '.yaml', '.yml'}
+MAX_COMPATIBILITY = 500
 
 
 def fail(errors, skill, message):
     errors.append(f'{skill}: {message}')
 
 
-def metadata(text, label, errors):
+def invalid_scalar(value):
+    return (not value or value.startswith(('"', "'", '|', '[', '{', '*', '&', '!', '#', '>'))
+            or ': ' in value or ' #' in value)
+
+
+def parse_frontmatter(text, label, errors):
+    """Parse required Agent Skills fields plus this library's metadata.pack."""
     block = re.match(r'\A---\n(.*?)\n---\n', text, re.DOTALL)
     if not block:
         fail(errors, label, 'missing opening frontmatter block')
         return {}
     lines = block.group(1).splitlines()
     values = {}
-    for field in ('name', 'pack', 'description'):
-        matches = [(i, re.match(rf'^{field}:[ \t]*(.*)$', line)) for i, line in enumerate(lines)]
-        matches = [(i, match.group(1)) for i, match in matches if match]
-        if len(matches) != 1:
-            fail(errors, label, f'expected exactly one {field} field')
+    metadata = {}
+    seen = set()
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if not line.strip():
+            i += 1
             continue
-        i, value = matches[0]
+        match = re.match(r'^([A-Za-z0-9_-]+):[ \t]*(.*)$', line)
+        if not match:
+            fail(errors, label, f'invalid frontmatter line {line!r}')
+            i += 1
+            continue
+        field, value = match.group(1), match.group(2)
+        if field not in ALLOWED_FIELDS:
+            fail(errors, label, f'unexpected field {field!r}; only {sorted(ALLOWED_FIELDS)} are allowed')
+            i += 1
+            continue
+        if field in seen:
+            fail(errors, label, f'expected exactly one {field} field')
+            i += 1
+            continue
+        seen.add(field)
+        if field == 'metadata':
+            if value.strip():
+                fail(errors, label, 'metadata must be a block mapping')
+                i += 1
+                continue
+            i += 1
+            while i < len(lines):
+                nested_line = lines[i]
+                if not nested_line.strip():
+                    i += 1
+                    continue
+                nested = re.match(r'^([ \t]+)([A-Za-z0-9_-]+):[ \t]*(.*)$', nested_line)
+                if not nested:
+                    break
+                key, nested_value = nested.group(2), nested.group(3)
+                if key in metadata:
+                    fail(errors, label, f'expected exactly one metadata.{key} field')
+                elif nested_value in ('>', '>-') or invalid_scalar(nested_value):
+                    fail(errors, label, f'metadata.{key} must use canonical plain text')
+                elif not nested_value.strip():
+                    fail(errors, label, f'metadata.{key} is empty')
+                else:
+                    metadata[key] = nested_value.strip()
+                i += 1
+            continue
         if value in ('>', '>-') and field == 'description':
             parts = []
-            for line in lines[i + 1:]:
-                if line and not line.startswith(' '):
+            i += 1
+            while i < len(lines):
+                cont = lines[i]
+                if cont and not cont.startswith((' ', '\t')):
                     break
-                parts.append(line.strip())
+                parts.append(cont.strip())
+                i += 1
             value = ' '.join(' '.join(parts).split())
-        elif (not value or value.startswith(('"', "'", '|', '[', '{', '*', '&', '!', '#', '>'))
-              or ': ' in value or ' #' in value):
-            fail(errors, label, f'{field} must use canonical plain text or a folded description')
+            if not value.strip():
+                fail(errors, label, 'description is empty')
+            else:
+                values[field] = value
             continue
-        if not value.strip():
+        if invalid_scalar(value):
+            fail(errors, label, f'{field} must use canonical plain text or a folded description')
+            i += 1
+            continue
+        stripped = value.strip()
+        if not stripped:
             fail(errors, label, f'{field} is empty')
-        values[field] = value
+            i += 1
+            continue
+        values[field] = stripped
+        i += 1
+    for field in ('name', 'description'):
+        if field not in seen:
+            fail(errors, label, f'expected exactly one {field} field')
     name = values.get('name', '')
     if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name) or len(name) > 64:
         fail(errors, label, 'name must be 1-64 lowercase alphanumerics with single hyphens')
-    if values.get('pack') not in PACKS:
-        fail(errors, label, 'unknown or missing pack')
     if not 1 <= len(values.get('description', '')) <= 1024:
         fail(errors, label, 'description must contain 1-1024 characters')
+    if 'compatibility' in values and not 1 <= len(values['compatibility']) <= MAX_COMPATIBILITY:
+        fail(errors, label, 'compatibility must contain 1-500 characters')
+    pack = metadata.get('pack', '')
+    if pack not in PACKS:
+        fail(errors, label, 'unknown or missing metadata.pack')
+    values['pack'] = pack
     return values
 
 
@@ -127,7 +196,7 @@ def validate_skill(skill, errors):
     except (OSError, UnicodeError) as exc:
         fail(errors, skill.name, f'cannot read SKILL.md: {exc}')
         return
-    values = metadata(text, skill.name, errors)
+    values = parse_frontmatter(text, skill.name, errors)
     if values.get('name') != skill.name:
         fail(errors, skill.name, 'frontmatter name differs from directory')
     for link in resource_links(text):
@@ -166,11 +235,16 @@ def validate_catalog(root, errors):
         if skill.is_symlink() or not (skill/'SKILL.md').is_file() or (skill/'SKILL.md').is_symlink():
             continue
         try:
-            values = metadata((skill/'SKILL.md').read_text(), skill.name, [])
+            values = parse_frontmatter((skill/'SKILL.md').read_text(), skill.name, [])
         except (OSError, UnicodeError):
             continue  # validate_skill reports the read failure.
-        expected_row = dict(values, path=f'skills/{skill.name}/SKILL.md',
-                            references=sum(p.is_file() and p.name != 'SKILL.md' for p in skill.rglob('*')))
+        expected_row = {
+            'name': values.get('name'),
+            'pack': values.get('pack'),
+            'path': f'skills/{skill.name}/SKILL.md',
+            'description': values.get('description'),
+            'references': sum(p.is_file() and p.name != 'SKILL.md' for p in skill.rglob('*')),
+        }
         row = by_name.get(skill.name, {})
         if any(row.get(key) != value for key, value in expected_row.items()):
             fail(errors, skill.name, 'stale index entry; run ./bin/reindex')

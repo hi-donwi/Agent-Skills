@@ -1,10 +1,11 @@
 ---
 name: skill-creator
-pack: agent
 description: >-
   Create or upgrade a reusable skill in this library. Use when authoring skill
   instructions, triggers, templates, or supporting resources. Do not use for
   application code or edits to generated workspace skill copies.
+metadata:
+  pack: agent
 ---
 
 # Skill Creator
@@ -22,9 +23,9 @@ Author focused workflows in the source library so consumers can restore a review
 2. Edit skills/<name>/SKILL.md in this source repository. Materialized workspace
    copies are generated; do not patch them or create consumer-specific symlinks here.
 3. Use a folder-matching lowercase name, at most 64 characters, with single hyphens.
-   Supply name, description, and this library's required pack field (core, agent,
-   web, or java). Keep descriptions under 1024 characters and distinguish nearby tasks.
-   The pack field is a library extension, not part of the standard field set.
+   Supply name, description, and this library's required `metadata.pack` (core,
+   agent, web, or java). Keep descriptions under 1024 characters and distinguish
+   nearby tasks. Pack is catalog grouping stored in the spec `metadata` map.
 4. Start with Overview, When to use, Process, Red flags, and Verification. Keep
    only instructions that change decisions; use references for substantial conditional
    detail. Target a concise entry point and stay below 500 lines.
@@ -49,13 +50,13 @@ Author focused workflows in the source library so consumers can restore a review
 - Hardcoded tool invocations or resources that do not exist in the target environment.
 
 ## Verification
-- Name, pack, description, references, README, and index agree.
+- Name, metadata.pack, description, references, README, and index agree.
 - Scenarios check actual decisions; unexecuted evaluations are disclosed.
 - Generic library files contain no organization-specific context.
 
 ## References
 - [Agent Skills specification](https://agentskills.io/specification): consult for
-  format constraints and optional fields; retain this library's pack extension
-  until its consumers and validators are migrated together.
+  format constraints and optional fields. This library's pack belongs under
+  `metadata.pack`, not as a top-level field.
 - [Starter template](templates/skill-template/skill-template.md): copy and replace
   placeholders when scaffolding a new skill; keep its filename out of discovery.

@@ -1,14 +1,15 @@
 ---
 name: my-skill-name
-pack: agent
 description: >-
   One or two sentences: WHAT this skill does, WHEN to use it (front-load the
   strongest trigger phrases), and WHEN NOT to use it. This text is what agents
   match on, so be specific and concrete.
+metadata:
+  pack: agent
 # Optional:
 # license: MIT
+# compatibility: Requires git
 # allowed-tools: Read Edit Bash
-# metadata: { version: "1.0.0" }
 ---
 
 # My Skill Name

@@ -1,7 +1,8 @@
 ---
 name: source-driven-development
-pack: core
-description: Grounds every implementation decision in official documentation. Use when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters.
+description: Grounds every implementation decision in official documentation. Use when you want authoritative, source-cited code free from outdated patterns. Use when building with any framework or library where correctness matters. Do not use for typos, file moves, or logic that does not depend on a third-party API or framework version.
+metadata:
+  pack: core
 ---
 
 # Source-Driven Development

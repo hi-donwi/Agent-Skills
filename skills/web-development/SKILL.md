@@ -1,6 +1,5 @@
 ---
 name: web-development
-pack: web
 description: >-
   Build high-quality, modern websites with AI coding agents using the
   "vibe coding" workflow — including premium marketing sites, SaaS UIs, and
@@ -11,6 +10,8 @@ description: >-
   or wants opinionated stack/quality rules for agent-driven front-end work.
   Do not use for native mobile apps, game engines, or pure backend/data/infra
   services with no web front-end.
+metadata:
+  pack: web
 ---
 
 # Web Development

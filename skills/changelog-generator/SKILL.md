@@ -1,11 +1,12 @@
 ---
 name: changelog-generator
-pack: core
 description: >-
   Generate user-facing changelogs, release notes, upgrade notes, and internal
   change summaries from git history, PRs, issues, commits, or diff context. Use
   before releases or stakeholder updates. Do not use for code review, version
   control operations, or marketing copy unrelated to actual changes shipped.
+metadata:
+  pack: core
 ---
 
 # Changelog Generator

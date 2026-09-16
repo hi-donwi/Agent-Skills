@@ -103,11 +103,13 @@ skills/<name>/
 └── references/         loaded only when SKILL.md is not enough
 ```
 
-Required frontmatter: `name`, `pack`, `description`. The description should say **when to
-use it** and, where it helps, when *not* to — that sentence is what routing matches on.
-The required top-level `pack` field is a library extension. Strict consumers of the
-[Agent Skills specification](https://agentskills.io/specification) may need an adapter;
-the library and workspace currently depend on this field.
+Required frontmatter: `name` and `description`, plus this library's `metadata.pack`
+(`core`, `agent`, `web`, or `java`). The description should say **when to use it**
+and, where it helps, when *not* to — that sentence is what routing matches on.
+`pack` is catalog grouping, stored under the spec's `metadata` map so a strict
+[Agent Skills](https://agentskills.io/specification) consumer can load the skill.
+The generated `index.json` still carries `pack` as a column so `ws skills sync`
+can select packs without parsing every SKILL.md.
 
 ## Adding or changing a skill
 
@@ -132,13 +134,16 @@ python3 -B -m unittest discover -s tests -v
 ```
 
 The validator checks canonical metadata, name and description limits, known packs,
-local entrypoint links, resource paths, symlink escapes, nested discovery leaks,
-and agreement between the source, index, and README catalog. The regression suite
-uses disposable catalogs; it needs no network, credentials, or third-party packages.
+allowed spec fields, local entrypoint links, resource paths, symlink escapes,
+nested discovery leaks, and agreement between the source, index, and README
+catalog. The regression suite uses disposable catalogs; it needs no network,
+credentials, or third-party packages.
 
-Required metadata follows the existing reindex format: unquoted single-line name
-and pack, and a plain single-line or folded (`>` / `>-`) description. The validator
-is not a general YAML parser; optional metadata needs separate YAML validation.
+Required metadata follows the reindex format: unquoted single-line `name`, a
+plain single-line or folded (`>` / `>-`) `description`, and `metadata.pack` as a
+block mapping. Optional spec fields (`license`, `compatibility`, `allowed-tools`,
+extra string keys under `metadata`) are allowed in the same plain-text form.
+The validator is not a general YAML parser; flow-style values are rejected.
 Local links are checked in SKILL.md outside fenced examples, including inline
 Markdown links, reference definitions, and backtick resource paths. Remote links,
 anchor existence, supporting-document links, and arbitrary CommonMark syntax are
