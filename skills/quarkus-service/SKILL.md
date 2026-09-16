@@ -15,10 +15,12 @@ metadata:
 
 # Quarkus Service
 
+## Overview
+
 The parent skill for day-to-day backend work. The binding rules live in
 `.agents/standards/java/project-layout.md` and `00-decisions.md`; this is the workflow.
 
-## Use when
+## When to use
 - Adding an endpoint to an existing module
 - Creating a new Quarkus module
 - Cleaning up code that mixes layers

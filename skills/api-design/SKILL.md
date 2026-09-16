@@ -11,6 +11,8 @@ metadata:
 
 # API & Interface Design
 
+## Overview
+
 Define the contract before the implementation. A good interface is predictable, hard to misuse,
 and validated at its edges.
 

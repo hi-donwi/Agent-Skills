@@ -15,10 +15,12 @@ metadata:
 
 # Java 21 Code Standards
 
+## Overview
+
 Full rules: `.agents/standards/java/java-code-style.md`. This covers the decisions that come up
 while writing.
 
-## Use when
+## When to use
 - Writing a new Java class
 - Reviewing a Java diff
 - Deciding: `Optional` or exception? Record or class? Checked or unchecked?

@@ -15,9 +15,11 @@ metadata:
 
 # Java Delivery
 
+## Overview
+
 Full rules: `.agents/standards/java/build-ci.md`. This is the workflow.
 
-## Use when
+## When to use
 - Setting up or fixing the Maven build
 - Adding or debugging a CI stage
 - Preparing a release

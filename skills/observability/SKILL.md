@@ -12,6 +12,8 @@ metadata:
 
 # Observability
 
+## Overview
+
 Make production behavior visible enough to debug without guesswork.
 
 ## When to Use
