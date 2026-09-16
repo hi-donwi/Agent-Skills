@@ -11,6 +11,8 @@ metadata:
 
 # Changelog Generator
 
+## Overview
+
 Translate technical change history into accurate, useful release communication.
 
 ## When to Use

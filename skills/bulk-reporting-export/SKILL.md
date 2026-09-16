@@ -16,10 +16,12 @@ metadata:
 
 # Bulk Reporting & Export
 
+## Overview
+
 Reporting is usually where memory and latency problems appear first, because it is the
 place that touches whole datasets rather than one page.
 
-## Use when
+## When to use
 - Building any endpoint in the `reporting` module
 - An export is slow or throws `OutOfMemoryError`
 - A report will exceed a few thousand rows

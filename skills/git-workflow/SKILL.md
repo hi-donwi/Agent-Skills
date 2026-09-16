@@ -11,6 +11,8 @@ metadata:
 
 # Git Workflow & Versioning
 
+## Overview
+
 Small, atomic, well-described changes that are easy to review, revert, and bisect.
 
 ## When to use

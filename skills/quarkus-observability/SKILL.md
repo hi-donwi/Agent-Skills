@@ -15,12 +15,14 @@ metadata:
 
 # Quarkus Observability
 
+## Overview
+
 Full rules: `.agents/standards/java/observability.md`. This is how to install it.
 
 When a user reports "the export failed" at 2 a.m., what determines time-to-fix is not
 developer cleverness — it is whether there is a `traceId` to follow.
 
-## Use when
+## When to use
 - Preparing a new service for staging/production
 - Adding metrics for business events
 - An issue that only appears in staging or production

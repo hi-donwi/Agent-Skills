@@ -15,12 +15,14 @@ metadata:
 
 # Quarkus Testing
 
+## Overview
+
 Full rules: `.agents/standards/java/testing.md`. This is how to write them.
 
 With many endpoints and more than one developer in parallel, tests are the only way to know
 module A still works after module B changed.
 
-## Use when
+## When to use
 - Adding an endpoint or business rule
 - Fixing a bug — write the failing test first
 - Tests are slow, flaky, or red for no clear reason

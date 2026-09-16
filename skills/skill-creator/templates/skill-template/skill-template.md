@@ -6,10 +6,6 @@ description: >-
   match on, so be specific and concrete.
 metadata:
   pack: agent
-# Optional:
-# license: MIT
-# compatibility: Requires git
-# allowed-tools: Read Edit Bash
 ---
 
 # My Skill Name

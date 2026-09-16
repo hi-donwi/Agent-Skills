@@ -12,6 +12,8 @@ metadata:
 
 # MCP Builder
 
+## Overview
+
 Expose tools to agents through narrow, well-described, permission-aware MCP
 interfaces.
 
