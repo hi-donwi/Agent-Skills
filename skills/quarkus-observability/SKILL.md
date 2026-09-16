@@ -1,6 +1,5 @@
 ---
 name: quarkus-observability
-pack: java
 description: >-
   Make a Quarkus service diagnosable in production: structured JSON logs, a correlation ID
   via MDC and the X-Request-Id header surfaced as traceId in errors, Micrometer/Prometheus
@@ -9,7 +8,9 @@ description: >-
   metrics, diagnosing an issue that only appears in staging or production, designing alerts,
   or when logs are not enough to follow one request. Do not use for local dev debugging,
   tests (quarkus-testing), or export performance tuning (bulk-reporting-export).
-keywords: log, logging, metric, trace, tracing, health, probe, alert, prometheus, micrometer, opentelemetry, correlation, requestid, observability, monitoring, mdc
+metadata:
+  pack: java
+  keywords: log, logging, metric, trace, tracing, health, probe, alert, prometheus, micrometer, opentelemetry, correlation, requestid, observability, monitoring, mdc
 ---
 
 # Quarkus Observability
@@ -86,8 +87,8 @@ Business events use structured fields:
 log.infof("order submitted id=%d unit=%s amount=%s", id, unit, amount);
 ```
 
-**Do not log:** passwords, tokens, session IDs, bid document contents, reserve price before opening,
-full tax ID.
+**Do not log:** passwords, tokens, session IDs, uploaded document contents, confidential
+prices, full tax ID.
 
 A common mistake: `log.error` for a failed validation. Invalid user input is a normal
 event — that is `DEBUG`, or not logged at all. If `ERROR` is used for normal things, the

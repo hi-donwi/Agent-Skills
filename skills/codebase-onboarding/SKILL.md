@@ -1,12 +1,13 @@
 ---
 name: codebase-onboarding
-pack: core
 description: >-
   Build a concise mental model of an unfamiliar repository: architecture, entry
   points, workflows, ownership hotspots, tests, risks, and next files to read.
   Use when starting work in an unknown or large codebase, before major refactors,
   or when asked to explain how a project works. Do not use for tiny edits in
   already-understood code.
+metadata:
+  pack: core
 ---
 
 # Codebase Onboarding

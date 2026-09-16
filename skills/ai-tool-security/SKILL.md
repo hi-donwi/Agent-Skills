@@ -1,10 +1,11 @@
 ---
 name: ai-tool-security
-pack: agent
 description: >-
   Review AI tool execution, prompt injection boundaries, and outbound data access.
   Use when configuring agent tools, MCP permissions, shell automation, or AI
   provider access. Do not use for general application authentication or dependency audits.
+metadata:
+  pack: agent
 ---
 
 # AI Tool Security

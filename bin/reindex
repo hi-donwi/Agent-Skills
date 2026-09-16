@@ -8,7 +8,19 @@ out="$ROOT/index.json"; first=1
 for d in "$ROOT"/skills/*/; do
   [ -f "$d/SKILL.md" ] || continue
   name="$(basename "$d")"
-  pack="$(sed -n 's/^pack:[[:space:]]*//p' "$d/SKILL.md" | head -1)"
+  pack="$(awk '
+      NR==1 && $0=="---" { inFm=1; next }
+      inFm && $0=="---"  { exit }
+      !inFm              { exit }
+      /^metadata:[[:space:]]*$/ { inMeta=1; next }
+      inMeta && /^[^[:space:]]/ { inMeta=0 }
+      inMeta && /^[[:space:]]+pack:[[:space:]]*/ {
+        sub(/^[[:space:]]+pack:[[:space:]]*/, "")
+        print
+        exit
+      }
+    ' "$d/SKILL.md")"
+  [ -n "$pack" ] || { echo "missing metadata.pack in $name" >&2; exit 1; }
   desc="$(awk '
       NR==1 && $0=="---" { inFm=1; next }
       inFm && $0=="---"  { exit }

@@ -1,12 +1,13 @@
 ---
 name: observability
-pack: core
 description: >-
   Add or review production observability: structured logs, metrics, traces,
   dashboards, alerts, SLOs, incident signals, and telemetry hygiene. Use when
   shipping production code, diagnosing runtime behavior, or making systems
   operable. Do not use for local-only scripts or performance tuning without
   production telemetry.
+metadata:
+  pack: core
 ---
 
 # Observability

@@ -1,11 +1,12 @@
 ---
 name: context-privacy
-pack: agent
 description: >-
   Design or review context sharing across clients, project groups, and teams.
   Use when deciding where private notes, sensitive data, credentials, or context
   packs belong. Do not use for ordinary context selection within an established
   audience; use context-engineering for that.
+metadata:
+  pack: agent
 ---
 
 # Context Privacy

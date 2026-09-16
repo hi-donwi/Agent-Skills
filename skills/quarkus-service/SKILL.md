@@ -1,6 +1,5 @@
 ---
 name: quarkus-service
-pack: java
 description: >-
   Build or change Quarkus services and endpoints: Maven module structure, resource/service/
   repository layering, CDI and scopes, typed configuration, REST clients between services,
@@ -9,7 +8,9 @@ description: >-
   @ConfigMapping, or calling another service over REST. Do not use for HTTP contract shape
   (rest-api-contract), queries and migrations (quarkus-persistence), auth
   (quarkus-security), tests (quarkus-testing), or large exports (bulk-reporting-export).
-keywords: endpoint, resource, service layer, module, cdi, inject, scope, configmapping, config, rest client, scaffold, quarkus, layering, arc, virtual thread
+metadata:
+  pack: java
+  keywords: endpoint, resource, service layer, module, cdi, inject, scope, configmapping, config, rest client, scaffold, quarkus, layering, arc, virtual thread
 ---
 
 # Quarkus Service
@@ -62,10 +63,10 @@ in Java afterwards.
 ## The correct shape
 
 ```java
-@Path("/api/v1/masterdata/vendors")
+@Path("/api/v1/catalog/vendors")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Master Data")
+@Tag(name = "Catalog")
 public class VendorResource {
 
     @Inject VendorService vendorService;
@@ -193,8 +194,8 @@ The gap between `.local/demo` and the standards:
 | H2 for tests | Testcontainers PostgreSQL |
 | No correlation ID | MDC `requestId` |
 
-The demo is a proof of concept that worked, not a foundation. Copying its patterns into 145
-endpoints multiplies every gap in that table 145 times.
+The demo is a proof of concept that worked, not a foundation. Copying its patterns into a
+large API multiplies every gap in that table once per endpoint.
 
 ## Pitfalls
 

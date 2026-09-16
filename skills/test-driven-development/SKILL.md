@@ -1,7 +1,8 @@
 ---
 name: test-driven-development
-pack: core
-description: Drives development with tests. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality.
+description: Drives development with tests. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality. Do not use for documentation-only edits, or for browser e2e verification (webapp-testing).
+metadata:
+  pack: core
 ---
 
 # Test-Driven Development

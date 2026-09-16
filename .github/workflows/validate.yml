@@ -23,15 +23,19 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Every skill has a SKILL.md with name, pack and description
+      - name: Every skill has a SKILL.md with name, description and metadata.pack
         run: |
           fail=0
           for d in skills/*/; do
             f="$d/SKILL.md"
             [ -f "$f" ] || { echo "::error::$d has no SKILL.md"; fail=1; continue; }
-            for key in name pack description; do
+            for key in name description; do
               grep -q "^$key:" "$f" || { echo "::error::$f is missing '$key:'"; fail=1; }
             done
+            if grep -q "^pack:" "$f"; then
+              echo "::error::$f has top-level pack; use metadata.pack"
+              fail=1
+            fi
           done
           exit $fail
 
