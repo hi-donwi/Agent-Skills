@@ -15,9 +15,11 @@ metadata:
 
 # Quarkus Persistence
 
+## Overview
+
 Full rules: `.agents/standards/java/database.md`. This is the workflow and the patterns.
 
-## Use when
+## When to use
 - Creating or changing an entity or table
 - Writing a Flyway migration
 - Writing or optimising a query

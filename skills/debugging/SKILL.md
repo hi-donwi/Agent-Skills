@@ -11,6 +11,8 @@ metadata:
 
 # Debugging & Error Recovery
 
+## Overview
+
 Find the root cause before changing code. Random edits hide symptoms and create new bugs.
 
 ## When to use

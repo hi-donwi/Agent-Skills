@@ -12,6 +12,8 @@ metadata:
 
 # Codebase Onboarding
 
+## Overview
+
 Learn the shape of the codebase before changing it.
 
 ## When to Use

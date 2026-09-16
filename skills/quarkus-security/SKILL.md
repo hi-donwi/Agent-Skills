@@ -15,12 +15,14 @@ metadata:
 
 # Quarkus Security
 
+## Overview
+
 Full rules: `.agents/standards/java/security.md`. This is how to apply them.
 
 This system holds customer records, contract values, and award decisions. A leak here is not
 a technical incident — it is a legal and data-integrity problem.
 
-## Use when
+## When to use
 - Touching login, sessions, or passwords
 - Adding an endpoint (every endpoint needs a role decision)
 - Accepting user input or files
