@@ -1,0 +1,5 @@
+.DS_Store
+
+# Python bytecode from bin/ and tests/
+__pycache__/
+*.pyc

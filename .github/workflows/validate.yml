@@ -1,0 +1,98 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Secret + dependency gate via the pinned agent-secure engine (see
+# hi-donwi/Agent-Secure). Skills are prose, so the scan is mostly a supply-
+# chain tripwire; no allow entries - the verdict must be a clean pass.
+jobs:
+  security:
+    uses: hi-donwi/Agent-Secure/.github/workflows/agent-secure-gate.yml@1dffc4ca7e00bb4e9aa108603fcf02cfeb1637a8
+    with:
+      root: .
+      engine_version: v0.1.5
+      engine_sha256: 491c0f4b9b4fe379b13f85be0a8956343a6731694e714763d33b3827e65649c9
+      gitleaks_version: 8.30.1
+      gitleaks_sha256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+      osv_scanner_version: 2.5.1
+      osv_scanner_sha256: f9f25499a2c8cc367b3af45df2ea7eeca7fbccceab9c35079968f4b3652194be
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Every skill has a SKILL.md with name, description and metadata.pack
+        run: |
+          fail=0
+          for d in skills/*/; do
+            f="$d/SKILL.md"
+            [ -f "$f" ] || { echo "::error::$d has no SKILL.md"; fail=1; continue; }
+            for key in name description; do
+              grep -q "^$key:" "$f" || { echo "::error::$f is missing '$key:'"; fail=1; }
+            done
+            if grep -q "^pack:" "$f"; then
+              echo "::error::$f has top-level pack; use metadata.pack"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      # reindex stamps a fresh "generated" time on every run, so comparing the raw
+      # file would always differ. What must not drift is the skill list itself.
+      - name: index.json is current
+        run: |
+          cp index.json /tmp/index.committed
+          ./bin/reindex
+          if ! diff -q <(grep -v '"generated"' /tmp/index.committed) \
+                       <(grep -v '"generated"' index.json) >/dev/null; then
+            echo "::error::index.json is stale - run ./bin/reindex and commit it"
+            diff <(grep -v '"generated"' /tmp/index.committed) \
+                 <(grep -v '"generated"' index.json) || true
+            exit 1
+          fi
+
+      # Two greps, because they need different sensitivity. Names are matched
+      # case-insensitively; home-directory paths must be case-SENSITIVE, or every
+      # `/api/users/` in an example matches `/Users/` and the build fails on nothing.
+      #
+      # The names are in a repository secret, not in this file: a list of what must
+      # never be published, written into a published file, is the leak it exists to
+      # prevent — which is exactly what the inline pattern here used to be. The
+      # check prints file names only (-l), because a matched line would put the name
+      # straight into a public build log, where secret masking does not reach it.
+      - name: No personal or client identifiers
+        env:
+          PRIVATE_IDENTIFIERS: ${{ secrets.PRIVATE_IDENTIFIERS }}
+        run: |
+          fail=0
+          if [ -z "$PRIVATE_IDENTIFIERS" ]; then
+            echo "::warning::PRIVATE_IDENTIFIERS is unset - the name check did not run"
+          elif grep -rilE "$PRIVATE_IDENTIFIERS" --include='*.md' skills/ ; then
+            echo "::error::a personal or client name reached a public skill (files listed above)"
+            fail=1
+          fi
+          if grep -rnE '/(Users|home)/[A-Za-z][A-Za-z0-9._-]*' --include='*.md' skills/ ; then
+            echo "::error::a home-directory path reached a public skill"
+            fail=1
+          fi
+          exit $fail
+
+  # reindex counts files and CI checks frontmatter, but neither notices a
+  # quoted resource path that resolves to nothing. A dead reference sends the
+  # consumer of a skill to a file that does not exist, so resolution is its
+  # own gate: frontmatter agreement, references/ and examples/ paths,
+  # cross-skill pointers, template discovery leaks, and file types.
+  resources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Resolve every quoted skill resource
+        run: python3 bin/validate.py
+
+      - name: Validator regression tests
+        run: python3 -B -m unittest discover -s tests -v

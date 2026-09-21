@@ -1,0 +1,3 @@
+# Codex skill config.
+policy:
+  allow_implicit_invocation: true

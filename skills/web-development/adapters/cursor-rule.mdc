@@ -1,0 +1,19 @@
+---
+description: Web development standards (vibe coding with AI agents) — Next.js, RSC, Tailwind, 3D
+globs: ["**/*.tsx", "**/*.ts", "**/*.css", "app/**", "components/**"]
+alwaysApply: false
+---
+
+# Web Development
+
+Auto-attached when editing web files. Full skill: [SKILL.md](mdc:.agents/skills/web-development/SKILL.md).
+
+- Next.js App Router + TypeScript (strict, no `any`).
+- Server Components by default; Client Components only when interactivity requires it.
+- Tailwind CSS for layout and tokens. Keep WebGL/3D under `components/scene/*`.
+- Server-first rendering; add client motion/3D only where it materially helps.
+- Budgets: LCP < 2.5s · INP < 200ms · CLS < 0.1.
+- Respect `prefers-reduced-motion`; every 3D scene needs a text equivalent + static fallback.
+- Don't add dependencies without justification; prefer editing existing components; include
+  tests for interaction changes.
+- Build in small steps (scaffold → iterate → integrate), not one giant prompt.

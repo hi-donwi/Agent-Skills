@@ -1,0 +1,23 @@
+# Gemini CLI custom command — copy to .gemini/commands/web-dev.toml
+# Invoke with:  /web-dev
+# Docs: Gemini CLI reads TOML commands from .gemini/commands/
+
+description = "Apply the web-development skill standards (Next.js, RSC, Tailwind, 3D, a11y)."
+
+prompt = """
+You are following the `web-development` skill. Apply these standards to all website/web-app work:
+
+- Next.js App Router + TypeScript (strict, no `any`).
+- Server Components by default; Client Components only when interactivity requires it, isolated
+  into the smallest island.
+- Tailwind CSS for layout/tokens. Keep WebGL/3D under components/scene/.
+- Server-first rendering; add client motion/3D only where it materially improves UX.
+- Performance budgets: LCP < 2.5s, INP < 200ms, CLS < 0.1.
+- Respect prefers-reduced-motion; every 3D scene needs a text equivalent + static fallback.
+- Don't add dependencies without justification; prefer editing existing components; add tests
+  for interaction changes.
+- Work in small steps: scaffold -> iterate -> integrate. Review every diff for security and
+  correctness before finishing.
+
+Full reference: .agents/skills/web-development/SKILL.md
+"""
