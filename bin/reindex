@@ -29,10 +29,18 @@ for d in "$ROOT"/skills/*/; do
       f && /^[A-Za-z_][A-Za-z0-9_]*:/ { exit }
       f                  { sub(/^[ \t]+/,""); print }
     ' "$d/SKILL.md" | tr '\n' ' ' | sed 's/  */ /g; s/[[:space:]]*$//; s/"/\\"/g')"
-  refs="$(find "$d" -type f ! -name SKILL.md | wc -l | tr -d ' ')"
+  # references/ is what an agent loads for depth; adapters, agents and README are
+  # bundle furniture. One number for both said frontend-ui-engineering had eleven
+  # references when it has five.
+  sd="${d%/}"
+  refs=0
+  if [ -d "$sd/references" ]; then
+    refs="$(find "$sd/references" -type f | wc -l | tr -d ' ')"
+  fi
+  res="$(find "$sd" -type f ! -name SKILL.md ! -path "$sd/references/*" | wc -l | tr -d ' ')"
   [ "$first" = 1 ] || echo ',' >> "$out"; first=0
-  printf '    {"name": "%s", "pack": "%s", "path": "skills/%s/SKILL.md", "references": %s, "description": "%s"}' \
-    "$name" "${pack:-core}" "$name" "$refs" "$desc" >> "$out"
+  printf '    {"name": "%s", "pack": "%s", "path": "skills/%s/SKILL.md", "references": %s, "resources": %s, "description": "%s"}' \
+    "$name" "${pack:-core}" "$name" "$refs" "$res" "$desc" >> "$out"
 done
 { echo; echo '  ]'; echo '}'; } >> "$out"
 echo "index.json: $(grep -c '"name"' "$out") skills"

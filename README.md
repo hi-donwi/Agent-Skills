@@ -68,7 +68,8 @@ Context, skills, and tool integration — the practice of directing agents well.
 
 ### `web` — web and frontend
 
-
+Browser-facing work: interface craft, schema-driven UI, page-load performance,
+and end-to-end verification in a real browser.
 
 | Skill | Use it when |
 |---|---|

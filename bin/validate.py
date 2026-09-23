@@ -280,8 +280,9 @@ def validate_catalog(root, errors):
         names = [row.get('name') for row in rows]
         if any(not isinstance(name, str) for name in names):
             raise ValueError('every entry needs a string name')
-        if any(type(row.get('references')) is not int or row['references'] < 0 for row in rows):
-            raise ValueError('references must be a nonnegative integer')
+        for field in ('references', 'resources'):
+            if any(type(row.get(field)) is not int or row[field] < 0 for row in rows):
+                raise ValueError(f'{field} must be a nonnegative integer')
     except (OSError, ValueError, KeyError, TypeError) as exc:
         fail(errors, 'catalog', f'invalid index.json: {exc}')
         return
@@ -302,13 +303,22 @@ def validate_catalog(root, errors):
             'pack': values.get('pack'),
             'path': f'skills/{skill.name}/SKILL.md',
             'description': values.get('description'),
-            'references': sum(p.is_file() and p.name != 'SKILL.md' for p in skill.rglob('*')),
+            'references': sum(p.is_file() and p.relative_to(skill).parts[0] == 'references'
+                              for p in skill.rglob('*')),
+            'resources': sum(p.is_file() and p.name != 'SKILL.md'
+                             and p.relative_to(skill).parts[0] != 'references'
+                             for p in skill.rglob('*')),
         }
         row = by_name.get(skill.name, {})
         if any(row.get(key) != value for key, value in expected_row.items()):
             fail(errors, skill.name, 'stale index entry; run ./bin/reindex')
     try:
         readme = (root/'README.md').read_text()
+        declared = re.findall(r'\b(\d+) skills\b', readme)
+        if len(declared) != 1:
+            fail(errors, 'catalog', 'README must declare the skill count exactly once as "<n> skills"')
+        elif int(declared[0]) != len(expected):
+            fail(errors, 'catalog', f'README says {declared[0]} skills; the catalog has {len(expected)}')
         listed = re.findall(r'^\| \[`([^`]+)`\]\(skills/[^)]+\)', readme, re.MULTILINE)
         if len(listed) != len(set(listed)) or set(listed) != expected:
             fail(errors, 'catalog', 'README skill membership is missing, extra, or duplicated')

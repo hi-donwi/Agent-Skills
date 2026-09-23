@@ -225,20 +225,20 @@ class ValidationTests(unittest.TestCase):
 
     def test_wrong_readme_target_is_rejected(self):
         self.catalog([self.row()])
-        (self.root/'README.md').write_text('| [`example`](skills/other/SKILL.md) | Example |\n')
+        (self.root/'README.md').write_text('1 skills\n| [`example`](skills/other/SKILL.md) | Example |\n')
         errors=[]
         validator.validate_catalog(self.root, errors)
         self.assertTrue(errors)
 
-    def catalog(self, rows):
+    def catalog(self, rows, readme=None):
         (self.root/'index.json').write_text(json.dumps({'skills':rows}))
-        (self.root/'README.md').write_text('| [`example`](skills/example/SKILL.md) | Example |\n')
+        (self.root/'README.md').write_text(readme or '1 skills\n| [`example`](skills/example/SKILL.md) | Example |\n')
         errors=[]
         validator.validate_catalog(self.root, errors)
         return errors
 
     def row(self):
-        return {'name':'example','pack':'agent','path':'skills/example/SKILL.md','description':'Useful workflow.','references':0}
+        return {'name':'example','pack':'agent','path':'skills/example/SKILL.md','description':'Useful workflow.','references':0,'resources':0}
 
     def test_catalog_accepts_matching_entry(self):
         self.assertEqual([],self.catalog([self.row()]))
@@ -247,6 +247,20 @@ class ValidationTests(unittest.TestCase):
         for rows in [[],[self.row(),self.row()],[dict(self.row(),description='stale')],[dict(self.row(),path='../outside.md')],[dict(self.row(),references=4)]]:
             with self.subTest(rows=rows):
                 self.assertTrue(self.catalog(rows))
+
+    def test_readme_skill_count_must_match_and_appear_once(self):
+        row = '| [`example`](skills/example/SKILL.md) | Example |\n'
+        for readme in ['2 skills\n' + row, row, '1 skills and 1 skills\n' + row]:
+            with self.subTest(readme=readme.splitlines()[0]):
+                self.assertTrue(self.catalog([self.row()], readme=readme))
+
+    def test_references_are_counted_apart_from_bundle_extras(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/guide.md').write_text('# Guide')
+        (self.skill/'adapters').mkdir()
+        (self.skill/'adapters/cursor-rule.mdc').write_text('rule')
+        self.assertEqual([], self.catalog([dict(self.row(), references=1, resources=1)]))
+        self.assertTrue(self.catalog([dict(self.row(), references=2, resources=0)]))
 
     def test_catalog_malformed_json_is_diagnostic(self):
         (self.root/'index.json').write_text('{')
