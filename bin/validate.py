@@ -7,6 +7,11 @@ and pack lives under a block `metadata` map, matching bin/reindex. Resource
 checks cover inline Markdown links, link definitions, and backtick resource
 paths outside fenced examples. Remote URLs and anchors are not fetched or
 validated. Flow-style YAML and nested metadata values are rejected.
+
+Beyond resources, three checks guard what a reader can actually follow:
+cross-skill pointers must name a skill the library ships, no file may pose as
+agent instructions for the surrounding project, and every bundled file must be
+reachable from its SKILL.md.
 """
 from pathlib import Path
 import json
@@ -18,9 +23,20 @@ ROOT = Path(__file__).resolve().parent.parent
 SKILLS = ROOT / 'skills'
 PACKS = {'core', 'agent', 'web', 'java'}
 ALLOWED_FIELDS = {'name', 'description', 'license', 'compatibility', 'allowed-tools', 'metadata'}
-RESOURCE = r'(?:references|examples|templates|scripts|assets|agents)/'
+RESOURCE = r'(?:references|examples|templates|scripts|assets|agents|docs)/'
+# Unlike references/ or scripts/, `docs/` names a directory the reader's own repo
+# usually has, so `docs/adr/` in prose is a project path. Only resolve it against
+# a skill that ships one.
+SKILL_OWNED_ONLY = ('docs/',)
 EXTENSIONS = {'.md', '.mdc', '.sh', '.js', '.mjs', '.ts', '.tsx', '.py', '.json', '.toml', '.yaml', '.yml'}
 MAX_COMPATIBILITY = 500
+# Files an agent walking the directory tree reads as instructions for the project
+# it is working in, not as this skill's reference material.
+AGENT_INSTRUCTIONS = {'AGENTS.md', 'CLAUDE.md', 'GEMINI.md', '.cursorrules', '.windsurfrules'}
+ROUTING_VERB = re.compile(r'\b(?:use|uses|using|load|loads|loading|see|prefer|'
+                          r'switch to|chain to|route|routes|delegate|escalate)\b', re.IGNORECASE)
+# 'prefers' is excluded on purpose: it would match inside `prefers-reduced-motion`.
+SKILL_TOKEN = re.compile(r'`([a-z0-9]+(?:-[a-z0-9]+)+)`')
 
 
 def fail(errors, skill, message):
@@ -153,6 +169,39 @@ def resource_links(text):
     return sorted(set(link.strip('<>') for link in links))
 
 
+def skill_pointers(text):
+    """Backticked skill-shaped tokens on lines that send the agent somewhere else.
+
+    Deliberately narrow, because a hyphenated token is not by itself a claim that
+    a skill exists: `prefers-reduced-motion` in a rule is not a route, while
+    "Load `motion-design`" is. Only a routing verb on the same line promotes the
+    token to a pointer. A term that reads like a route but is not one should be
+    rephrased rather than added to an allowlist.
+    """
+    found = set()
+    for line in without_fences(text).splitlines():
+        if ROUTING_VERB.search(line):
+            found.update(SKILL_TOKEN.findall(line))
+    return found
+
+
+def unreachable_resources(skill, text):
+    """Bundled files that SKILL.md never names, by path or by parent directory.
+
+    Reachability is a weaker claim than a live link: it is satisfied anywhere in
+    the document, fenced examples included, because the point is only that a
+    reader is told the file is there. Liveness is validate_link's job.
+    """
+    for path in sorted(skill.rglob('*')):
+        if not path.is_file() or path.name == 'SKILL.md':
+            continue
+        relative = path.relative_to(skill).as_posix()
+        parent = path.parent.relative_to(skill).as_posix()
+        if relative in text or (parent != '.' and f'{parent}/' in text):
+            continue
+        yield relative
+
+
 def validate_link(doc, link, skills_root, errors):
     label = str(doc.relative_to(skills_root))
     try:
@@ -167,6 +216,8 @@ def validate_link(doc, link, skills_root, errors):
         return
     path = unquote(parsed.path)
     if not path:
+        return
+    if path.startswith(SKILL_OWNED_ONLY) and not (doc.parent / path.split('/')[0]).is_dir():
         return
     # Bare sibling resource pointers are relative to skills/, Markdown ../ links
     # are relative to the document. All targets must stay in the skill catalog.
@@ -201,12 +252,20 @@ def validate_skill(skill, errors):
         fail(errors, skill.name, 'frontmatter name differs from directory')
     for link in resource_links(text):
         validate_link(doc, link, skill.parent, errors)
+    shipped = {p.name for p in skill.parent.iterdir() if p.is_dir() and not p.name.startswith('.')}
+    for pointer in sorted(skill_pointers(text) - shipped):
+        fail(errors, skill.name, f'routes to skill {pointer!r}, which this library does not ship')
+    for orphan in unreachable_resources(skill, text):
+        fail(errors, skill.name, f'{orphan!r} is unreachable from SKILL.md')
     for path in skill.rglob('*'):
         if path.is_symlink():
             fail(errors, skill.name, f'symlink in skill tree: {path.relative_to(skill)}')
         elif path.is_file():
             if path.name == 'SKILL.md' and path != doc:
                 fail(errors, skill.name, 'nested SKILL.md leaks into discovery')
+            if path.name in AGENT_INSTRUCTIONS:
+                fail(errors, skill.name,
+                     f'nested agent instructions {path.relative_to(skill).as_posix()!r} leak into discovery')
             if path.suffix not in EXTENSIONS:
                 fail(errors, skill.name, f'unexpected file type {path.name!r}')
 

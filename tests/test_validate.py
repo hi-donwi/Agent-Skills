@@ -158,6 +158,64 @@ class ValidationTests(unittest.TestCase):
         self.write(body='`references/../../sibling/guide.md`')
         self.assertTrue(self.errors())
 
+    def test_routes_to_skill_the_library_does_not_ship(self):
+        self.write(body='Load `motion-design` before adding animation.')
+        self.assertTrue(any('does not ship' in error for error in self.errors()))
+
+    def test_routes_to_a_shipped_sibling_skill(self):
+        (self.skills/'motion-design').mkdir()
+        self.write(body='Load `motion-design` before adding animation.')
+        self.assertEqual([], self.errors())
+
+    def test_hyphenated_term_is_not_a_route_without_a_routing_verb(self):
+        # Regression: a verb pattern containing 'prefers' matched inside the token.
+        for body in ['- Always implement `prefers-reduced-motion` behavior.', '`prefers-reduced-motion`']:
+            with self.subTest(body=body):
+                self.write(body=body)
+                self.assertEqual([], self.errors())
+
+    def test_routing_pointer_inside_a_fence_is_not_a_route(self):
+        self.write(body='```md\nLoad `motion-design` first.\n```')
+        self.assertEqual([], self.errors())
+
+    def test_nested_agent_instructions_are_rejected(self):
+        for name in ['AGENTS.md', 'CLAUDE.md', 'GEMINI.md']:
+            with self.subTest(name=name):
+                target = self.skill/name
+                target.write_text('# instructions')
+                self.write(body=f'`{name}`')
+                self.assertTrue(any('nested agent instructions' in error for error in self.errors()))
+                target.unlink()
+
+    def test_unreachable_resource_is_rejected(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/orphan.md').write_text('# Orphan')
+        self.write()
+        self.assertTrue(any('unreachable from SKILL.md' in error for error in self.errors()))
+
+    def test_resource_is_reachable_by_path_or_by_parent_directory(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/guide.md').write_text('# Guide')
+        (self.skill/'adapters').mkdir()
+        (self.skill/'adapters/cursor-rule.mdc').write_text('rule')
+        for body in ['`references/guide.md` and `adapters/cursor-rule.mdc`',
+                     '`references/guide.md` and the `adapters/` snippets']:
+            with self.subTest(body=body):
+                self.write(body=body)
+                self.assertEqual([], self.errors())
+
+    def test_docs_resource_resolves_when_the_skill_ships_one(self):
+        (self.skill/'docs').mkdir()
+        (self.skill/'docs/real.md').write_text('# Real')
+        self.write(body='`docs/real.md`')
+        self.assertEqual([], self.errors())
+        self.write(body='`docs/real.md` and `docs/missing.md`')
+        self.assertTrue(any('dead resource' in error for error in self.errors()))
+
+    def test_bare_docs_path_is_a_project_path_not_a_bundled_resource(self):
+        self.write(body='Record the decision in `docs/adr/`.')
+        self.assertEqual([], self.errors())
+
     def test_malformed_url_is_diagnostic(self):
         self.write(body='[Bad](https://[invalid)')
         self.assertTrue(self.errors())

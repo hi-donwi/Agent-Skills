@@ -82,10 +82,11 @@ jobs:
           exit $fail
 
   # reindex counts files and CI checks frontmatter, but neither notices a
-  # quoted resource path that resolves to nothing. A dead reference sends the
-  # consumer of a skill to a file that does not exist, so resolution is its
-  # own gate: frontmatter agreement, references/ and examples/ paths,
-  # cross-skill pointers, template discovery leaks, and file types.
+  # quoted resource path that resolves to nothing. Everything a reader is told
+  # to follow is this gate's business: frontmatter agreement, bundled resource
+  # paths, routes to other skills, files that pose as agent instructions for
+  # the surrounding project, bundled files nothing points at, template
+  # discovery leaks, and file types.
   resources:
     runs-on: ubuntu-latest
     steps:
