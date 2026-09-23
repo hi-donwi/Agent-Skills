@@ -59,4 +59,4 @@ write Gherkin BDD specs as source of truth, then implement one scenario at a tim
   for prompt-to-3D scaffolding.
 
 For deeper background and sources, see `../references/handbook.md` and
-`../references/workflow-handbook.md`. Scroll hero video: `../../motion-design/references/scroll-video.md`.
+`../references/workflow-handbook.md`.

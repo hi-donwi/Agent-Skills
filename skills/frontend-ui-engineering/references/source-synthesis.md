@@ -52,9 +52,9 @@ sources. It is not a verbatim copy of upstream skill content.
 
 8. **Three.js/WebGL requires specialist handling.** The Three.js sources split
    knowledge into fundamentals, geometry, materials, lighting, textures,
-   animation, loaders, shaders, postprocessing, and interaction. The local
-   `threejs-webgl` skill handles those tasks rather than leaving them as generic
-   frontend work.
+   animation, loaders, shaders, postprocessing, and interaction. This library
+   ships no 3D skill, so treat that depth as project-owned material rather than
+   generic frontend work.
 
 9. **Agent skills should remain progressively disclosed.** Garden Skills and the
    skillstack repos use compact `SKILL.md` files with deeper references. This
@@ -69,8 +69,6 @@ sources. It is not a verbatim copy of upstream skill content.
 ## Practical Triggers
 
 - Use this skill for any component or page that a user can see.
-- Chain to `motion-design` when the interface moves.
-- Chain to `threejs-webgl` when canvas/WebGL/3D enters the implementation.
 - Chain to `webapp-testing` when a real browser flow needs verification.
 - Chain to `performance-optimization` when Core Web Vitals or runtime jank is
   the primary problem.

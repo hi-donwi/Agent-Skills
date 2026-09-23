@@ -34,7 +34,7 @@ writes, edits files, runs terminal commands, and iterates — not typing code li
 
 | Phase | Approach | Skills to chain |
 |---|---|---|
-| Prototype / demo | Vibe coding — modular prompts, UI-first, fast iteration | `web-development`, `frontend-ui-engineering`, `motion-design` |
+| Prototype / demo | Vibe coding — modular prompts, UI-first, fast iteration | `web-development`, `frontend-ui-engineering` |
 | Production / scale | Spec-driven — Gherkin BDD as source of truth; code is disposable | `spec-driven-development`, `test-driven-development`, `security-hardening`, `observability` |
 
 ### Reality check (manage expectations)
@@ -234,8 +234,6 @@ Evolution: CLAUDE.md grows too large → split into Skills.
 |---|---|
 | Scaffold or redesign a site with an AI agent | `web-development` |
 | Polish UI, design system, a11y | `frontend-ui-engineering` |
-| Add or audit motion / scroll effects | `motion-design` |
-| Build or review 3D / WebGL scenes | `threejs-webgl` |
 | E2E or browser verification | `webapp-testing` |
 | Core Web Vitals / Lighthouse | `web-perf` or `performance-optimization` |
 | Production feature with unclear requirements | `spec-driven-development` |
@@ -244,9 +242,7 @@ Evolution: CLAUDE.md grows too large → split into Skills.
 
 ```markdown
 ## Agent skills to load
-Before 3D work: read threejs-webgl skill.
 Before UI polish: read frontend-ui-engineering skill.
-Before motion: read motion-design skill.
 Before E2E: read webapp-testing skill.
 
 ## Workflow
@@ -383,7 +379,6 @@ One concern per prompt. Never one-shot an entire app. Full templates:
 - [ ] LCP not blocked by Canvas (defer/lazy load)
 - [ ] Resize handler for responsive canvas
 
-Scroll-driven 3D patterns: `../../threejs-webgl/references/scroll-3d.md`.
 
 ---
 
@@ -393,8 +388,8 @@ Scroll-driven 3D patterns: `../../threejs-webgl/references/scroll-3d.md`.
 |---|---|
 | Generic/template site | Visual taste, explicit design tokens |
 | Agent error loop | Modular prompts, debug delegation |
-| 3D lag on mobile | `threejs-webgl` performance, model optimization |
-| Motion feels nauseating | `motion-design` frequency gate |
+| 3D lag on mobile | model optimization and draw-call budget (project-owned) |
+| Motion feels nauseating | the frequency gate in this skill's Motion notes |
 | Production breaks on update | `spec-driven-development`, tests, observability |
 | Security incident | `security-hardening`, secrets review |
 | Feels fast but is slow | Perception gap — measure with metrics |

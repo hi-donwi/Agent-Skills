@@ -30,10 +30,6 @@ small, testable steps — not from one giant "build me a website" prompt.
 ## Related Specialist Skills
 - Use `frontend-ui-engineering` for production UI craft: components, design systems,
   responsive behavior, accessibility, visual polish, and UI review.
-- Use `motion-design` for transitions, micro-interactions, gestures, scroll effects,
-  or motion audits.
-- Use `threejs-webgl` for Three.js, React Three Fiber, WebGL, shaders, GLTF/GLB, and
-  interactive 3D scene verification.
 
 ## Process
 
@@ -143,7 +139,10 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
 ```
 
 ## Immersive 3D notes
-- Load `threejs-webgl` before writing or reviewing 3D scene code.
+
+This library ships no dedicated 3D skill; the notes below are the whole of its
+3D guidance. Treat anything deeper as project-owned material.
+
 - Describe spatial intent: camera sweep, lighting (e.g. "clustered lighting as studio softboxes").
 - Tie 3D rotation / camera movement to scroll with GSAP ScrollTrigger or Framer Motion 3D.
 - Generate `.glb`/`.gltf` assets, then have the agent import and render them.
@@ -161,7 +160,10 @@ Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture 
   then apply `debugging/references/playbook.md` if the failure is outside the video path.
 
 ## Motion notes
-- Load `motion-design` before adding or auditing meaningful UI animation.
+
+This library ships no dedicated motion skill; the notes below are the whole of
+its motion guidance.
+
 - Apply the frequency gate: repeated productivity actions should be fast or static,
   while rare brand moments can be more expressive.
 - Always implement `prefers-reduced-motion` behavior.

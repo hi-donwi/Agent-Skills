@@ -54,7 +54,7 @@ do not stack unverified patches.
 
 ## Domain notes: scroll hero video
 
-From production `SmoothHeroVideo` + ffmpeg pipeline (`motion-design/references/scroll-video.md`):
+From a production `SmoothHeroVideo` + ffmpeg pipeline:
 
 | Issue | Quick check |
 |---|---|
