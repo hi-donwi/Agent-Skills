@@ -1,10 +1,10 @@
-# Reusability Standards (workspace pattern)
+# Reusability standards
 
-Applies to **all projects**. See `AGENTS.md` → _Architecture Conventions — Reusability Standards_
-for the full specification. This reference covers implementation patterns for each of the four
-classifications.
+The four-layer classification below is the whole specification — it is not a summary of a
+document kept somewhere else. It is framework-agnostic; the directory names are the common
+convention, and a project that names its layers differently maps onto the same four roles.
 
-## The Four Classifications
+## The four classifications
 
 | Category | Implementation | Directory |
 |---|---|---|

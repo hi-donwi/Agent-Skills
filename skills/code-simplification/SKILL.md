@@ -56,7 +56,8 @@ After completing a simplification pass:
 - [ ] No dead code was left behind (unused imports, unreachable branches)
 - [ ] A teammate or review agent would approve the change as a net improvement
 - [ ] Architecture classification is correct — extracted code lands in the right layer
-  (Component / Hook / Utility / Service per `AGENTS.md` → Reusability Standards)
+  (Component renders, Hook owns state and effects, Utility stays pure, Service
+  talks to APIs and owns business workflows)
 
 ## References
 - `references/simplification-patterns.md` — opportunity tables, language examples, rationalizations

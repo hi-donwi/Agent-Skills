@@ -125,7 +125,7 @@ add client-side motion and 3D only where it materially improves the experience.
 - Every 3D scene needs equivalent text and a static fallback image.
 
 ## Reusability standards
-Apply the workspace architecture conventions (see `AGENTS.md` → _Architecture Conventions_):
+Four layers, each with one job:
 - Components = UI rendering only; no business logic, no API calls.
 - Hooks = reusable state/effect logic (`use` prefix, `hooks/` directory).
 - Utilities = stateless pure functions (`utils/` or `helpers/`).

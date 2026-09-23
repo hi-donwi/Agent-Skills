@@ -33,8 +33,9 @@ Evaluate a change against multiple axes and return specific, prioritized, action
 5. **Prefer concrete suggestions** over vague critique.
 
 ## Architecture review (reusability standards)
-The workspace defines four classifications for reusable code (see `AGENTS.md` →
-_Architecture Conventions_). During review, flag violations:
+Reusable code falls into four layers — Component (UI rendering), Hook (state and
+effects), Utility (pure functions), Service (business workflows and API calls).
+During review, flag violations:
 
 | Violation | Should Be |
 |---|---|
