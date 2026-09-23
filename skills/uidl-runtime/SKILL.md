@@ -11,6 +11,7 @@ description: >-
   produce UIDL (quarkus-service, rest-api-contract).
 metadata:
   pack: web
+  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry
 ---
 
 # UIDL Runtime

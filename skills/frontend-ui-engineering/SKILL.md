@@ -11,6 +11,7 @@ description: >-
   backend-only changes, or schema-driven UIDL documents (uidl-runtime).
 metadata:
   pack: web
+  keywords: component, ui, interface, react, jsx, tsx, vue, svelte, page, dashboard, card, modal, dialog, button, loading state, empty state, error state, skeleton, design system adherence, component library, storybook, reuse, decompose, hook, presentation
 ---
 
 # Frontend UI Engineering
@@ -58,16 +59,13 @@ Do not use for schema-driven UIDL documents (`uidl-runtime`).
 - Tiny one-use subcomponents that add navigation cost without improving cohesion
 - Private component-family details exported as public API
 - Domain-specific components prematurely placed in the app-wide `components/ui/` directory
-- Flat component directories with unrelated files or deeply nested directories without clear scope
-- Inline styles or arbitrary pixel values
-- Missing error states, loading states, or empty states
-- No keyboard navigation testing
-- Color as the sole indicator of state (red/green without text or icons)
+- Flat directories of unrelated files, or deep nesting with no clear scope
+- Inline styles, arbitrary pixel values, or colour as the only indicator of state
+- Missing error, loading, or empty states; no keyboard navigation tested
 - Generic "AI look" (purple gradients, oversized cards, stock layouts)
 - Business logic or API calls inside Components (extract to Hook or Service)
 - Duplicated state/effect patterns across Components (extract to shared Hook)
-- Inline utility logic in Components or Hooks (extract to `utils/`)
-- Mixing presentation with domain logic in the same file
+- Presentation mixed with domain logic, or inline utility logic left in place
 
 ## Verification
 

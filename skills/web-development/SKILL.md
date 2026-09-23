@@ -14,6 +14,7 @@ description: >-
   pure backend/data/infra services with no web front-end.
 metadata:
   pack: web
+  keywords: website, web app, scaffold, next.js, nextjs, astro, vibe coding, cursor, v0, bolt, lovable, replit, stack, tailwind, shadcn, marketing site, saas, landing page, three.js, webgl, 3d, motion, framer
 ---
 
 # Web Development

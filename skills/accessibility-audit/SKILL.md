@@ -11,6 +11,7 @@ description: >-
   page-load performance (web-perf).
 metadata:
   pack: web
+  keywords: accessibility, a11y, wcag, screen reader, keyboard, focus, aria, contrast, alt text, landmark, heading order, axe, lighthouse accessibility, voiceover, nvda, talkback, reduced motion, forced colors, tab order, focus trap, audit
 ---
 
 # Accessibility Audit

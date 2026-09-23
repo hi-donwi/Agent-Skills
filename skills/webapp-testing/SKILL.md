@@ -7,6 +7,7 @@ description: >-
   pure unit/logic testing (use test-driven-development) or for load testing.
 metadata:
   pack: web
+  keywords: e2e, end to end, playwright, browser test, ui test, integration test browser, reproduce bug, selenium, cypress, click through, user flow test, headless
 ---
 
 # Webapp Testing
