@@ -53,6 +53,7 @@ Route by the user's intended outcome and the installed catalog, then load detail
 | Commit or organize branches | git-workflow | changelog-generator for release notes |
 | Change build or deployment gates | ci-cd | stack-specific delivery skill |
 | Build a UI | frontend-ui-engineering | design-tokens, responsive-layout, webapp-testing |
+| Place or untangle frontend state | frontend-state | frontend-ui-engineering |
 | Build or fix a form | forms-and-validation | accessibility-audit |
 | Check a surface is accessible | accessibility-audit | responsive-layout for reflow |
 | Author or change a UIDL document or runtime | uidl-runtime | frontend-ui-engineering for non-UIDL UI |

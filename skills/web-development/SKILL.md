@@ -39,6 +39,7 @@ The stack and the workflow are this skill's business; the interface is not.
 | Palette, type scale, theming, dark mode | `design-tokens` |
 | Container queries, fluid type, breakpoints, RTL | `responsive-layout` |
 | Inputs, validation, submit states | `forms-and-validation` |
+| Where state belongs, server data vs client state | `frontend-state` |
 | Verifying the built result against WCAG | `accessibility-audit` |
 
 ## Process

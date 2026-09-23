@@ -4,13 +4,17 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-47 skills, grouped into packs. Nothing here is specific to one company,
-client, or codebase.
+48 skills, grouped into packs. Nothing here names a company, a client, or a private
+codebase. Skills may be specific to a **technology** — that is what a pack is: `java` is
+Quarkus and Panache, `uidl-runtime` is the UIDL package and its spec. The line is whether
+someone outside this organisation, using that technology, could pick the skill up
+unchanged.
 
 ## Why a separate repository
 
 A skill is knowledge about *how to do a kind of work*. It outlives any one project and it
-is worth sharing between them. Keeping skills in their own repository means one version,
+is worth sharing between them — including work tied to a particular stack, which is why
+some packs are named after one. Keeping skills in their own repository means one version,
 one history, and one place to improve them — and lets a workspace pull **only the packs it
 needs** rather than carrying all of them.
 
@@ -77,6 +81,7 @@ browser.
 | [`accessibility-audit`](skills/accessibility-audit/SKILL.md) | asked to check or fix accessibility, when a11y bugs or complaints arrive, before shipping a user-facing surface, or when an automated scan reports… |
 | [`design-tokens`](skills/design-tokens/SKILL.md) | starting a UI with no declared design system, when hardcoded colours or pixel values are spreading, when adding dark mode or a second theme, or… |
 | [`forms-and-validation`](skills/forms-and-validation/SKILL.md) | building or fixing any form, input, validation rule, or error display, when a submit can be fired twice, or when form errors are invisible to… |
+| [`frontend-state`](skills/frontend-state/SKILL.md) | choosing between useState, context, a URL param, a query cache and a global store, when a component re-renders too much, when the same fact is… |
 | [`frontend-ui-engineering`](skills/frontend-ui-engineering/SKILL.md) | building or modifying user-facing interfaces, components, or stateful interactions |
 | [`responsive-layout`](skills/responsive-layout/SKILL.md) | a component must work in more than one context, when a layout breaks at a width or at large text, when adding breakpoints, or when a design must… |
 | [`uidl-runtime`](skills/uidl-runtime/SKILL.md) | creating or changing a UIDL document, the document schema, DataAdapter seam, $bind/$query/$expr/mutate behaviour, uidl-validate, or uidl-compile |

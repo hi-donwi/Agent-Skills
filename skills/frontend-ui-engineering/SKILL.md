@@ -34,13 +34,14 @@ Do not use for schema-driven UIDL documents (`uidl-runtime`).
 | No declared palette, scale, or theme | `design-tokens` |
 | Sizing, container queries, breakpoints, RTL | `responsive-layout` |
 | Inputs, validation, submit states | `forms-and-validation` |
+| Where a piece of state belongs, or untangling it | `frontend-state` |
 | Verifying the built result against WCAG | `accessibility-audit` |
 
 ## Process
 1. **Confirm it is hand-built UI.** If the screen is a UIDL JSON document, stop and use `uidl-runtime`.
 2. **Discover before inventing.** Grep the project's primitives, page-kit, and Storybook. Reuse or extend before adding a new component. See `references/component-reuse.md`.
 3. **Colocate, then decompose by responsibility.** Keep a small component in one file. Create a family directory when tests, stories, hooks, or subcomponents appear. Split when a file mixes visual regions, state, and data adaptation — 200 lines is a review threshold, not a target. Placement and composition: `references/component-structure.md`.
-4. **Choose the simplest state.** Local state → lifted → context (read-heavy) → URL (shareable) → server cache → global store. Avoid prop drilling deeper than 3 levels.
+4. **Choose the simplest state.** Local → lifted → URL (shareable) → server cache → context (read-heavy) → store; stop at the first rung that works, and avoid prop drilling deeper than three levels. Anything beyond that choice: `frontend-state`.
 5. **Declare the design system before writing UI, then match it.** An undeclared design
    system is decided one component at a time, which is how the generic AI palette gets in.
    Load `design-tokens` if none is declared. Sizing and breakpoints: `responsive-layout`.
