@@ -252,6 +252,15 @@ class ValidationTests(unittest.TestCase):
         (self.skill/'references/guide.md').write_text('Clean prose.')
         self.assertEqual([], self.errors())
 
+    def test_oversized_skill_entry_point_is_rejected(self):
+        self.write(body='\n'.join(f'line {n}' for n in range(validator.MAX_SKILL_LINES)))
+        self.assertTrue(any('the ceiling is' in error for error in self.errors()))
+
+    def test_entry_point_at_the_ceiling_is_accepted(self):
+        header = len(self.skill.joinpath('SKILL.md').read_text().splitlines())
+        self.write(body='\n'.join(f'line {n}' for n in range(validator.MAX_SKILL_LINES - header - 1)))
+        self.assertEqual([], self.errors())
+
     def test_malformed_url_is_diagnostic(self):
         self.write(body='[Bad](https://[invalid)')
         self.assertTrue(self.errors())

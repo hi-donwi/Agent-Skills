@@ -105,6 +105,13 @@ skills/<name>/
 └── references/         loaded only when SKILL.md is not enough
 ```
 
+**One shape, enforced.** `SKILL.md` is at most **100 lines**; the skills here sit at
+40-80. It is a context budget rather than a style rule: the entry point is loaded in
+full on every match, so depth kept there is paid for by every task that did not need
+it. Anything conditional or worked-through belongs in `references/`, which an agent
+opens only when it must. A skill that cannot state its process in 80 lines is usually
+two skills, or one skill whose references have not been written yet.
+
 Required frontmatter: `name` and `description`, plus this library's `metadata.pack`
 (`core`, `agent`, `web`, or `java`). The description should say **when to use it**
 and, where it helps, when *not* to — that sentence is what routing matches on.
@@ -136,9 +143,11 @@ python3 -B -m unittest discover -s tests -v
 ```
 
 The validator checks canonical metadata, name and description limits, known packs,
-allowed spec fields, local entrypoint links, resource paths, symlink escapes,
-nested discovery leaks, and agreement between the source, index, and README
-catalog. The regression suite uses disposable catalogs; it needs no network,
+allowed spec fields, the 100-line entry-point ceiling, links and resource paths in
+every reachable document, routes to skills the library does not ship, files that pose
+as agent instructions for the surrounding project, bundled files nothing points at,
+private-use characters left behind by another assistant, symlink escapes, nested
+discovery leaks, and agreement between the source, index, and README catalog. The regression suite uses disposable catalogs; it needs no network,
 credentials, or third-party packages.
 
 Required metadata follows the reindex format: unquoted single-line `name`, a
@@ -146,10 +155,11 @@ plain single-line or folded (`>` / `>-`) `description`, and `metadata.pack` as a
 block mapping. Optional spec fields (`license`, `compatibility`, `allowed-tools`,
 extra string keys under `metadata`) are allowed in the same plain-text form.
 The validator is not a general YAML parser; flow-style values are rejected.
-Local links are checked in SKILL.md outside fenced examples, including inline
-Markdown links, reference definitions, and backtick resource paths. Remote links,
-anchor existence, supporting-document links, and arbitrary CommonMark syntax are
-outside this check's coverage.
+Local links are checked in every `.md` and `.mdc` in a skill tree, outside fenced
+examples, including inline Markdown links, reference definitions, and backtick
+resource paths. A bare `references/x.md` resolves against the skill, not against the
+document that names it. Remote links, Cursor's `mdc:` scheme, anchor existence, and
+arbitrary CommonMark syntax are outside this check's coverage.
 
 Behavioral evaluation is separate. Give an evaluator synthetic requests and the
 minimum necessary artifacts, keep expected outcomes out of its input, and record

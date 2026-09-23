@@ -71,105 +71,6 @@ small, testable steps — not from one giant "build me a website" prompt.
    load `spec-driven-development` — write Gherkin BDD specs as source of truth before
    generating implementation. See `references/workflow-handbook.md` (skill routing section).
 
-## Recommended default stack
-
-| Layer | Default | Notes |
-|---|---|---|
-| Framework | **Next.js (App Router) + TypeScript** | React 19; Server Components by default; Client only when interactivity needs it |
-| Content-heavy / editorial | **Astro** | HTML-first with selective islands |
-| Styling | **Tailwind CSS v4** | Layout + design tokens — shared language with the agent |
-| UI kit | **shadcn/ui** | Component variants, a11y states |
-| 3D / immersive | **React Three Fiber + Drei** | Keep all WebGL in `components/scene/*`; dynamic import, `ssr: false` |
-| Motion | **Framer Motion** or **GSAP + ScrollTrigger** | GSAP/ScrollTrigger for scroll-driven 3D narratives |
-| Deploy | **Vercel** or **Cloudflare Workers** | |
-| CI / quality | **Playwright + Lighthouse CI + GitHub Actions** | Enforce budgets in CI |
-
-Guiding principle for premium sites: **server-first rendering plus selective enhancement** —
-add client-side motion and 3D only where it materially improves the experience.
-
-## Choosing the right tool
-
-| Goal | Tool | Typical time |
-|---|---|---|
-| UI demo / meeting tomorrow | **v0** (Vercel) | ~4 hours |
-| MVP full-stack weekend | **Lovable**, **Bolt.new**, **Base44** | ~7–8 hours |
-| Production codebase | **Cursor**, **Claude Code**, **Windsurf** | 5–12 hours |
-| Award-style 3D portfolio | **Cursor** + manual R3F/GSAP | 2–5 days |
-| 3D scene scaffolding | Three.js / R3F via coding agent | varies |
-
-- **UI components / rapid prototyping:** v0 (Vercel).
-- **Full-stack no/low-code, hosted iteration:** Bolt.new, Lovable, Replit Agent.
-- **Deep, production codebase work:** Cursor, Windsurf, Claude Code (full architecture control).
-- **3D scene generation:** Three.js / R3F via a coding agent; specialized tools (Omma, Emergent)
-  for prompt-to-3D scaffolding.
-
-## Agent rules block (copy into the project's rules file)
-
-```
-## Stack rules
-- Use Next.js App Router with TypeScript.
-- Prefer Server Components unless interactivity clearly requires a Client Component.
-- Use Tailwind CSS for layout and tokens.
-- Keep WebGL code inside components/scene/*.
-
-## Quality gates
-- pnpm lint
-- pnpm test
-- pnpm test:e2e
-- pnpm lhci
-
-## Performance budgets
-- Keep route JS lean.
-- LCP < 2.5s.  INP < 200ms.  CLS < 0.1.
-
-## Accessibility
-- Respect prefers-reduced-motion.
-- Every 3D scene needs equivalent text and a static fallback image.
-
-## Reusability standards
-Four layers, each with one job:
-- Components = UI rendering only; no business logic, no API calls.
-- Hooks = reusable state/effect logic (`use` prefix, `hooks/` directory).
-- Utilities = stateless pure functions (`utils/` or `helpers/`).
-- Services = business workflows, API integrations (`services/`).
-- Never inline API calls in components; never duplicate hook logic in pages.
-
-## Review expectations
-- Do not add new dependencies without justification.
-- Prefer editing existing components over creating new abstractions.
-- Include tests for interaction changes.
-```
-
-## Immersive 3D notes
-
-This library ships no dedicated 3D skill; the notes below are the whole of its
-3D guidance. Treat anything deeper as project-owned material.
-
-- Describe spatial intent: camera sweep, lighting (e.g. "clustered lighting as studio softboxes").
-- Tie 3D rotation / camera movement to scroll with GSAP ScrollTrigger or Framer Motion 3D.
-- Generate `.glb`/`.gltf` assets, then have the agent import and render them.
-- Verify the canvas in a real browser; check nonblank pixels, framing, resize behavior,
-  interaction, and mobile performance.
-
-## Scroll-synced hero video
-- Load `web-development` scroll-video guidance below for pre-rendered scroll MP4 heroes.
-- Inspect the project's existing video encoding command before use. If an all-keyframe
-  encode is needed, verify the installed ffmpeg options and add a project-owned script;
-  this skill does not bundle a video encoder.
-- Wire through `SmoothHeroVideo`-style component: scroll layer + optional idle layer, posters,
-  `mediaUrl()` for CDN/R2, `heroLayout` object-position per demo.
-- On bugs: isolate poster-only vs scroll vs idle using the Scroll-synced hero video steps here,
-  then apply `debugging/references/playbook.md` if the failure is outside the video path.
-
-## Motion notes
-
-This library ships no dedicated motion skill; the notes below are the whole of
-its motion guidance.
-
-- Apply the frequency gate: repeated productivity actions should be fast or static,
-  while rare brand moments can be more expressive.
-- Always implement `prefers-reduced-motion` behavior.
-
 ## Verification
 - Lint, unit tests, and e2e pass for the changed surface
 - LCP / INP / CLS budgets in the project rules still hold
@@ -181,20 +82,15 @@ its motion guidance.
 - "Impressive-looking" UI with no performance discipline or tests.
 - Adding 3D/motion everywhere instead of where it earns its cost.
 
-## Bundle contents (load when you need depth)
-- `docs/workflow.md` — the Context → Prompt → Run → Edit workflow and tool selection.
-- `docs/coding-standards.md` — enforceable stack rules, quality gates, budgets, a11y, review.
-- `docs/design-principles.md` — the "coding vibe" look, immersive 3D, anti-patterns.
-- `examples/` — `good-component.tsx`, `bad-component.tsx`, `prompt-examples.md`.
-- `templates/` — `page-template.md`, `component-template.md`.
-- `scripts/check-project.js` — audit a project against the coding standards.
-- `scripts/generate-component.js` — scaffold a standards-compliant component.
-- `adapters/` — native rule files for Cursor, Copilot, Gemini CLI, and Aider.
-- `agents/openai.yaml` — Codex implicit-invocation hint.
-- `README.md` — map of this bundle.
-- `references/quick-guide.md` · `references/handbook.md` — original long-form source material.
-- `references/workflow-handbook.md` — paradigm, skill routing, tool matrix, budgets,
-  skill-gap red flags, learning path.
-- `examples/prompts.md` — copy-paste prompts by phase and tool.
-- `-` scroll-video guidance (this skill, Scroll-synced hero video section) — ffmpeg hero
-  video pipeline + component patterns.
+## References and bundle
+Load for depth; the entry point above is enough for most turns.
+
+- `references/stack-and-tooling.md` - default stack and tool matrix (dated by nature; verify before relying on it)
+- `references/agent-rules-block.md` - the block to copy into the project's own rules file
+- `references/motion-and-3d.md` - motion, WebGL scenes, scroll-synced hero video
+- `references/workflow-handbook.md` - paradigm, skill routing, budgets, skill-gap red flags
+- `references/quick-guide.md` and `references/handbook.md` - the short and long form source material
+- `docs/workflow.md`, `docs/coding-standards.md`, `docs/design-principles.md` - workflow, enforceable standards, the look
+- `examples/` and `templates/` - good and bad components, prompts, page and component scaffolds
+- `scripts/check-project.js` - audit a project; `scripts/generate-component.js` - scaffold one
+- `adapters/` - native rule files per agent; `agents/openai.yaml` - Codex hint; `README.md` - bundle map

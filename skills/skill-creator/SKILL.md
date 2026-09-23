@@ -30,8 +30,13 @@ Author focused workflows in the source library so consumers can restore a review
    top-level plain scalars; extra string keys go under `metadata`. Do not put
    YAML comments in the frontmatter — the validator is not a general YAML parser.
 4. Start with Overview, When to use, Process, Red flags, and Verification. Keep
-   only instructions that change decisions; use references for substantial conditional
-   detail. Target a concise entry point and stay below 500 lines.
+   only instructions that change decisions; everything conditional or worked-through
+   goes in `references/`. **One shape, enforced: SKILL.md is at most 100 lines**, and
+   40-80 is where this library's skills actually sit. The limit is not a style
+   preference — SKILL.md is loaded in full on every match, so a 280-line entry point
+   spends an agent's context on detail the task did not ask for, which is the cost
+   progressive disclosure exists to avoid. A skill that cannot say its process in
+   80 lines is either two skills or one skill with references it has not written yet.
 5. Preserve the user's scope and authorization. Do not mandate repeated approval,
    paid tools, extra providers, or delegation as a side effect of loading a skill.
    Include a useful fallback when a nonessential capability is unavailable.

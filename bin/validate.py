@@ -35,6 +35,10 @@ SKILL_OWNED_ONLY = ('docs/',)
 PRIVATE_USE = re.compile(r'[\ue000-\uf8ff\U000f0000-\U0010fffd]')
 EXTENSIONS = {'.md', '.mdc', '.sh', '.js', '.mjs', '.ts', '.tsx', '.py', '.json', '.toml', '.yaml', '.yml'}
 MAX_COMPATIBILITY = 500
+# SKILL.md is loaded in full on every match, so its length is a context budget, not a
+# style question. The library sits at 40-80 lines; 100 is the ceiling, above which the
+# depth belongs in references/ that an agent loads only when it needs them.
+MAX_SKILL_LINES = 100
 # Files an agent walking the directory tree reads as instructions for the project
 # it is working in, not as this skill's reference material.
 AGENT_INSTRUCTIONS = {'AGENTS.md', 'CLAUDE.md', 'GEMINI.md', '.cursorrules', '.windsurfrules'}
@@ -264,6 +268,10 @@ def validate_skill(skill, errors):
     values = parse_frontmatter(text, skill.name, errors)
     if values.get('name') != skill.name:
         fail(errors, skill.name, 'frontmatter name differs from directory')
+    length = len(text.splitlines())
+    if length > MAX_SKILL_LINES:
+        fail(errors, skill.name,
+             f'SKILL.md is {length} lines; the ceiling is {MAX_SKILL_LINES} - move the depth into references/')
     # Every document a reader can reach, not just the entry point: a dead link in
     # a reference file misleads exactly the reader who went looking for depth.
     documents = [doc] + sorted(p for p in skill.rglob('*')

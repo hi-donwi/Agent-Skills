@@ -34,155 +34,22 @@ while writing.
 
 Do not argue about formatting in review. Spotless has already decided.
 
----
-
 ## Process
 
-### Record or class?
-
-**Record** for anything carrying data without identity: DTOs, parameter objects, return
-values, events. This is the default.
-
-**Class** only when mutable identity is required (a JPA entity) or the behaviour does not
-fit a record.
-
-```java
-public record CreateVendorRequest(
-        @NotBlank @Size(max = 200) String name,
-        @NotBlank @Pattern(regexp = "\\d{15,16}") String taxId,
-        @NotNull VendorType type) {}
-```
-
-A record may use a compact constructor for normalisation — but business validation stays in
-the service:
-
-```java
-public record PageRequest(int page, int size, String sortField, String sortDir) {
-    public PageRequest {
-        if (page < 0) page = 0;
-        size = Math.clamp(size, 1, 200);      // server-enforced cap
-    }
-}
-```
-
-### `Optional` or an exception?
-
-| Situation | Use |
-|---|---|
-| "Look it up, it may not exist" — an ordinary outcome | `Optional<T>` |
-| "Fetch by an ID that should exist" — absence is wrong | `throw NotFoundException` |
-| An empty collection | `List.of()` — **never** `null` |
-
-`Optional` is a **return type** only. Not a field, not a parameter.
-
-```java
-public Optional<Vendor> findByTaxId(String taxId) { ... }        // right
-public Vendor getById(Long id) { ... }                          // right, throws if absent
-public void update(Long id, Optional<String> name) { ... }      // wrong
-```
-
-### Which exception?
-
-Three, all extending `AppException`, all carrying an `ErrorCode`:
-
-```java
-throw new NotFoundException(ErrorCode.VENDOR_NOT_FOUND, "vendor id=" + id);
-throw new ValidationException(ErrorCode.VENDOR_TAX_ID_DUPLICATE, "taxId=" + taxId);
-throw new ConflictException(ErrorCode.ORDER_ALREADY_APPROVED, "id=" + id);
-```
-
-`ErrorCode` is an enum that is **stable forever** — the frontend branches on it. The message
-may change; the code may not.
-
-Exception messages target the **developer** and carry debugging context (IDs, values), but
-never sensitive data (passwords, confidential prices, document contents).
-
----
-
-## Expected patterns
-
-### Early returns, not nesting
-
-```java
-// WRONG — four levels deep
-public void process(Order p) {
-    if (p != null) {
-        if (p.status == DRAFT) {
-            if (p.amount != null) {
-                if (p.amount.compareTo(BigDecimal.ZERO) > 0) {
-                    send(p);
-                }
-            }
-        }
-    }
-}
-
-// RIGHT — flat, every rejection states its reason
-public void process(Order p) {
-    Objects.requireNonNull(p, "order");
-    if (p.status != DRAFT) {
-        throw new ConflictException(ErrorCode.ORDER_NOT_DRAFT, "id=" + p.id);
-    }
-    if (p.amount == null || p.amount.signum() <= 0) {
-        throw new ValidationException(ErrorCode.AMOUNT_INVALID, "id=" + p.id);
-    }
-    send(p);
-}
-```
-
-### Pattern-matching switch for state
-
-```java
-String label = switch (status) {
-    case DRAFT               -> "Draft";
-    case SUBMITTED           -> "Awaiting approval";
-    case APPROVED            -> "Approved";
-    case REJECTED, CANCELLED -> "Not proceeding";
-};
-```
-
-A switch over an enum without `default` makes the compiler flag any newly added enum
-constant that is not handled. **Do not add a `default`** just to satisfy the compiler —
-that throws away the safety net.
-
-### Text blocks for SQL
-
-```java
-private static final String SQL_SUMMARY = """
-        SELECT order_type, COUNT(*) AS total, SUM(amount) AS amount
-        FROM order
-        WHERE transaction_date BETWEEN ?1 AND ?2
-          AND deleted_at IS NULL
-        GROUP BY order_type
-        """;
-```
-
-### Money
-
-**`BigDecimal`, always.** Never `double` or `float`.
-
-```java
-BigDecimal total = price.multiply(BigDecimal.valueOf(quantity))
-                        .setScale(2, RoundingMode.HALF_UP);
-
-// compare with compareTo, not equals
-if (amount.compareTo(BigDecimal.ZERO) > 0) { ... }
-```
-
-`equals` on `BigDecimal` takes scale into account: `new BigDecimal("1.0")` does not equal
-`new BigDecimal("1.00")`. This is a comparison bug that is easy to miss in review.
-
-### Logging
-
-```java
-private static final Logger log = Logger.getLogger(VendorService.class);
-
-log.infof("vendor created id=%d taxId=%s", id, maskTaxId(taxId));
-```
-
-Parameterised, not concatenated. Never `System.out`. Never sensitive data.
-
----
+1. **Record by default.** Anything carrying data without identity — DTOs, parameter
+   objects, return values, events — is a `record`. A class is for something with identity
+   or mutable state, and you should be able to say which.
+2. **Return `Optional` for an absence the caller must handle; throw for a violated rule.**
+   `Optional` is a return type, never a field and never a parameter.
+3. **Throw a domain exception carrying an `ErrorCode`**, not a bare `RuntimeException`. An
+   empty `catch` and `printStackTrace` are both defects.
+4. **Never return `null` for a collection.** Return an empty one.
+5. **Early returns over nesting**, pattern-matching `switch` over `if` chains on state,
+   text blocks for SQL.
+6. **`BigDecimal` for money, compared with `compareTo`** — never `==`, never `equals`, and
+   never a `double`.
+7. **Log through the logger, never `System.out`**, and keep sensitive values out of both
+   log lines and exception messages.
 
 ## Naming
 
@@ -214,3 +81,7 @@ Parameterised, not concatenated. Never `System.out`. Never sensitive data.
 - [ ] No sensitive data in logs or exception messages
 - [ ] Every `TODO` carries a ticket ID
 - [ ] `./mvnw spotless:check` passes
+
+## References
+- `references/types-and-errors.md` - record or class, Optional or exception, which exception
+- `references/expected-patterns.md` - early returns, pattern-matching switch, text blocks, money, logging
