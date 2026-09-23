@@ -190,6 +190,8 @@ its motion guidance.
 - `scripts/check-project.js` — audit a project against the coding standards.
 - `scripts/generate-component.js` — scaffold a standards-compliant component.
 - `adapters/` — native rule files for Cursor, Copilot, Gemini CLI, and Aider.
+- `agents/openai.yaml` — Codex implicit-invocation hint.
+- `README.md` — map of this bundle.
 - `references/quick-guide.md` · `references/handbook.md` — original long-form source material.
 - `references/workflow-handbook.md` — paradigm, skill routing, tool matrix, budgets,
   skill-gap red flags, learning path.

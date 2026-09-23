@@ -68,3 +68,6 @@ descriptions when they match better; do not assume every listed skill was instal
 - Selected skills match the task and their actual resources resolve.
 - The workflow produces the requested result without unrelated actions.
 - Validation follows the repository's applicable completion criteria.
+
+## Reference Index
+- `references/skill-ecosystem-synthesis.md` — how published skill libraries are organised, and what that implies for selecting from one.

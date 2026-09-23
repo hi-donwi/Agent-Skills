@@ -54,3 +54,4 @@ Defensive only. Reduce attack surface and validate trust boundaries.
 
 ## Reference Index
 - `references/expanded-guidance.md` — deeper defensive security checklist, trust boundaries, secret handling, and hardening guidance.
+- `references/security-checklist.md` — review-mode checklist for a security pass.

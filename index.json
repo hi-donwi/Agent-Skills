@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T11:07:48Z",
+  "generated": "2026-09-23T11:08:43Z",
   "skills": [
     {"name": "agent-handoff", "pack": "agent", "path": "skills/agent-handoff/SKILL.md", "references": 0, "description": "Resume another agent's work or prepare a handoff with repository state, evidence, ownership, and next steps. Use after an interrupted session, an agent change, or explicitly requested parallel work. Do not use for general codebase onboarding."},
     {"name": "ai-tool-security", "pack": "agent", "path": "skills/ai-tool-security/SKILL.md", "references": 0, "description": "Review AI tool execution, prompt injection boundaries, and outbound data access. Use when configuring agent tools, MCP permissions, shell automation, or AI provider access. Do not use for general application authentication or dependency audits."},

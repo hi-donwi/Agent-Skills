@@ -58,3 +58,4 @@ Make production behavior visible enough to debug without guesswork.
 ## Reference Index
 
 - `references/expanded-guidance.md` — deeper structured logging, metrics, tracing, dashboards, alerts, and incident instrumentation guidance.
+- `references/observability-checklist.md` — review-mode checklist for an instrumented change.
