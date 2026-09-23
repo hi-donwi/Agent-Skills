@@ -8,8 +8,10 @@ description: >-
   vibe coding, AI-first IDEs (Cursor, Windsurf, Claude Code), prompt-to-app
   tools (v0, Bolt.new, Lovable, Replit), 3D web (Three.js / React Three Fiber),
   or wants opinionated stack/quality rules for agent-driven front-end work.
-  Do not use for native mobile apps, game engines, or pure backend/data/infra
-  services with no web front-end.
+  Do not use for the craft of a specific interface — components, design
+  systems, responsive behaviour, accessibility, visual review
+  (frontend-ui-engineering) — nor for native mobile apps, game engines, or
+  pure backend/data/infra services with no web front-end.
 metadata:
   pack: web
 ---

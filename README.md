@@ -41,7 +41,7 @@ Language-agnostic. How to plan, build, review, debug, ship, and keep a codebase 
 | [`git-workflow`](skills/git-workflow/SKILL.md) | committing, branching, writing commit/PR messages, resolving conflicts, or structuring a change for review |
 | [`incremental-implementation`](skills/incremental-implementation/SKILL.md) | implementing any feature or change that touches more than one file. you're about to write a large amount of code at once, or when a task feels too… |
 | [`observability`](skills/observability/SKILL.md) | shipping production code, diagnosing runtime behavior, or making systems operable |
-| [`performance-optimization`](skills/performance-optimization/SKILL.md) | performance requirements exist, when you suspect performance regressions, or when Core Web Vitals or load times need improvement. profiling… |
+| [`performance-optimization`](skills/performance-optimization/SKILL.md) | performance requirements exist, you suspect a regression, or profiling reveals a bottleneck that needs fixing |
 | [`planning-and-task-breakdown`](skills/planning-and-task-breakdown/SKILL.md) | you have a spec or clear requirements and need to break work into implementable tasks. a task feels too large to start, when you need to estimate… |
 | [`rest-api-contract`](skills/rest-api-contract/SKILL.md) | designing a new endpoint, aligning endpoints that have diverged, choosing a status code, shaping an error response, updating the OpenAPI spec, or… |
 | [`security-hardening`](skills/security-hardening/SKILL.md) | reviewing code for vulnerabilities, handling auth/input/untrusted data, before shipping anything internet-facing, or when secrets/keys are involved |

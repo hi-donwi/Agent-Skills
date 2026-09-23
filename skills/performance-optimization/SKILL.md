@@ -1,6 +1,6 @@
 ---
 name: performance-optimization
-description: Optimizes application performance. Use when performance requirements exist, when you suspect performance regressions, or when Core Web Vitals or load times need improvement. Use when profiling reveals bottlenecks that need fixing. Do not use for unverified speed rewrites, page-load audits (web-perf), or production telemetry design (observability).
+description: Optimizes application performance once profiling has shown where the time goes. Use when performance requirements exist, when you suspect a regression, or when profiling reveals a bottleneck that needs fixing. Do not use for unverified speed rewrites, for page-load and Core Web Vitals audits (web-perf), or for production telemetry design (observability).
 metadata:
   pack: core
 ---
