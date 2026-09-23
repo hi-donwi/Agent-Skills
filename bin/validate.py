@@ -28,6 +28,11 @@ RESOURCE = r'(?:references|examples|templates|scripts|assets|agents|docs)/'
 # usually has, so `docs/adr/` in prose is a project path. Only resolve it against
 # a skill that ships one.
 SKILL_OWNED_ONLY = ('docs/',)
+# Assistants that cite their sources wrap the citation in Unicode private-use
+# characters. Pasted into a skill they are invisible in most editors, survive
+# review, and ship as garbage: one reference here carried 89 of them. Nothing
+# legitimate in a prose skill needs this range.
+PRIVATE_USE = re.compile(r'[\ue000-\uf8ff\U000f0000-\U0010fffd]')
 EXTENSIONS = {'.md', '.mdc', '.sh', '.js', '.mjs', '.ts', '.tsx', '.py', '.json', '.toml', '.yaml', '.yml'}
 MAX_COMPATIBILITY = 500
 # Files an agent walking the directory tree reads as instructions for the project
@@ -202,14 +207,18 @@ def unreachable_resources(skill, text):
         yield relative
 
 
-def validate_link(doc, link, skills_root, errors):
+def validate_link(doc, link, skill, errors):
+    skills_root = skill.parent
     label = str(doc.relative_to(skills_root))
     try:
         parsed = urlsplit(link)
     except ValueError:
         fail(errors, label, f'malformed resource URL {link!r}')
         return
-    if parsed.scheme in ('https', 'http', 'mailto') or link.startswith(('#', '//')):
+    # `mdc:` is Cursor's own scheme for a workspace-relative rule link. It appears
+    # only in adapters/*.mdc, resolves inside the reader's editor rather than this
+    # tree, and so is out of this checker's reach the same way a URL is.
+    if parsed.scheme in ('https', 'http', 'mailto', 'mdc') or link.startswith(('#', '//')):
         return
     if parsed.scheme or Path(unquote(parsed.path)).is_absolute():
         fail(errors, label, f'nonportable local resource {link!r}')
@@ -217,17 +226,22 @@ def validate_link(doc, link, skills_root, errors):
     path = unquote(parsed.path)
     if not path:
         return
-    if path.startswith(SKILL_OWNED_ONLY) and not (doc.parent / path.split('/')[0]).is_dir():
+    if path.startswith(SKILL_OWNED_ONLY) and not (skill / path.split('/')[0]).is_dir():
         return
-    # Bare sibling resource pointers are relative to skills/, Markdown ../ links
-    # are relative to the document. All targets must stay in the skill catalog.
+    # Three bases, because authors write three different things. A sibling
+    # pointer (`debugging/references/playbook.md`) is relative to skills/. A bare
+    # resource pointer (`references/playbook.md`) is relative to the SKILL, not to
+    # the document — a reference file naming its neighbour writes the same path
+    # SKILL.md would. Everything else is relative to the document, as Markdown
+    # says. All targets must stay in the skill catalog.
     sibling = re.match(r'([a-z0-9-]+)/' + RESOURCE, path)
-    target = skills_root / path if sibling else doc.parent / path
+    bare = bool(re.match(RESOURCE, path))
+    target = skills_root / path if sibling else (skill / path if bare else doc.parent / path)
     try:
         resolved = target.resolve()
         resolved.relative_to(skills_root.resolve())
-        if re.match(RESOURCE, path):
-            resolved.relative_to(doc.parent.resolve())
+        if bare:
+            resolved.relative_to(skill.resolve())
         if not resolved.is_file():
             fail(errors, label, f'dead resource reference {link!r}')
     except (ValueError, RuntimeError, OSError):
@@ -250,8 +264,24 @@ def validate_skill(skill, errors):
     values = parse_frontmatter(text, skill.name, errors)
     if values.get('name') != skill.name:
         fail(errors, skill.name, 'frontmatter name differs from directory')
-    for link in resource_links(text):
-        validate_link(doc, link, skill.parent, errors)
+    # Every document a reader can reach, not just the entry point: a dead link in
+    # a reference file misleads exactly the reader who went looking for depth.
+    documents = [doc] + sorted(p for p in skill.rglob('*')
+                               if p != doc and p.is_file() and not p.is_symlink()
+                               and p.suffix in {'.md', '.mdc'})
+    for document in documents:
+        try:
+            body = document.read_text(encoding='utf-8')
+        except (OSError, UnicodeError) as exc:
+            fail(errors, skill.name, f'cannot read {document.relative_to(skill).as_posix()}: {exc}')
+            continue
+        for link in resource_links(body):
+            validate_link(document, link, skill, errors)
+        marks = PRIVATE_USE.findall(body)
+        if marks:
+            fail(errors, skill.name,
+                 f'{document.relative_to(skill).as_posix()!r} carries {len(marks)} private-use '
+                 f'character(s) — an assistant\'s citation markers, pasted in and left behind')
     shipped = {p.name for p in skill.parent.iterdir() if p.is_dir() and not p.name.startswith('.')}
     for pointer in sorted(skill_pointers(text) - shipped):
         fail(errors, skill.name, f'routes to skill {pointer!r}, which this library does not ship')

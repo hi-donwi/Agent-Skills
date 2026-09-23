@@ -216,6 +216,42 @@ class ValidationTests(unittest.TestCase):
         self.write(body='Record the decision in `docs/adr/`.')
         self.assertEqual([], self.errors())
 
+    def test_dead_link_in_a_reference_document_is_rejected(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/guide.md').write_text('See [more](missing.md)')
+        self.write(body='`references/guide.md`')
+        self.assertTrue(any('dead resource' in error for error in self.errors()))
+
+    def test_bare_resource_path_in_a_reference_resolves_against_the_skill(self):
+        # A reference naming its neighbour writes `references/other.md`, the same
+        # path SKILL.md would — not a path relative to its own directory.
+        (self.skill/'references').mkdir()
+        (self.skill/'references/other.md').write_text('# Other')
+        (self.skill/'references/guide.md').write_text('See `references/other.md`')
+        self.write(body='`references/guide.md`')
+        self.assertEqual([], self.errors())
+
+    def test_cursor_mdc_scheme_is_left_to_the_editor(self):
+        (self.skill/'adapters').mkdir()
+        (self.skill/'adapters/rule.mdc').write_text('[SKILL.md](mdc:.agents/skills/example/SKILL.md)')
+        self.write(body='`adapters/rule.mdc`')
+        self.assertEqual([], self.errors())
+
+    def test_assistant_sandbox_link_is_rejected(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/guide.md').write_text('[report](sandbox:/mnt/data/report.md)')
+        self.write(body='`references/guide.md`')
+        self.assertTrue(any('nonportable local resource' in error for error in self.errors()))
+
+    def test_private_use_citation_markers_are_rejected(self):
+        (self.skill/'references').mkdir()
+        (self.skill/'references/guide.md').write_text('Codex \ue200cite\ue202turn4search1\ue201 is a coding agent.')
+        self.write(body='`references/guide.md`')
+        self.assertTrue(any('private-use character' in error for error in self.errors()))
+        self.write(body='Arrows \u2192 and \u2264 are fine. `references/guide.md`')
+        (self.skill/'references/guide.md').write_text('Clean prose.')
+        self.assertEqual([], self.errors())
+
     def test_malformed_url_is_diagnostic(self):
         self.write(body='[Bad](https://[invalid)')
         self.assertTrue(self.errors())
