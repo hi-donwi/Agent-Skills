@@ -1,6 +1,14 @@
 ---
 name: frontend-ui-engineering
-description: Builds production-quality UIs and maintainable component architectures. Use when building or modifying user-facing interfaces, components, layouts, or stateful interactions. Do not use for backend-only or non-UI changes, or for schema-driven UIDL documents (uidl-runtime).
+description: >-
+  Builds production-quality UIs and maintainable component architectures —
+  discovering and reusing primitives, decomposing by responsibility, choosing
+  the simplest state, and building every visual state. Use when building or
+  modifying user-facing interfaces, components, or stateful interactions. Do
+  not use for defining a palette or theme (design-tokens), layout sizing and
+  breakpoints (responsive-layout), forms and validation
+  (forms-and-validation), auditing a built page (accessibility-audit),
+  backend-only changes, or schema-driven UIDL documents (uidl-runtime).
 metadata:
   pack: web
 ---
@@ -20,16 +28,27 @@ Build production-quality user interfaces that are accessible, performant, and vi
 
 Do not use for schema-driven UIDL documents (`uidl-runtime`).
 
+## Hand off when
+| Need | Skill |
+|---|---|
+| No declared palette, scale, or theme | `design-tokens` |
+| Sizing, container queries, breakpoints, RTL | `responsive-layout` |
+| Inputs, validation, submit states | `forms-and-validation` |
+| Verifying the built result against WCAG | `accessibility-audit` |
+
 ## Process
 1. **Confirm it is hand-built UI.** If the screen is a UIDL JSON document, stop and use `uidl-runtime`.
 2. **Discover before inventing.** Grep the project's primitives, page-kit, and Storybook. Reuse or extend before adding a new component. See `references/component-reuse.md`.
 3. **Colocate, then decompose by responsibility.** Keep a small component in one file. Create a family directory when tests, stories, hooks, or subcomponents appear. Split when a file mixes visual regions, state, and data adaptation — 200 lines is a review threshold, not a target. Placement and composition: `references/component-structure.md`.
 4. **Choose the simplest state.** Local state → lifted → context (read-heavy) → URL (shareable) → server cache → global store. Avoid prop drilling deeper than 3 levels.
-5. **Declare the design system before writing UI, then match it and WCAG 2.1 AA.**
-   Fill in `templates/design-system-declaration.md` — tokens, type scale, spacing,
-   breakpoints, required states — reading them out of the project where they exist.
-   An undeclared design system is how the generic AI palette gets in. No generic AI palette. Semantic tokens, keyboard access, labels, focus, empty/error/loading states. Details: `references/visual-and-a11y.md`. Review against `references/production-ui-checklist.md`.
-6. **Keep layers honest.** Components render. Hooks own state and effects. Services talk to APIs. Utilities stay pure.
+5. **Declare the design system before writing UI, then match it.** An undeclared design
+   system is decided one component at a time, which is how the generic AI palette gets in.
+   Load `design-tokens` if none is declared. Sizing and breakpoints: `responsive-layout`.
+   Anything with inputs: `forms-and-validation`.
+6. **Build every state, not just the happy one.** Loading, empty, error, focus, disabled,
+   success. Details and the anti-AI-aesthetic table: `references/visual-polish.md`. Review
+   against `references/production-ui-checklist.md`, then verify with `accessibility-audit`.
+7. **Keep layers honest.** Components render. Hooks own state and effects. Services talk to APIs. Utilities stay pure.
 
 ## Red flags
 - Components over roughly 200 lines that have not been reviewed for decomposition
@@ -69,12 +88,11 @@ After building UI:
 ## References
 - `references/component-reuse.md` — four-layer reuse (Component / Hook / Utility / Service)
 - `references/component-structure.md` — file layout, composition, and state
-- `references/visual-and-a11y.md` — design-system, accessibility, responsive, and loading patterns
+- `references/visual-polish.md` — the AI-aesthetic table, loading and feedback states
 - `references/production-ui-checklist.md` — review-mode checklist
 - `references/source-synthesis.md` — what the published sources behind this skill agree on
 
 ## Bundle contents
-- `templates/design-system-declaration.md` — the declaration filled in at step 5
 - `adapters/` — optional per-agent rule snippets (Cursor, KiloCode)
 - `agents/openai.yaml` — Codex implicit-invocation hint
 - `README.md` — map of this bundle

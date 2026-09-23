@@ -29,9 +29,17 @@ small, testable steps — not from one giant "build me a website" prompt.
 - Building an immersive 3D or scroll-driven site.
 - The user wants a sensible default stack and enforceable quality rules for agent work.
 
-## Related Specialist Skills
-- Use `frontend-ui-engineering` for production UI craft: components, design systems,
-  responsive behavior, accessibility, visual polish, and UI review.
+## Hand off when
+
+The stack and the workflow are this skill's business; the interface is not.
+
+| Need | Skill |
+|---|---|
+| Component craft, reuse, state, visual polish | `frontend-ui-engineering` |
+| Palette, type scale, theming, dark mode | `design-tokens` |
+| Container queries, fluid type, breakpoints, RTL | `responsive-layout` |
+| Inputs, validation, submit states | `forms-and-validation` |
+| Verifying the built result against WCAG | `accessibility-audit` |
 
 ## Process
 
@@ -46,20 +54,11 @@ small, testable steps — not from one giant "build me a website" prompt.
    - Persist all of this in a rules file the agent reads on every turn
      (`AGENTS.md`, `.cursor/rules/*.mdc`, or `.kilocode/rules/`). See **Agent rules block** below.
 
-2. **Use structured prompts** — one concern per prompt:
-   ```
-   Goal: [what "done" looks like]
-   Constraints: [stack, patterns, do not change X]
-   Scope: [@file or folder]
-   Verification: [lint, test, manual check]
-   ```
-   More templates: `examples/prompts.md` and `examples/prompt-examples.md`.
+2. **One concern per prompt**, each stating goal, constraints, scope and how it will be
+   verified. Templates: `examples/prompts.md`, `examples/prompt-examples.md`.
 
-3. **Build UI-first, in modular steps.** Generate the visual layer to establish the
-   "vibe," then wire backend/state. Never ask for a whole app in one prompt:
-   - *Scaffold:* "Initialize a Next.js App Router project with a nav bar and hero section."
-   - *Iterate:* "Add a staggered fade-in to the hero using Framer Motion."
-   - *Integrate:* "Create a Supabase schema for profiles and the API routes to connect it."
+3. **Build UI-first, in modular steps** — scaffold, then iterate, then integrate. Never
+   ask for a whole app in one prompt.
 
 4. **Debug by delegation.** On an error, paste the full terminal stack trace back to the
    agent: "Analyze this stack trace and fix the underlying issue" — don't hand-patch first.
@@ -89,8 +88,8 @@ Load for depth; the entry point above is enough for most turns.
 - `references/agent-rules-block.md` - the block to copy into the project's own rules file
 - `references/motion-and-3d.md` - motion, WebGL scenes, scroll-synced hero video
 - `references/workflow-handbook.md` - paradigm, skill routing, budgets, skill-gap red flags
-- `references/quick-guide.md` and `references/handbook.md` - the short and long form source material
-- `docs/workflow.md`, `docs/coding-standards.md`, `docs/design-principles.md` - workflow, enforceable standards, the look
-- `examples/` and `templates/` - good and bad components, prompts, page and component scaffolds
-- `scripts/check-project.js` - audit a project; `scripts/generate-component.js` - scaffold one
-- `adapters/` - native rule files per agent; `agents/openai.yaml` - Codex hint; `README.md` - bundle map
+- `references/quick-guide.md`, `references/handbook.md` - short and long form source material
+- `docs/` - workflow, enforceable coding standards, design principles
+- `examples/`, `templates/` - good and bad components, prompts, page and component scaffolds
+- `scripts/` - `check-project.js` audits a project, `generate-component.js` scaffolds one
+- `adapters/`, `agents/openai.yaml`, `README.md` - per-agent rule files, Codex hint, bundle map

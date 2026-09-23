@@ -52,7 +52,9 @@ Route by the user's intended outcome and the installed catalog, then load detail
 | Challenge a consequential decision | doubt-driven-development | relevant test skill |
 | Commit or organize branches | git-workflow | changelog-generator for release notes |
 | Change build or deployment gates | ci-cd | stack-specific delivery skill |
-| Build a UI | frontend-ui-engineering | webapp-testing |
+| Build a UI | frontend-ui-engineering | design-tokens, responsive-layout, webapp-testing |
+| Build or fix a form | forms-and-validation | accessibility-audit |
+| Check a surface is accessible | accessibility-audit | responsive-layout for reflow |
 | Author or change a UIDL document or runtime | uidl-runtime | frontend-ui-engineering for non-UIDL UI |
 | Change service contracts | api-design | rest-api-contract or stack-specific skill |
 

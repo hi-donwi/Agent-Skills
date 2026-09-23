@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-43 skills, grouped into packs. Nothing here is specific to one company,
+47 skills, grouped into packs. Nothing here is specific to one company,
 client, or codebase.
 
 ## Why a separate repository
@@ -68,14 +68,19 @@ Context, skills, and tool integration — the practice of directing agents well.
 
 ### `web` — web and frontend
 
-Browser-facing work: interface craft, schema-driven UI, page-load performance,
-and end-to-end verification in a real browser.
+Browser-facing work: interface craft, the token system beneath it, layout that adapts to
+its container, forms, schema-driven UI, page-load performance, and verification in a real
+browser.
 
 | Skill | Use it when |
 |---|---|
-| [`frontend-ui-engineering`](skills/frontend-ui-engineering/SKILL.md) | building or modifying user-facing interfaces, components, layouts, or stateful interactions |
-| [`uidl-runtime`](skills/uidl-runtime/SKILL.md) | creating or changing a UIDL document, schema, DataAdapter, bind/query/expr/mutate behaviour, or the validate/compile CLI |
-| [`web-development`](skills/web-development/SKILL.md) | Build high-quality, modern websites with AI coding agents using the "vibe coding" workflow — including premium marketing sites, SaaS UIs, and… |
+| [`accessibility-audit`](skills/accessibility-audit/SKILL.md) | asked to check or fix accessibility, when a11y bugs or complaints arrive, before shipping a user-facing surface, or when an automated scan reports… |
+| [`design-tokens`](skills/design-tokens/SKILL.md) | starting a UI with no declared design system, when hardcoded colours or pixel values are spreading, when adding dark mode or a second theme, or… |
+| [`forms-and-validation`](skills/forms-and-validation/SKILL.md) | building or fixing any form, input, validation rule, or error display, when a submit can be fired twice, or when form errors are invisible to… |
+| [`frontend-ui-engineering`](skills/frontend-ui-engineering/SKILL.md) | building or modifying user-facing interfaces, components, or stateful interactions |
+| [`responsive-layout`](skills/responsive-layout/SKILL.md) | a component must work in more than one context, when a layout breaks at a width or at large text, when adding breakpoints, or when a design must… |
+| [`uidl-runtime`](skills/uidl-runtime/SKILL.md) | creating or changing a UIDL document, the document schema, DataAdapter seam, $bind/$query/$expr/mutate behaviour, uidl-validate, or uidl-compile |
+| [`web-development`](skills/web-development/SKILL.md) | the user wants to scaffold, design, or iterate on a website or web app with an AI agent, asks about vibe coding, AI-first IDEs (Cursor, Windsurf,… |
 | [`web-perf`](skills/web-perf/SKILL.md) | asked to audit, profile, debug, or optimize page load performance, Lighthouse scores, or site speed |
 | [`webapp-testing`](skills/webapp-testing/SKILL.md) | asked to verify a feature works in the browser, reproduce a UI bug, or add e2e coverage |
 
