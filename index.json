@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23T14:11:53Z",
+  "generated": "2026-09-23T14:13:07Z",
   "skills": [
     {"name": "accessibility-audit", "pack": "web", "path": "skills/accessibility-audit/SKILL.md", "references": 3, "resources": 0, "description": "Audit a built interface against WCAG 2.2 AA and report findings by user impact: keyboard operation, semantics and names, focus, contrast and non-colour signalling, motion, zoom and reflow, and assistive-technology behaviour. Use when asked to check or fix accessibility, when a11y bugs or complaints arrive, before shipping a user-facing surface, or when an automated scan reports issues. Do not use for building the component (frontend-ui-engineering), for defining the palette (design-tokens), or for page-load performance (web-perf)."},
     {"name": "agent-handoff", "pack": "agent", "path": "skills/agent-handoff/SKILL.md", "references": 0, "resources": 0, "description": "Resume another agent's work or prepare a handoff with repository state, evidence, ownership, and next steps. Use after an interrupted session, an agent change, or explicitly requested parallel work. Do not use for general codebase onboarding."},

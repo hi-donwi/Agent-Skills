@@ -11,7 +11,7 @@ description: >-
   page (accessibility-audit).
 metadata:
   pack: web
-  keywords: responsive, breakpoint, media query, container query, mobile, tablet, desktop, viewport, layout, grid, flexbox, fluid, clamp, rem, zoom, reflow, rtl, right to left, logical properties, touch target, tap target, safe area, dvh, vh, small screen, wide screen, wrap, overflow, horizontal scroll
+  keywords: responsive, breakpoint, media query, container query, mobile, tablet, desktop, viewport, layout, grid, flexbox, fluid, clamp, rem, zoom, reflow, rtl, right to left, logical properties, touch target, tap target, safe area, dvh, vh, small screen, wide screen, wrap, overflow, phone, sidebar, narrow, wide, screen size, device, shrink, squeeze, horizontal scroll
 ---
 
 # Responsive Layout

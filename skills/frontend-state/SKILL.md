@@ -12,7 +12,7 @@ description: >-
   server-side data contracts (api-design).
 metadata:
   pack: web
-  keywords: state, state management, usestate, useeffect, context, redux, zustand, jotai, react query, swr, server state, client state, cache, url state, searchparams, prop drilling, lifting state, derived state, rerender, re-render, global store, single source of truth
+  keywords: state, state management, usestate, useeffect, context, redux, zustand, jotai, react query, swr, server state, client state, cache, url state, searchparams, prop drilling, drill, lifting state, where should state live, duplicate state, out of sync, derived state, rerender, re-render, global store, single source of truth
 ---
 
 # Frontend State

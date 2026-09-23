@@ -11,7 +11,7 @@ description: >-
   finished page (accessibility-audit).
 metadata:
   pack: web
-  keywords: form, input, field, label, validation, validate, error message, submit, required, checkbox, radio, select, date picker, file upload, autocomplete, autofill, placeholder, zod, react hook form, schema, double submit, idempotency, multi step, wizard, keyboard submit
+  keywords: form, input, field, label, validation, validate, error message, submit, required, checkbox, radio, select, date picker, file upload, autocomplete, autofill, placeholder, zod, react hook form, schema, double submit, idempotency, multi step, wizard, keyboard submit, form error, invalid, fieldset, legend
 ---
 
 # Forms and Validation

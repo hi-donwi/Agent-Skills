@@ -11,7 +11,7 @@ description: >-
   (responsive-layout), or for auditing a finished page (accessibility-audit).
 metadata:
   pack: web
-  keywords: design token, design system, palette, colour, color, theme, theming, dark mode, light mode, contrast, spacing scale, type scale, radius, elevation, css variable, custom property, semantic token, hardcoded hex, tailwind config, brand
+  keywords: design token, design system, palette, colour, color, theme, theming, dark mode, light mode, contrast, spacing scale, type scale, radius, elevation, css variable, custom property, semantic token, hardcoded hex, hardcoded colour, hardcoded color, inconsistent spacing, tailwind config, brand
 ---
 
 # Design Tokens
