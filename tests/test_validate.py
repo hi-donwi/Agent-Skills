@@ -167,12 +167,22 @@ class ValidationTests(unittest.TestCase):
         self.write(body='Load `motion-design` before adding animation.')
         self.assertEqual([], self.errors())
 
-    def test_hyphenated_term_is_not_a_route_without_a_routing_verb(self):
-        # Regression: a verb pattern containing 'prefers' matched inside the token.
-        for body in ['- Always implement `prefers-reduced-motion` behavior.', '`prefers-reduced-motion`']:
+    def test_hyphenated_term_near_a_verb_is_not_a_route(self):
+        # Each of these tripped an earlier, looser version of the heuristic. A web
+        # skill is full of hyphenated tokens that a routing verb happens to share a
+        # line with; only a token the verb names directly is a route.
+        for body in ['- Always implement `prefers-reduced-motion` behavior.',
+                     '`prefers-reduced-motion`',
+                     'Use logical properties throughout - `margin-inline-start`, `padding-block`.',
+                     'See the note above; `grid-template-columns` does the rest.',
+                     '| Fluid type | `clamp()` | tokens |']:
             with self.subTest(body=body):
                 self.write(body=body)
                 self.assertEqual([], self.errors())
+
+    def test_hand_off_row_naming_an_absent_skill_is_rejected(self):
+        self.write(body='| Need | Skill |\n|---|---|\n| Animation | `motion-design` |')
+        self.assertTrue(any('does not ship' in error for error in self.errors()))
 
     def test_routing_pointer_inside_a_fence_is_not_a_route(self):
         self.write(body='```md\nLoad `motion-design` first.\n```')

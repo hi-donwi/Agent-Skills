@@ -42,10 +42,14 @@ MAX_SKILL_LINES = 100
 # Files an agent walking the directory tree reads as instructions for the project
 # it is working in, not as this skill's reference material.
 AGENT_INSTRUCTIONS = {'AGENTS.md', 'CLAUDE.md', 'GEMINI.md', '.cursorrules', '.windsurfrules'}
-ROUTING_VERB = re.compile(r'\b(?:use|uses|using|load|loads|loading|see|prefer|'
-                          r'switch to|chain to|route|routes|delegate|escalate)\b', re.IGNORECASE)
-# 'prefers' is excluded on purpose: it would match inside `prefers-reduced-motion`.
-SKILL_TOKEN = re.compile(r'`([a-z0-9]+(?:-[a-z0-9]+)+)`')
+# A route names the skill directly after the verb — "Load `motion-design` before ..." —
+# or sits alone in the last cell of a "Hand off when" row. Anything looser matches CSS
+# property names, which a web skill is full of: "Use logical properties throughout —
+# `margin-inline-start`" is advice, not a route.
+ROUTE = re.compile(r'\b(?:use|uses|using|load|loads|see|prefer|route to|switch to|'
+                   r'chain to|delegate to|escalate to)\s+(?:the\s+)?`([a-z0-9]+(?:-[a-z0-9]+)+)`',
+                   re.IGNORECASE)
+HANDOFF_ROW = re.compile(r'^\|.*\|\s*`([a-z0-9]+(?:-[a-z0-9]+)+)`\s*\|\s*$')
 
 
 def fail(errors, skill, message):
@@ -179,18 +183,18 @@ def resource_links(text):
 
 
 def skill_pointers(text):
-    """Backticked skill-shaped tokens on lines that send the agent somewhere else.
+    """Backticked skill names this document sends the agent to.
 
-    Deliberately narrow, because a hyphenated token is not by itself a claim that
-    a skill exists: `prefers-reduced-motion` in a rule is not a route, while
-    "Load `motion-design`" is. Only a routing verb on the same line promotes the
-    token to a pointer. A term that reads like a route but is not one should be
-    rephrased rather than added to an allowlist.
+    Deliberately narrow, because a hyphenated token is not by itself a claim that a
+    skill exists — most of them are CSS properties, config keys or package names.
+    A token counts only when a routing verb names it directly, or when it stands
+    alone in the last cell of a hand-off row. A phrase that reads like a route but
+    is not one should be rephrased rather than added to an allowlist.
     """
     found = set()
     for line in without_fences(text).splitlines():
-        if ROUTING_VERB.search(line):
-            found.update(SKILL_TOKEN.findall(line))
+        found.update(ROUTE.findall(line))
+        found.update(HANDOFF_ROW.findall(line))
     return found
 
 
