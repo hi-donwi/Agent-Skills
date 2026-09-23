@@ -10,7 +10,6 @@ agent at it.
 | Path | What it is |
 |---|---|
 | `SKILL.md` | Entry point — what the skill does + when to use it (read this first). |
-| `AGENTS.md` | Drop-in instructions for AGENTS.md-aware agents (Codex, etc.). |
 | `docs/` | Distilled guidance: `workflow.md`, `coding-standards.md`, `design-principles.md`. |
 | `examples/` | `good-component.tsx`, `bad-component.tsx`, `prompt-examples.md`, `prompts.md`. |
 | `scripts/` | `check-project.js` (audit a project), `generate-component.js` (scaffold a component). |
