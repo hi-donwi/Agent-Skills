@@ -1,13 +1,12 @@
 ---
 name: quarkus-service
 description: >-
-  Build or change Quarkus services and endpoints: Maven module structure, resource/service/
-  repository layering, CDI and scopes, typed configuration, REST clients between services,
-  and lifting demo-grade code to production standard. Use when adding a new endpoint,
-  creating a new Quarkus module, untangling code that mixes layers, moving configuration to
-  @ConfigMapping, or calling another service over REST. Do not use for HTTP contract shape
-  (rest-api-contract), queries and migrations (quarkus-persistence), auth
-  (quarkus-security), tests (quarkus-testing), or large exports (bulk-reporting-export).
+  Build or change Quarkus services and endpoints: Maven module structure,
+  resource/service/repository layering, CDI and scopes, typed configuration, REST clients, and
+  lifting demo-grade code to production standard. Use when adding an endpoint or module,
+  untangling mixed layers, or moving configuration to @ConfigMapping. Do not use for HTTP
+  contract shape (rest-api-contract), queries (quarkus-persistence), auth (quarkus-security),
+  tests (quarkus-testing), or large exports (bulk-reporting-export).
 metadata:
   pack: java
   keywords: endpoint, resource, service layer, module, cdi, inject, scope, configmapping, config, rest client, scaffold, quarkus, layering, arc, virtual thread

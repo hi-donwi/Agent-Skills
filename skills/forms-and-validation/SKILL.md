@@ -1,14 +1,10 @@
 ---
 name: forms-and-validation
 description: >-
-  Build forms that are correct, accessible, and recoverable: native controls
-  first, one schema validating both client and server, error messages that are
-  associated and announced, submit and pending states, and autofill. Use when
-  building or fixing any form, input, validation rule, or error display, when a
-  submit can be fired twice, or when form errors are invisible to assistive
-  technology. Do not use for general component structure
-  (frontend-ui-engineering), API contract shape (api-design), or auditing a
-  finished page (accessibility-audit).
+  Build correct, accessible, recoverable forms: native controls first, one schema for client
+  and server, announced errors, submit and pending states, autofill. Use when building or
+  fixing any form or validation rule. Do not use for component structure (frontend-ui-
+  engineering), API contract shape (api-design), or page audits (accessibility-audit).
 metadata:
   pack: web
   keywords: form, input, field, label, validation, validate, error message, submit, required, checkbox, radio, select, date picker, file upload, autocomplete, autofill, placeholder, zod, react hook form, schema, double submit, idempotency, multi step, wizard, keyboard submit, form error, invalid, fieldset, legend

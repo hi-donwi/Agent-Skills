@@ -1,15 +1,10 @@
 ---
 name: frontend-state
 description: >-
-  Decide where a piece of frontend state belongs and keep it there: the ladder
-  from local to lifted to URL to server cache to global store, separating server
-  data from client state, derived values, and untangling state that has spread.
-  Use when choosing between useState, context, a URL param, a query cache and a
-  global store, when a component re-renders too much, when the same fact is
-  stored twice, or when props are drilled through components that ignore them.
-  Do not use for component file layout and decomposition
-  (frontend-ui-engineering), form field state (forms-and-validation), or
-  server-side data contracts (api-design).
+  Decide where a piece of frontend state belongs and keep it there: local to lifted to URL to
+  server cache to global store. Use when choosing where state lives, a component re-renders
+  too much, or props drill through layers. Do not use for component decomposition (frontend-
+  ui-engineering), form fields (forms-and-validation), or server contracts (api-design).
 metadata:
   pack: web
   keywords: state, state management, usestate, useeffect, context, redux, zustand, jotai, react query, swr, server state, client state, cache, url state, searchparams, prop drilling, drill, lifting state, where should state live, duplicate state, out of sync, derived state, rerender, re-render, global store, single source of truth

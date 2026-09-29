@@ -1,17 +1,11 @@
 ---
 name: web-development
 description: >-
-  Build high-quality, modern websites with AI coding agents using the
-  "vibe coding" workflow — including premium marketing sites, SaaS UIs, and
-  immersive 3D/WebGL experiences. Use this when the user wants to scaffold,
-  design, or iterate on a website or web app with an AI agent, asks about
-  vibe coding, AI-first IDEs (Cursor, Windsurf, Claude Code), prompt-to-app
-  tools (v0, Bolt.new, Lovable, Replit), 3D web (Three.js / React Three Fiber),
-  or wants opinionated stack/quality rules for agent-driven front-end work.
-  Do not use for the craft of a specific interface — components, design
-  systems, responsive behaviour, accessibility, visual review
-  (frontend-ui-engineering) — nor for native mobile apps, game engines, or
-  pure backend/data/infra services with no web front-end.
+  Build modern websites and web apps with AI coding agents using the vibe coding workflow:
+  marketing sites, SaaS UIs, 3D/WebGL. Use when scaffolding, designing, or iterating on a site
+  or app with an agent, or for stack and quality rules for agent-driven front-end work. Do not
+  use for the craft of a specific interface (frontend-ui-engineering), native mobile apps,
+  game engines, or pure backend services.
 metadata:
   pack: web
   keywords: website, web app, scaffold, next.js, nextjs, astro, vibe coding, cursor, v0, bolt, lovable, replit, stack, tailwind, shadcn, marketing site, saas, landing page, three.js, webgl, 3d, motion, framer

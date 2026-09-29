@@ -1,13 +1,11 @@
 ---
 name: rest-api-contract
 description: >-
-  Design and review REST contracts: URL shape and HTTP method choice, status codes, uniform
-  pagination and filtering, RFC 9457 problem+json errors with stable ErrorCodes, date/money/
-  enum formats, OpenAPI annotations and the committed spec, versioning and breaking-change
-  identification. Use when designing a new endpoint, aligning endpoints that have diverged,
-  choosing a status code, shaping an error response, updating the OpenAPI spec, or judging
-  whether a change is breaking. Do not use for internal implementation (quarkus-service),
-  queries (quarkus-persistence), or roles and authorisation (quarkus-security).
+  Design and review REST contracts: URL shape, status codes, uniform pagination and filtering,
+  RFC 9457 problem+json errors with stable ErrorCodes, date and money formats, OpenAPI, and
+  versioning. Use when designing or aligning endpoints, choosing a status code, shaping
+  errors, or judging whether a change is breaking. Do not use for internal implementation
+  (quarkus-service), queries (quarkus-persistence), or authorisation (quarkus-security).
 metadata:
   pack: core
   keywords: api, contract, openapi, swagger, status code, pagination, paging, filter, error response, problem json, versioning, breaking change, dto, request, response

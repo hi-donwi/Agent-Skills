@@ -1,14 +1,11 @@
 ---
 name: responsive-layout
 description: >-
-  Build layouts that adapt to the space they are given: intrinsic sizing,
-  container queries, fluid type and spacing with clamp(), logical properties
-  for RTL, mobile viewport units, and touch target sizing. Use when a component
-  must work in more than one context, when a layout breaks at a width or at
-  large text, when adding breakpoints, or when a design must support
-  right-to-left. Do not use for choosing colours and scales (design-tokens),
-  component decomposition (frontend-ui-engineering), or auditing a finished
-  page (accessibility-audit).
+  Build layouts that adapt to their space: intrinsic sizing, container queries, fluid type and
+  spacing with clamp(), logical properties for RTL, mobile viewports, touch targets. Use when
+  a component must work in several contexts or a layout breaks at a width. Do not use for
+  colours and scales (design-tokens), decomposition (frontend-ui-engineering), or page audits
+  (accessibility-audit).
 metadata:
   pack: web
   keywords: responsive, breakpoint, media query, container query, mobile, tablet, desktop, viewport, layout, grid, flexbox, fluid, clamp, rem, zoom, reflow, rtl, right to left, logical properties, touch target, tap target, safe area, dvh, vh, small screen, wide screen, wrap, overflow, phone, sidebar, narrow, wide, screen size, device, shrink, squeeze, horizontal scroll
