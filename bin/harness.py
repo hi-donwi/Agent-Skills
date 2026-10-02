@@ -263,12 +263,32 @@ def run_benchmark(scenarios_file: Path, skills: Dict[str, SkillEntry], min_accur
 
 
 def main(argv: List[str]) -> int:
-    cmd = argv[1] if len(argv) > 1 else 'benchmark'
-    skills = load_all_skills()
+    args = list(argv[1:])
+    skills_dir = SKILLS_DIR
+
+    if '--user' in args:
+        args.remove('--user')
+        skills_dir = Path.home() / '.gemini' / 'config' / 'skills'
+    elif '--domain' in args:
+        args.remove('--domain')
+        skills_dir = ROOT.parent.parent.parent / 'context' / 'skills'
+    elif '--skills-dir' in args:
+        idx = args.index('--skills-dir')
+        if idx + 1 < len(args):
+            skills_dir = Path(args[idx + 1]).expanduser().resolve()
+            del args[idx:idx + 2]
+
+    cmd = args[0] if args else 'benchmark'
+
+    if not skills_dir.is_dir():
+        print(f"Error: Skills directory does not exist: {skills_dir}", file=sys.stderr)
+        return 1
+
+    skills = load_all_skills(skills_dir)
 
     if not skills:
-        print("Error: No skills found in skills directory", file=sys.stderr)
-        return 1
+        print(f"Info: No skills found in {skills_dir}")
+        return 0
 
     if cmd == 'budget':
         ok, errors = check_token_budgets(skills)
@@ -280,19 +300,19 @@ def main(argv: List[str]) -> int:
         return 0
 
     elif cmd == 'route':
-        if len(argv) < 3:
-            print("Usage: harness.py route <query string>", file=sys.stderr)
+        if len(args) < 2:
+            print("Usage: harness.py route <query string> [--skills-dir <dir> | --user | --domain]", file=sys.stderr)
             return 2
-        query = ' '.join(argv[2:])
+        query = ' '.join(args[1:])
         results = route_query(query, skills, top_k=5)
-        print(f"Routing results for: '{query}'")
+        print(f"Routing results for: '{query}' in {skills_dir.name}")
         for rank, (name, score) in enumerate(results, 1):
             s = skills[name]
             print(f"  {rank}. {name:<26} (score: {score:>2}, pack: {s.pack})")
         return 0
 
     elif cmd == 'benchmark':
-        scenarios_file = Path(argv[2]) if len(argv) > 2 else DEFAULT_SCENARIOS
+        scenarios_file = Path(args[1]) if len(args) > 1 else DEFAULT_SCENARIOS
         budget_ok, budget_errors = check_token_budgets(skills)
         if not budget_ok:
             for err in budget_errors:
@@ -303,7 +323,7 @@ def main(argv: List[str]) -> int:
         return 0 if bench_ok else 1
 
     else:
-        print("Usage: harness.py [budget | route <query> | benchmark [<scenarios.json>]]", file=sys.stderr)
+        print("Usage: harness.py [budget | route <query> | benchmark [<scenarios.json>]] [--skills-dir <dir> | --user | --domain]", file=sys.stderr)
         return 2
 
 

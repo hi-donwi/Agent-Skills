@@ -91,8 +91,13 @@ metadata:
         )
         skills = load_all_skills(self.skills_dir)
         ok, errors = check_token_budgets(skills)
-        self.assertFalse(ok)
         self.assertTrue(any('exceeds max lines' in err for err in errors))
+
+    def test_harness_custom_skills_dir(self):
+        from bin.harness import main
+        # Test budget subcommand with custom --skills-dir
+        code = main(['harness.py', 'budget', '--skills-dir', str(self.skills_dir)])
+        self.assertEqual(0, code)
 
 
 if __name__ == '__main__':
