@@ -1,12 +1,10 @@
 ---
 name: debugging
 description: >-
-  Systematically diagnose and fix failures instead of guessing. Use when facing a
-  bug, stack trace, failing test, crash, or unexpected behavior, or when a fix
-  attempt did not work. Do not use for greenfield design decisions with no defect
-  to chase.
+  Systematically diagnose and fix failures instead of guessing. Use when facing a bug, stack trace, failing test, crash, or unexpected behavior, or when a fix attempt did not work.
 metadata:
   pack: core
+  keywords: debugging, debug, bug, crash, stack trace, error, defect, diagnose, fix, exception
 ---
 
 # Debugging & Error Recovery

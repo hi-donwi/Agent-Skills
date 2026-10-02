@@ -1,11 +1,7 @@
 ---
 name: accessibility-audit
 description: >-
-  Audit a built interface against WCAG 2.2 AA and report findings by user impact: keyboard,
-  semantics and names, focus, contrast, motion, zoom and reflow, assistive tech. Use when
-  checking or fixing accessibility or before shipping a user-facing surface. Do not use for
-  building the component (frontend-ui-engineering), the palette (design-tokens), or page-load
-  performance (web-perf).
+  Audit interfaces against WCAG 2.2 AA: keyboard navigation, ARIA semantics, accessible names, focus states, color contrast, and assistive tech support.
 metadata:
   pack: web
   keywords: accessibility, a11y, wcag, screen reader, keyboard, focus, aria, contrast, alt text, landmark, heading order, axe, lighthouse accessibility, voiceover, nvda, talkback, reduced motion, forced colors, tab order, focus trap, audit, colour blind, color blind, announce, assistive

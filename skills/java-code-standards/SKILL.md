@@ -1,11 +1,7 @@
 ---
 name: java-code-standards
 description: >-
-  Write and review Java 21 to this workspace's standards: records and immutability, null and
-  Optional handling, a domain exception hierarchy with stable ErrorCodes, logging, pattern
-  matching, text blocks, naming, and size limits. Use when writing or reviewing a Java class,
-  choosing an exception shape, or enforcing Spotless. Do not use for endpoint shape (rest-api-
-  contract), entities and queries (quarkus-persistence), or modules and CDI (quarkus-service).
+  Write and review Java 21: records and immutability, null and Optional handling, domain exception hierarchy with stable ErrorCodes, and pattern matching.
 metadata:
   pack: java
   keywords: java, code style, record, exception, errorcode, null, optional, naming, refactor, readability, lombok, bigdecimal, spotless, switch, text block

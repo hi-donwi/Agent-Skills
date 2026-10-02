@@ -1,8 +1,10 @@
 ---
 name: shipping-and-launch
-description: Prepares production launches. Use when preparing to deploy to production. Use when you need a pre-launch checklist, when setting up monitoring, when planning a staged rollout, or when you need a rollback strategy. Do not use for CI pipeline setup (ci-cd) or for writing the production code being launched.
+description: >-
+  Prepare production launches. Use when deploying to production, preparing a pre-launch checklist, setting up monitoring, or planning a staged rollout.
 metadata:
   pack: core
+  keywords: shipping, launch, release, deployment, production, rollout, checklist, rollback
 ---
 
 # Shipping and Launch

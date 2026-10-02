@@ -1,13 +1,10 @@
 ---
 name: dependency-audit
 description: >-
-  Audit, upgrade, or rationalize third-party dependencies for security,
-  licensing, maintenance, bundle/runtime impact, and supply-chain risk. Use when
-  adding dependencies, fixing audit findings, upgrading packages, or reducing
-  dependency surface. Do not use for application logic bugs unrelated to external
-  packages.
+  Audit, upgrade, or rationalize third-party dependencies for security, licensing, and supply-chain risk. Use when adding dependencies, fixing audit findings, or upgrading packages.
 metadata:
   pack: core
+  keywords: dependency, audit, npm, security, vulnerabilities, upgrade, supply chain, packages
 ---
 
 # Dependency Audit

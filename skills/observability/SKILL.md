@@ -1,13 +1,10 @@
 ---
 name: observability
 description: >-
-  Add or review production observability: structured logs, metrics, traces,
-  dashboards, alerts, SLOs, incident signals, and telemetry hygiene. Use when
-  shipping production code, diagnosing runtime behavior, or making systems
-  operable. Do not use for local-only scripts or performance tuning without
-  production telemetry.
+  Add or review production observability: structured logs, metrics, traces, dashboards, alerts, and SLOs. Use when shipping production code or diagnosing runtime behavior.
 metadata:
   pack: core
+  keywords: observability, tracing, opentelemetry, metrics, structured logs, logging, prometheus, correlation id, telemetry
 ---
 
 # Observability

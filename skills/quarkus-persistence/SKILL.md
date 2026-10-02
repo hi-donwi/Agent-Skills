@@ -1,11 +1,7 @@
 ---
 name: quarkus-persistence
 description: >-
-  Work with data in Quarkus: JPA entities, PanacheRepository, forward-only Flyway migrations
-  safe on populated tables, PostgreSQL conventions, audit columns, soft delete, transaction
-  boundaries, N+1, indexing, and report aggregates. Use when creating or changing an entity,
-  migration, or query, or fixing a slow request. Do not use for API response shape (rest-api-
-  contract), large exports (bulk-reporting-export), or domain rules in context/skills/.
+  Work with data in Quarkus: JPA entities, PanacheRepository, safe Flyway migrations, PostgreSQL conventions, audit columns, soft delete, and transaction boundaries.
 metadata:
   pack: java
   keywords: entity, panache, repository, flyway, migration, query, transaction, index, n+1, database, sql, jpa, hibernate, schema, table, column, soft delete, audit column, postgres

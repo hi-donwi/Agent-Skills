@@ -1,13 +1,10 @@
 ---
 name: codebase-onboarding
 description: >-
-  Build a concise mental model of an unfamiliar repository: architecture, entry
-  points, workflows, ownership hotspots, tests, risks, and next files to read.
-  Use when starting work in an unknown or large codebase, before major refactors,
-  or when asked to explain how a project works. Do not use for tiny edits in
-  already-understood code.
+  Build a concise mental model of an unfamiliar repository: architecture, entry points, workflows, hotspots, and tests. Use when starting work in an unknown codebase.
 metadata:
   pack: core
+  keywords: onboarding, codebase, architecture, mental model, entry points, unfamiliar repo, explore
 ---
 
 # Codebase Onboarding

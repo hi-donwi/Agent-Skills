@@ -1,12 +1,7 @@
 ---
 name: quarkus-observability
 description: >-
-  Make a Quarkus service diagnosable in production: structured JSON logs, a correlation ID via
-  MDC surfaced as traceId, Micrometer metrics for business events, OpenTelemetry tracing,
-  correct health checks, and alert thresholds. Use when preparing a service for production,
-  adding metrics, or diagnosing an issue that only appears in staging or production. Do not
-  use for tests (quarkus-testing), local dev debugging, or export tuning (bulk-reporting-
-  export).
+  Make Quarkus services diagnosable: structured JSON logs, correlation ID via MDC/traceId, Micrometer business metrics, OpenTelemetry tracing, and health checks.
 metadata:
   pack: java
   keywords: log, logging, metric, trace, tracing, health, probe, alert, prometheus, micrometer, opentelemetry, correlation, requestid, observability, monitoring, mdc

@@ -1,11 +1,7 @@
 ---
 name: java-delivery
 description: >-
-  Build, ship, and operate the Quarkus backend: Maven Wrapper, enforcer, Spotless, JaCoCo and
-  dependency-check gates, CI stages, environment promotion, semantic versioning, systemd and
-  container deployment, secret delivery, health probes, and rollback. Use when setting up or
-  fixing a build, adding a CI stage, releasing, deploying, or writing a runbook. Do not use
-  for code-level security (quarkus-security) or telemetry design (quarkus-observability).
+  Build, ship, and operate Quarkus backends: Maven Wrapper, Spotless, JaCoCo/dependency gates, CI stages, systemd/container deployments, and health probes.
 metadata:
   pack: java
   keywords: build, maven, mvnw, pom, ci, cd, pipeline, deploy, deployment, release, versioning, rollback, docker, container, systemd, artifact, staging, production, runbook, enforcer

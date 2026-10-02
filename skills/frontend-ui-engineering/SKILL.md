@@ -1,11 +1,7 @@
 ---
 name: frontend-ui-engineering
 description: >-
-  Build production-quality UIs and maintainable component architectures: reusing primitives,
-  decomposing by responsibility, simplest state, every visual state. Use when building or
-  modifying user-facing components or interactions. Do not use for palette (design-tokens),
-  layout sizing (responsive-layout), forms (forms-and-validation), audits (accessibility-
-  audit), or UIDL documents (uidl-runtime).
+  Build production-quality UIs: reusable primitives, responsibility decomposition, robust state handling, and complete visual states (hover, loading, error).
 metadata:
   pack: web
   keywords: component, ui, interface, react, jsx, tsx, vue, svelte, page, dashboard, card, modal, dialog, button, loading state, empty state, error state, skeleton, design system adherence, component library, storybook, reuse, decompose, hook, presentation

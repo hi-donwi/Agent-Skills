@@ -1,11 +1,10 @@
 ---
 name: agent-handoff
 description: >-
-  Resume another agent's work or prepare a handoff with repository state, evidence,
-  ownership, and next steps. Use after an interrupted session, an agent change, or
-  explicitly requested parallel work. Do not use for general codebase onboarding.
+  Resume another agent's work or prepare a handoff with repository state, evidence, ownership, and next steps. Use after an interrupted session or before stopping.
 metadata:
   pack: agent
+  keywords: handoff, agent handoff, resume session, continuity, context, parallel work, run state
 ---
 
 # Agent Handoff

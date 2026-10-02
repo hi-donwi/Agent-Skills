@@ -1,12 +1,10 @@
 ---
 name: code-review
 description: >-
-  Review a diff or PR across correctness, design, tests, security, and clarity,
-  and give actionable, prioritized feedback. Use when asked to review code, before
-  merging a change, or to self-review a diff. Do not use to author large new
-  features from scratch (use the build skills) — this reviews existing changes.
+  Review a diff or PR across correctness, design, tests, security, and clarity. Use when asked to review code, before merging a change, or to self-review a diff.
 metadata:
   pack: core
+  keywords: code review, review, pr, pull request, diff, correctness, edge cases, code quality
 ---
 
 # Code Review & Quality

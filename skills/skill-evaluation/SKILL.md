@@ -1,11 +1,10 @@
 ---
 name: skill-evaluation
 description: >-
-  Evaluate whether a skill routes correctly and improves task outcomes. Use when
-  adding or revising skills, investigating misfires, or comparing skill versions.
-  Do not use as a substitute for testing application code.
+  Evaluate whether a skill routes correctly and improves task outcomes. Use when adding or revising skills, investigating misfires, or comparing skill versions.
 metadata:
   pack: agent
+  keywords: skill evaluation, skill benchmark, harness, routing accuracy, eval, test skill
 ---
 
 # Skill Evaluation

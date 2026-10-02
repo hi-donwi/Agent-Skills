@@ -1,11 +1,10 @@
 ---
 name: skill-creator
 description: >-
-  Create or upgrade a reusable skill in this library. Use when authoring skill
-  instructions, triggers, templates, or supporting resources. Do not use for
-  application code or edits to generated workspace skill copies.
+  Create or upgrade a reusable skill in this library. Use when authoring skill instructions, triggers, templates, or supporting resources.
 metadata:
   pack: agent
+  keywords: skill creator, create skill, new skill, authoring skill, SKILL.md, skill template
 ---
 
 # Skill Creator

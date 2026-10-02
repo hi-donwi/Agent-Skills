@@ -1,8 +1,10 @@
 ---
 name: planning-and-task-breakdown
-description: Breaks work into ordered tasks. Use when you have a spec or clear requirements and need to break work into implementable tasks. Use when a task feels too large to start, when you need to estimate scope, or when parallel work is possible. Do not use when requirements are still unclear (spec-driven-development) or when the work is already a single small task.
+description: >-
+  Break work into ordered, implementable tasks. Use when you have a spec or clear requirements and need to break work into implementable steps.
 metadata:
   pack: core
+  keywords: planning, tasks, task breakdown, roadmap, work breakdown, estimation, ordering
 ---
 
 # Planning and Task Breakdown

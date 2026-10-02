@@ -1,11 +1,10 @@
 ---
 name: using-agent-skills
 description: >-
-  Select the smallest set of available skills for a task. Use at task start or
-  when the kind of work changes. Do not turn skill discovery into a mandatory
-  sequence for simple edits.
+  Select the smallest set of available skills for a task. Use at task start or when the kind of work changes.
 metadata:
   pack: agent
+  keywords: using skills, skill discovery, agent skills, catalog, skill selection, workflow selection
 ---
 
 # Using Agent Skills

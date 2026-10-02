@@ -1,11 +1,10 @@
 ---
 name: ai-tool-security
 description: >-
-  Review AI tool execution, prompt injection boundaries, and outbound data access.
-  Use when configuring agent tools, MCP permissions, shell automation, or AI
-  provider access. Do not use for general application authentication or dependency audits.
+  Review AI tool execution, prompt injection boundaries, and outbound data access. Use when configuring agent tools, MCP permissions, shell automation, or AI provider access.
 metadata:
   pack: agent
+  keywords: ai security, prompt injection, tool permissions, mcp security, data leakage, agent guardrails
 ---
 
 # AI Tool Security

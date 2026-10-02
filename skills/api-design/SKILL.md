@@ -1,12 +1,10 @@
 ---
 name: api-design
 description: >-
-  Design clear, contract-first APIs and module interfaces with validation at the
-  boundaries. Use when adding or changing an HTTP/RPC endpoint, a public library
-  interface, or a service contract, or when reviewing an interface for
-  consistency. Do not use for internal one-off helpers with no external consumers.
+  Design clear, contract-first APIs and module interfaces with boundary validation. Use when adding or changing an HTTP/RPC endpoint, a public library interface, or a service contract.
 metadata:
   pack: core
+  keywords: api, rest, openapi, endpoint, contract, interface, schema, rpc
 ---
 
 # API & Interface Design

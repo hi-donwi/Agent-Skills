@@ -1,12 +1,7 @@
 ---
 name: bulk-reporting-export
 description: >-
-  Build large reporting and export endpoints that do not exhaust memory: streaming XLSX (POI
-  SXSSF), PDF, ZIP, database-side aggregation, async jobs with 202 plus polling or SSE
-  progress, spool cleanup, idempotency, and download authorisation. Use when an export is slow
-  or runs out of memory or when building any reporting-module endpoint. Do not use for
-  ordinary paginated list endpoints (rest-api-contract) or general query tuning (quarkus-
-  persistence).
+  Build memory-safe reporting and export endpoints: streaming XLSX (POI SXSSF), PDF, database-side aggregation, async jobs with 202, and spool cleanup.
 metadata:
   pack: java
   keywords: export, report, reporting, xlsx, excel, pdf, zip, poi, sxssf, streaming, memory, oom, out of memory, async job, sse, progress, download, spool, aggregate, summary

@@ -1,11 +1,10 @@
 ---
 name: context-engineering
 description: >-
-  Select and refresh the minimum context needed for an active task. Use when
-  starting or resuming work, switching projects, or correcting stale agent context.
-  Do not use to design access boundaries; use context-privacy for that.
+  Select and refresh the minimum context needed for an active task. Use when starting or resuming work, switching projects, or correcting stale agent context.
 metadata:
   pack: agent
+  keywords: context, context engineering, session context, prompt context, attention isolation, pack
 ---
 
 # Context Engineering

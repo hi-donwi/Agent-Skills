@@ -1,11 +1,7 @@
 ---
 name: design-tokens
 description: >-
-  Define and apply design tokens: naming by role, primitive to semantic to component tiers,
-  theming and dark mode from one switch, contrast as a build constraint. Use when starting a
-  UI with no design system or when hardcoded colours spread. Do not use for building a
-  component (frontend-ui-engineering), layout sizing (responsive-layout), or page audits
-  (accessibility-audit).
+  Define and apply design tokens: naming by role, semantic tiers, theming, and dark mode switches. Use when establishing UI design tokens or themes.
 metadata:
   pack: web
   keywords: design token, design system, palette, colour, color, theme, theming, dark mode, light mode, contrast, spacing scale, type scale, radius, elevation, css variable, custom property, semantic token, hardcoded hex, hardcoded colour, hardcoded color, inconsistent spacing, tailwind config, brand

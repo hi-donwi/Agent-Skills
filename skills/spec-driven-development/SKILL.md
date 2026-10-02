@@ -1,8 +1,10 @@
 ---
 name: spec-driven-development
-description: Creates specs before coding. Use when starting a new project, feature, or significant change and no specification exists yet. Use when requirements are unclear, ambiguous, or only exist as a vague idea. Do not use when a spec already exists, or for small bugfixes that do not change intended behaviour.
+description: >-
+  Create specifications before coding. Use when starting a new project, feature, or significant change and no specification exists yet.
 metadata:
   pack: core
+  keywords: specification, spec, prd, requirements, requirements analysis, contract first, greenfield
 ---
 
 # Spec-Driven Development

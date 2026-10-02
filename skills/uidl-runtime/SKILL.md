@@ -1,12 +1,7 @@
 ---
 name: uidl-runtime
 description: >-
-  Author, validate, and render UIDL documents - schema-driven JSON UI for lists, forms,
-  reports, dashboards, and settings - with the uidl-runtime package (React, Flutter, Android
-  cores, Java builder). Use when creating or changing a UIDL document, its schema,
-  DataAdapter, $bind/$query/$expr behaviour, uidl-validate, or uidl-compile. Do not use for
-  hand-built non-UIDL screens (frontend-ui-engineering) or ordinary REST work (quarkus-
-  service, rest-api-contract).
+  Author, validate, and render UIDL documents — schema-driven JSON UI for lists, forms, reports, dashboards, and settings with the uidl-runtime package.
 metadata:
   pack: web
   keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry

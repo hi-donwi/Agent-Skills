@@ -1,8 +1,10 @@
 ---
 name: test-driven-development
-description: Drives development with tests. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality. Do not use for documentation-only edits, or for browser e2e verification (webapp-testing).
+description: >-
+  Drive development with tests. Use when implementing logic, fixing bugs, or changing behavior. Proves code works test-first before writing implementation.
 metadata:
   pack: core
+  keywords: tdd, unit test, test driven development, tests, red green refactor, test suite, test coverage
 ---
 
 # Test-Driven Development

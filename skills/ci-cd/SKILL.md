@@ -1,12 +1,10 @@
 ---
 name: ci-cd
 description: >-
-  Set up or improve CI/CD pipelines: automated lint/test/build gates, safe
-  deployments, and fast feedback. Use when adding GitHub Actions (or similar),
-  defining quality gates, fixing a failing pipeline, or designing a release/rollout.
-  Do not use for application feature logic unrelated to the pipeline.
+  Set up or improve CI/CD pipelines: automated lint/test/build gates, safe deployments, and fast feedback. Use when adding GitHub Actions, defining quality gates, or fixing builds.
 metadata:
   pack: core
+  keywords: ci, cd, github actions, pipeline, build, lint, workflow, automated test, release, quality gate
 ---
 
 # CI/CD & Automation

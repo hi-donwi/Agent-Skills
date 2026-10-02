@@ -1,12 +1,10 @@
 ---
 name: security-hardening
 description: >-
-  Find and fix common security weaknesses (OWASP-style) and manage secrets safely.
-  Use when reviewing code for vulnerabilities, handling auth/input/untrusted data,
-  before shipping anything internet-facing, or when secrets/keys are involved. Do
-  not use for offensive security, exploitation, or attacking systems you don't own.
+  Find and fix common security weaknesses (OWASP) and manage secrets safely. Use when reviewing code for vulnerabilities, handling auth/input/untrusted data, or before shipping internet-facing surfaces.
 metadata:
   pack: core
+  keywords: security, owasp, xss, sql injection, sanitize, vulnerabilities, auth, input validation, secrets
 ---
 
 # Security & Hardening

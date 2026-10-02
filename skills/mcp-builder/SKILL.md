@@ -1,13 +1,10 @@
 ---
 name: mcp-builder
 description: >-
-  Design, implement, test, or review Model Context Protocol (MCP) servers and
-  tool integrations, including schemas, auth, transport, permissions, evaluation,
-  and agent usability. Use when exposing external APIs/data/actions to agents.
-  Do not use for ordinary application APIs unless they are being surfaced through
-  MCP.
+  Design, implement, test, or review Model Context Protocol (MCP) servers and tool integrations: schemas, auth, transport, permissions, and agent usability.
 metadata:
   pack: agent
+  keywords: mcp, model context protocol, mcp server, tools, json rpc, agent tools, schemas
 ---
 
 # MCP Builder

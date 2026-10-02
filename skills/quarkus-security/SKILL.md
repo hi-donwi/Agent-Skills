@@ -1,12 +1,7 @@
 ---
 name: quarkus-security
 description: >-
-  Apply and review backend security in Quarkus: Argon2id, Redis-backed sessions and cookies,
-  closed-by-default RBAC with @RolesAllowed, data-level authorisation in queries, allowlists
-  for dynamic sort and filter, upload validation, security headers, CORS, and secret handling.
-  Use when touching login, sessions, roles, user input, or files, or reviewing a PR that
-  touches auth. Do not use for error shape (rest-api-contract) or infrastructure security
-  (java-delivery).
+  Apply and review backend security in Quarkus: Argon2id, Redis sessions, closed-by-default RBAC with @RolesAllowed, query-level auth, and upload validation.
 metadata:
   pack: java
   keywords: auth, authentication, authorisation, authorization, login, session, password, hashing, argon, role, permission, rbac, security, injection, upload, secret, cors, token, header, allowlist

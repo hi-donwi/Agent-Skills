@@ -1,11 +1,7 @@
 ---
 name: web-perf
 description: >-
-  Analyze web performance using Chrome DevTools MCP: Core Web Vitals, render-blocking
-  resources, and layout shifts. Use when auditing or optimizing page load performance,
-  Lighthouse scores, or site speed. Do not use for accessibility findings in a Lighthouse run
-  (accessibility-audit), general UI implementation (frontend-ui-engineering), or backend/API
-  performance (performance-optimization).
+  Analyze web performance: Core Web Vitals, render-blocking resources, and layout shifts. Use when auditing or optimizing page load performance and Lighthouse scores.
 metadata:
   pack: web
   keywords: performance, page load, core web vitals, lcp, inp, cls, fcp, tbt, speed index, lighthouse, slow page, render blocking, bundle size, waterfall, caching, profile, devtools, site speed

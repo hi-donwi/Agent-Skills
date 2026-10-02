@@ -1,12 +1,10 @@
 ---
 name: git-workflow
 description: >-
-  Use git well: atomic commits, clear messages, sensible branching, and clean
-  PRs. Use when committing, branching, writing commit/PR messages, resolving
-  conflicts, or structuring a change for review. Do not use for non-git VCS or for
-  rewriting already-pushed shared history without explicit instruction.
+  Use git well: atomic commits, clear messages, sensible branching, and clean PRs. Use when committing, branching, writing commit/PR messages, or resolving merge conflicts.
 metadata:
   pack: core
+  keywords: git, rebase, merge conflict, commit, branch, pr, pull request, atomic commit, cherry pick
 ---
 
 # Git Workflow & Versioning

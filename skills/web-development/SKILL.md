@@ -1,11 +1,7 @@
 ---
 name: web-development
 description: >-
-  Build modern websites and web apps with AI coding agents using the vibe coding workflow:
-  marketing sites, SaaS UIs, 3D/WebGL. Use when scaffolding, designing, or iterating on a site
-  or app with an agent, or for stack and quality rules for agent-driven front-end work. Do not
-  use for the craft of a specific interface (frontend-ui-engineering), native mobile apps,
-  game engines, or pure backend services.
+  Build modern websites and web apps with AI coding agents: marketing sites, SaaS UIs, design systems, and frontend architectural best practices.
 metadata:
   pack: web
   keywords: website, web app, scaffold, next.js, nextjs, astro, vibe coding, cursor, v0, bolt, lovable, replit, stack, tailwind, shadcn, marketing site, saas, landing page, three.js, webgl, 3d, motion, framer

@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "description": "Synthetic evaluation scenarios for Agent-Skills routing and triggers.",
+  "scenarios": [
+    {
+      "id": "scenario-api-design-1",
+      "query": "design a new RESTful endpoint contract for user registration with proper validation",
+      "expected_skill": "api-design",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-cicd-1",
+      "query": "set up github actions workflow to run automated lint and test checks on pull requests",
+      "expected_skill": "ci-cd",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-code-review-1",
+      "query": "please review this diff across correctness, security, and edge cases before merging",
+      "expected_skill": "code-review",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-debugging-1",
+      "query": "diagnose this unhandled null pointer exception crash and stack trace in the worker service",
+      "expected_skill": "debugging",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-dep-audit-1",
+      "query": "audit third-party npm packages for vulnerabilities and upgrade outdated dependencies",
+      "expected_skill": "dependency-audit",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-adr-1",
+      "query": "document architectural decision record for adopting Redis session storage",
+      "expected_skill": "documentation-and-adrs",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-git-workflow-1",
+      "query": "resolve git rebase merge conflicts and prepare atomic clean commits",
+      "expected_skill": "git-workflow",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-observability-1",
+      "query": "add OpenTelemetry distributed tracing and structured JSON logs with correlation IDs",
+      "expected_skill": "observability",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-security-1",
+      "query": "audit and prevent SQL injection, cross-site scripting (XSS), and sanitize user inputs",
+      "expected_skill": "security-hardening",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-tdd-1",
+      "query": "write unit tests first using test-driven development before implementing interest calculator",
+      "expected_skill": "test-driven-development",
+      "pack": "core"
+    },
+    {
+      "id": "scenario-handoff-1",
+      "query": "prepare handoff document with repository state and open tasks for the next agent session",
+      "expected_skill": "agent-handoff",
+      "pack": "agent"
+    },
+    {
+      "id": "scenario-a11y-1",
+      "query": "audit website against WCAG 2.2 AA standards for keyboard navigation and screen reader contrast",
+      "expected_skill": "accessibility-audit",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-design-tokens-1",
+      "query": "define CSS design tokens and color semantic variables for dark mode theming",
+      "expected_skill": "design-tokens",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-responsive-1",
+      "query": "make this dashboard layout responsive across mobile viewports using container queries and flexbox",
+      "expected_skill": "responsive-layout",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-uidl-1",
+      "query": "create and validate UIDL document schema for rendering dynamic data tables and form filters",
+      "expected_skill": "uidl-runtime",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-web-perf-1",
+      "query": "optimize Core Web Vitals to fix poor Largest Contentful Paint (LCP) and render-blocking scripts",
+      "expected_skill": "web-perf",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-playwright-1",
+      "query": "write end-to-end browser tests using Playwright to verify checkout flow and payment modal",
+      "expected_skill": "webapp-testing",
+      "pack": "web"
+    },
+    {
+      "id": "scenario-quarkus-db-1",
+      "query": "create PanacheEntity JPA mapping with Flyway migration safe on PostgreSQL production table",
+      "expected_skill": "quarkus-persistence",
+      "pack": "java"
+    },
+    {
+      "id": "scenario-quarkus-sec-1",
+      "query": "configure role-based access control with RolesAllowed and Argon2id password hashing in Quarkus",
+      "expected_skill": "quarkus-security",
+      "pack": "java"
+    },
+    {
+      "id": "scenario-bulk-export-1",
+      "query": "build streaming XLSX Excel export endpoint using POI SXSSF that will not run out of memory",
+      "expected_skill": "bulk-reporting-export",
+      "pack": "java"
+    }
+  ]
+}

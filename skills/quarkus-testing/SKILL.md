@@ -1,12 +1,7 @@
 ---
 name: quarkus-testing
 description: >-
-  Write tests for a Quarkus backend: fast unit tests without @QuarkusTest, integration tests
-  with @QuarkusTest and Testcontainers PostgreSQL, RestAssured, authorisation and architecture
-  tests, fixtures, JaCoCo gates, and k6 load tests. Use when adding an endpoint or business
-  rule, fixing a bug test-first, or when tests are slow or flaky. Do not use for diagnosing
-  production issues (quarkus-observability) or non-test performance tuning (bulk-reporting-
-  export).
+  Write tests for Quarkus: fast unit tests without @QuarkusTest, integration tests with Testcontainers PostgreSQL, RestAssured, auth tests, and JaCoCo gates.
 metadata:
   pack: java
   keywords: test, testing, junit, mock, testcontainer, coverage, jacoco, assertion, restassured, flaky, fixture, quarkustest, integration test, unit test
