@@ -4,7 +4,7 @@ description: >-
   Design or review context sharing across clients, project groups, and teams. Use when deciding where private notes, sensitive data, credentials, or context packs belong.
 metadata:
   pack: agent
-  keywords: privacy, confidential, credentials, access boundary, multi-client, context privacy, secret isolation
+  keywords: privacy, confidential, credentials, access boundary, multi-client, context privacy, secret isolation, client notes
 ---
 
 # Context Privacy

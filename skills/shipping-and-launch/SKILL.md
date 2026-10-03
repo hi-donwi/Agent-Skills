@@ -24,6 +24,8 @@ Do not use for CI pipeline setup (`ci-cd`) or for writing the production code be
 
 ## Process
 1. **Clear the pre-launch checklists** (code quality, security, performance, accessibility, infrastructure, documentation) in `references/launch-playbook.md`.
+   For hosted business applications, apply only the shipped capabilities in
+   `references/business-launch-checklist.md`; record justified non-applicable checks.
 2. **Ship behind a feature flag.** Deploy with the flag off, then enable for team → canary → gradual → 100%. Every flag has an owner and an expiration. Clean up within two weeks of full rollout. Do not nest flags. Test both states in CI.
 3. **Advance only on green thresholds.** Error rate within 10% of baseline, p95 latency within 20%, no new client error types. Hold or roll back using the table in the playbook.
 4. **Watch the first hour.** Health 200, no new error types, latency unchanged, critical flow works, logs flowing, rollback ready.
@@ -59,5 +61,6 @@ After deploying:
 
 ## References
 - `references/launch-playbook.md` — checklists, flags, staged rollout, monitoring, rollback plan
+- `references/business-launch-checklist.md` - tenant, membership, billing, ERP, integration, and recovery gates
 - Workspace `definition-of-done` — apply it first
 - `security-hardening`, `performance-optimization`, `frontend-ui-engineering/references/production-ui-checklist.md` for the matching pre-launch slices

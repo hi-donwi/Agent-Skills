@@ -57,6 +57,15 @@ Route by the user's intended outcome and the installed catalog, then load detail
 | Check a surface is accessible | accessibility-audit | responsive-layout for reflow |
 | Author or change a UIDL document or runtime | uidl-runtime | frontend-ui-engineering for non-UIDL UI |
 | Change service contracts | api-design | rest-api-contract or stack-specific skill |
+| Enforce tenant data isolation | saas-multitenancy | identity-access-management for actor permission |
+| Provision, suspend, or retire tenants | saas-onboarding | background-jobs for durable steps |
+| Manage invitations, eligibility, or renewals | membership-management | saas-billing only for payment policy |
+| Integrate identity or revoke access | identity-access-management | stack-specific security implementation |
+| Bill subscriptions or reserve paid quota | saas-billing | webhook-integrations for general transport |
+| Control release exposure or measure activation | feature-flags or product-analytics | shipping-and-launch for release readiness |
+| Define ERP module and company boundaries | erp-domain-design | erp-accounting, erp-inventory, erp-procurement, or erp-sales |
+| Approve a business document revision | workflow-approvals | audit-logging for durable attribution |
+| Recover jobs, deliver partner events, or exchange files | background-jobs, webhook-integrations, or data-import-export | select by the changed contract, not the entire application |
 
 This is a routing aid, not a required lifecycle. Use other installed specialist
 descriptions when they match better; do not assume every listed skill was installed.

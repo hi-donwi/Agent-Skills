@@ -27,6 +27,10 @@ misroute tasks, stall work, or perform unauthorized actions.
    skill handles untrusted input or external actions. Use synthetic data.
 3. Validate structure, resource paths, naming, and catalog entries separately.
    In this library run ./bin/reindex and python3 bin/validate.py.
+   For closed evaluator inputs, prefer exact file reads. Scope any necessary search
+   to an allowed directory and filename filter; a file-shaped search path may not
+   restrict the tool. Unexpected material is an input-boundary incident: record it
+   and repeat affected evaluations from a fresh context before claiming isolation.
 4. Exercise the fixtures using the available authorized evaluation mechanism.
    Give an evaluator only the request, candidate skill, and necessary artifacts;
    keep expected outcomes in a separate scoring record. Do not spawn agents,
@@ -37,6 +41,9 @@ misroute tasks, stall work, or perform unauthorized actions.
 6. Compare against the previous version on the same fixtures when claiming an
    improvement. Repeat only cases affected by changes or observed variability.
    Fix the narrow cause of a failure; avoid growing universal rules from one example.
+   Distinguish artifact defects from overspecified scoring. If an oracle contradicts
+   the supplied contract, retain the old result, version the correction, and score
+   both candidates again; changed-oracle scores are not a skill improvement claim.
 7. Report structural checks, behavioral outcomes, and remaining uncertainty
    separately. Unrun cases never count as passes.
 
@@ -54,3 +61,5 @@ misroute tasks, stall work, or perform unauthorized actions.
 ## References
 - `references/scenarios.md` — synthetic routing and failure fixtures for this
   library's agent workflows; load when reviewing those skills or extending coverage.
+- `references/business-behavior-protocol.md` - held-out artifact execution and
+  decision evaluation for critical business workflows, with explicit evidence limits.

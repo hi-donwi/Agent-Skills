@@ -31,6 +31,8 @@ SPECIFY ──→ PLAN ──→ TASKS ──→ IMPLEMENT
 ```
 
 1. **Specify.** Surface assumptions first. Cover objective, commands, project structure, code style, testing strategy, and boundaries (Always / Ask first / Never). Reframe vague requirements as testable success criteria. Spec template: `references/spec-template.md`.
+   For SaaS, ERP, or membership behavior, add the relevant business invariants from
+   `references/business-prd-template.md`; omit unrelated modules rather than expanding scope.
 2. **Plan.** Components, order, risks, parallel vs sequential, checkpoints. Canonical slicing lives in `planning-and-task-breakdown`. Save `tasks/plan.md` and `tasks/todo.md`.
 3. **Tasks.** One focused session each, with acceptance criteria, verification, ≤ ~5 files, ordered by dependency.
 4. **Implement** with `incremental-implementation` and `test-driven-development`. Load the right spec sections via `context-engineering`.
@@ -55,3 +57,4 @@ Before proceeding to implementation, confirm:
 
 ## References
 - `references/spec-template.md` — six-area spec, assumption list, success-criteria reframe
+- `references/business-prd-template.md` - scoped actors, lifecycles, money/quantity rules, and failure acceptance criteria
