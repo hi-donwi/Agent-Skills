@@ -55,31 +55,18 @@ jobs:
             exit 1
           fi
 
-      # Two greps, because they need different sensitivity. Names are matched
-      # case-insensitively; home-directory paths must be case-SENSITIVE, or every
-      # `/api/users/` in an example matches `/Users/` and the build fails on nothing.
-      #
-      # The names are in a repository secret, not in this file: a list of what must
-      # never be published, written into a published file, is the leak it exists to
-      # prevent — which is exactly what the inline pattern here used to be. The
-      # check prints file names only (-l), because a matched line would put the name
-      # straight into a public build log, where secret masking does not reach it.
+      # Two sources, deliberately separated. The names that must never be
+      # published live in a repository secret, not in this file: a list of what
+      # must never be published, written into a published file, is the leak it
+      # exists to prevent. `.github/public-identifiers` holds only names that are
+      # public anyway, so a secret that still contains one does not redden the
+      # build on every mention. The gate prints file names only, because a
+      # matched line would put the name straight into a public build log, where
+      # secret masking does not reach it.
       - name: No personal or client identifiers
         env:
           PRIVATE_IDENTIFIERS: ${{ secrets.PRIVATE_IDENTIFIERS }}
-        run: |
-          fail=0
-          if [ -z "$PRIVATE_IDENTIFIERS" ]; then
-            echo "::warning::PRIVATE_IDENTIFIERS is unset - the name check did not run"
-          elif grep -rilE "$PRIVATE_IDENTIFIERS" --include='*.md' skills/ ; then
-            echo "::error::a personal or client name reached a public skill (files listed above)"
-            fail=1
-          fi
-          if grep -rnE '/(Users|home)/[A-Za-z][A-Za-z0-9._-]*' --include='*.md' skills/ ; then
-            echo "::error::a home-directory path reached a public skill"
-            fail=1
-          fi
-          exit $fail
+        run: bash bin/identifier-gate.sh skills
 
   # reindex counts files and CI checks frontmatter, but neither notices a
   # quoted resource path that resolves to nothing. Everything a reader is told

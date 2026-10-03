@@ -191,7 +191,13 @@ python3 -B bin/validate.py
 python3 -B -m unittest discover -s tests -v
 python3 -B bin/harness.py benchmark
 python3 -B bin/harness.py budget
+PRIVATE_IDENTIFIERS='name-one|name-two' bash bin/identifier-gate.sh skills
 ```
+
+`bin/identifier-gate.sh` takes the names it refuses from `PRIVATE_IDENTIFIERS` and the
+names it accepts from `.github/public-identifiers`. Keep the pattern out of this
+repository — a published list of what must never be published is the leak — and keep
+the public list limited to names that are public anyway.
 
 The validator checks canonical metadata, name and description limits, known packs,
 allowed spec fields, the 100-line entry-point ceiling, links and resource paths in

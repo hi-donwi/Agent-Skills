@@ -1,0 +1,21 @@
+# Names that may appear in this repository's published skills.
+#
+# The private and client names live in the PRIVATE_IDENTIFIERS repository secret.
+# This file holds only names that are already public: the account these projects
+# live under, and the open-source repositories a skill is allowed to name.
+#
+# Adding a line here means "this name is public" - never add a client, a paying
+# organisation, or a private project. `bin/identifier-gate.sh` treats a match
+# that is absent from this file as a leak.
+
+donwi
+hi-donwi
+
+agent-control
+agent-secure
+agent-skills
+agent-workspace
+dba-toolkit
+ops-toolkit
+uidl-builder
+uidl-runtime
