@@ -118,3 +118,26 @@ Maintain a strict boundary between viewport queries and container queries:
   }
 }
 ```
+
+## 4. Minimum Margins, Gutters, and Width Constraints
+
+### Spatial Matrix across Viewport Tiers
+
+| Spatial Parameter | Compact (< 600px) | Medium (600px - 840px) | Expanded (840px - 1200px) | Widescreen (> 1200px) |
+|---|---|---|---|---|
+| **Screen Edge Margin** | `16px` (min) / `20px` | `24px` | `24px - 32px` | Centered (`margin: auto`, min 32px) |
+| **Grid Column Gutter** | `12px - 16px` | `16px - 24px` | `24px` | `24px - 32px` |
+| **Card / Surface Inset** | `16px` | `20px` | `24px` | `24px - 32px` |
+| **App Shell Max-Width** | `100%` | `100%` | `1120px` | `1280px - 1440px` (1600px for data grid) |
+
+### Strict Content Bounds
+
+1. **Absolute Viewport Floor (320px)**: Interfaces must render without horizontal scrollbars at a minimum width of 320px CSS pixels. Never hardcode fixed container widths (`width: 400px;`); always use `max-width: 100%` or `min(400px, 100%)`.
+2. **Reading Line Length (60ch - 75ch)**: Multi-line reading blocks (articles, documentation, descriptions) must cap horizontal width between 60 and 75 characters (`max-inline-size: 68ch;`). Exceeding 80 characters forces excessive eye saccades and degrades comprehension.
+3. **Form Control Max-Width (480px - 600px)**: Form inputs must not stretch across full desktop viewports. Cap single-column forms to a maximum of 480px–600px (`max-inline-size: 36rem;`) to maintain visual cohesion between labels, inputs, and validation feedback.
+4. **Modal Dialog Tiers**:
+   - Confirmation / Alert Dialogs: `400px - 440px`
+   - Standard Form Dialogs: `540px - 640px`
+   - Multi-Column Inspection Drawers: `800px - 960px`
+   - Mobile: Default to full-screen sheets (`100%` width, `100dvh` height, or bottom sheets with 16px safe margins).
+
