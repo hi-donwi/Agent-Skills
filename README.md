@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-65 skills, grouped into packs. Nothing here names a company, a client, or a private
+66 skills, grouped into packs. Nothing here names a company, a client, or a private
 codebase. Skills may be specific to a **technology** — that is what a pack is: `java` is
 Quarkus and Panache, `uidl-runtime` is the UIDL package and its spec. The line is whether
 someone outside this organisation, using that technology, could pick the skill up
@@ -55,6 +55,7 @@ plan, build, review, debug, ship, and preserve SaaS, ERP, and membership invaria
 | [`git-workflow`](skills/git-workflow/SKILL.md) | committing, branching, writing commit/PR messages, resolving conflicts, or structuring a change for review |
 | [`identity-access-management`](skills/identity-access-management/SKILL.md) | designing tenant-scoped permissions, SSO/MFA, directory provisioning, and access revocation |
 | [`incremental-implementation`](skills/incremental-implementation/SKILL.md) | implementing any feature or change that touches more than one file. you're about to write a large amount of code at once, or when a task feels too… |
+| [`kerangka`](skills/kerangka/SKILL.md) | authoring, validating, compiling, or projecting Kerangka declarative JSON models into app logic, DDL, OpenAPI, MCP tools, and UIDL frontends |
 | [`membership-management`](skills/membership-management/SKILL.md) | handling invitations, eligibility, renewals, expiry, benefits, suspension, and ownership transfer |
 | [`observability`](skills/observability/SKILL.md) | shipping production code, diagnosing runtime behavior, or making systems operable |
 | [`performance-optimization`](skills/performance-optimization/SKILL.md) | performance requirements exist, you suspect a regression, or profiling reveals a bottleneck that needs fixing |

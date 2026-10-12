@@ -61,3 +61,9 @@ See `references/document-model.md` for the document shape and
 - Failure case: missing mutation handler → closed failure, no invented API.
 - Reads go through `DataAdapter`; writes through the host handler.
 - Conformance fixtures under `conformance/cases/` still pass for the changed area.
+
+## References
+- `references/document-model.md` — document schema, seams, and spec reading order
+- `references/commands.md` — repository build, test, and validation commands
+- `references/component-catalog.md` — layout nodes, form widgets, tables, and action arrays
+- `references/declarative-design-and-theming.md` — themes, tokens, density modes, and layout constraints
