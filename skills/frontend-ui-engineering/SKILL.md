@@ -83,6 +83,8 @@ After building UI:
 - `references/visual-polish.md` — the AI-aesthetic table, loading and feedback states
 - `references/production-ui-checklist.md` — review-mode checklist
 - `references/source-synthesis.md` — what the published sources behind this skill agree on
+- `references/headless-primitives-and-composition.md` — unstyled primitives, data-state attributes, and exit lifecycles
+- `references/motion-and-physics-systems.md` — spring physics, duration tiers, and compositor acceleration
 
 ## Bundle contents
 - `adapters/` — optional per-agent rule snippets (Cursor, KiloCode)

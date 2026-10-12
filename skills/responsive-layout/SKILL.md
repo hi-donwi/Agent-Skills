@@ -76,3 +76,5 @@ a component library acquires props nobody can remember.
 - `references/intrinsic-and-container.md` — auto-fit/minmax, container queries, subgrid, `:has()`
 - `references/fluid-type-and-space.md` — the clamp() formula, scales, and the zoom trap
 - `references/viewport-touch-and-rtl.md` — dvh/svh, safe areas, target sizing, logical properties
+- `references/adaptive-layout-archetypes.md` — window size classes, multi-pane patterns, and shell boundaries
+- `references/modern-css-and-rendering.md` — native nesting, cascade layers, subgrid, and Core Web Vitals

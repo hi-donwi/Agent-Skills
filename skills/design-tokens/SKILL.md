@@ -72,6 +72,8 @@ how generated UI comes to look generated.
 - `references/token-architecture.md` — the three tiers, naming, and theming mechanics in CSS
 - `references/contrast.md` — pairing tokens, the ratios, and checking them as you define
 - `references/adoption.md` — introducing tokens into a codebase that already has values
+- `references/color-theming-and-surfaces.md` — semantic color roles, tonal surface hierarchy, and dark mode
+- `references/spatial-geometry-and-density.md` — 8pt grid, density modes, touch ergonomics, and typography
 
 ## Bundle contents
 - `templates/design-system-declaration.md` — the declaration filled in at step 2
