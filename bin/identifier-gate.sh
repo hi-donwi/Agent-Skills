@@ -29,6 +29,8 @@ if [ "${#targets[@]}" -eq 0 ]; then
   targets=("$repo_root/skills")
 fi
 
+# Match identifier tokens, including in paths and hyphenated names, rather than
+# private short keys embedded in ordinary words such as "display".
 fail=0
 
 if [ -z "$pattern" ]; then
@@ -46,8 +48,8 @@ else
         fail=1
         break
       fi
-    done < <(grep -ioE -e "$pattern" "$file" | tr '[:upper:]' '[:lower:]' | sort -u)
-  done < <(grep -rilE --include='*.md' -e "$pattern" "${targets[@]}")
+    done < <(grep -iowE -e "$pattern" "$file" | tr '[:upper:]' '[:lower:]' | sort -u)
+  done < <(grep -rilwE --include='*.md' -e "$pattern" "${targets[@]}")
 fi
 
 # Case-sensitive on purpose: `/api/users/` in an example must not match `/Users/`,
