@@ -31,7 +31,7 @@ When Kerangka compiles a `.kerangka.json` file, it normalizes shorthand types, v
 - `kerangka openapi <model.json> -o openapi.json`: Generates an OpenAPI 3.1 contract complete with request/response schemas and RFC 9457 error formats.
 - `kerangka graphql <model.json> -o schema.graphql`: Generates GraphQL query types, mutation inputs, and entity definitions.
 - `kerangka mcp <model.json> -o mcp-tools.json`: Synthesizes Model Context Protocol tool declarations (`list_*`, `get_*`, `create_*`, `update_*`, `transition_*`) so AI coding agents can interact directly with model-backed actions.
-- `kerangka uidl <model.json> -o uidl-screens/`: Generates valid UIDL documents for dashboards, data tables, and forms consumed by `uidl-runtime`.
+- `kerangka uidl <model.json> -o uidl-screens/`: Generates static UIDL lists/forms. Dashboards are refused with `DASHBOARD_NOT_STATIC`; use actor-aware `GET /screens/{viewId}`. Rendering and visual checks remain required.
 
 ### Polyglot Code Generation
 

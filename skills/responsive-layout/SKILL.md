@@ -50,6 +50,9 @@ a component library acquires props nobody can remember.
    on touch), padding the target rather than growing the glyph.
 8. **Test against content, not only widths.** The longest real string, the empty state, a
    2.5× word-length translation, and 200% zoom break more layouts than any device width.
+9. **Check internal control geometry.** Icon size and target size are independent.
+   Bound form width and wrap action groups with gaps; verify broad host CSS does not
+   stretch pagination targets or make disabled controls appear active.
 
 ## Red flags
 - A `variant` or `size` prop that exists only because the component cannot read its container

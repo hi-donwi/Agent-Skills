@@ -1,75 +1,63 @@
-# Declarative UI Design via Kerangka Projections
+# Kerangka views and presentation ownership
 
-## Overview
+## Read the projection path first
 
-Rather than hand-crafting repetitive React, Vue, or Flutter page templates for enterprise applications, developers declare UI views directly inside the Kerangka model. The compiler projects these declarations into production-grade UIDL documents that adhere to the 8pt spatial grid, ergonomic hit targets, and accessible contrast standards when rendered by `uidl-runtime`.
+Identify whether the host consumes static `kerangka uidl` documents or per-request
+screens from `RecipeProjector` / `GET /screens/{viewId}`. They have different record,
+version, query, and action contracts. Follow ADR-0043 and ADR-0045 in the Kerangka
+repository: business presets belong to Kerangka; presentation recipes and CSS
+belong to UIDL Runtime. Do not create another copy of a layout library.
 
-## 1. Declaring Views in the Model
+## Declare views using the compiler's vocabulary
 
-Views are declared under the `views` key of `.kerangka.json`:
+Views name their kind as a key, not `type: "list"` plus `entity`:
 
 ```json
 {
+  "kerangka": "0.1",
+  "app": "record-management",
+  "entities": {
+    "Record": { "fields": { "name": "string!", "email": "email", "status": "enum(active, suspended) = active" } }
+  },
   "views": {
-    "executive-dashboard": {
-      "type": "dashboard",
-      "title": "Operations Dashboard",
-      "dashboard": [
-        { "kpi": "Active Orders", "query": "count(Order.status == 'open')", "trend": "+12%" },
-        { "kpi": "Pending Approvals", "query": "count(Order.status == 'pending_approval')" },
-        { "kpi": "Gross Revenue", "query": "sum(Order.totalAmount)", "format": "currency" }
-      ]
-    },
-    "orders-list": {
-      "type": "list",
-      "entity": "Order",
-      "title": "Order Management",
-      "columns": ["orderNumber", "customerName", "totalAmount", "status", "orderDate"],
-      "filters": ["status", "orderDate"],
-      "sort": { "field": "orderDate", "direction": "desc" }
-    },
-    "order-form": {
-      "type": "form",
-      "entity": "Order",
-      "title": "New Sales Order",
-      "layout": "two-column",
-      "fields": ["customerName", "orderDate", "deliveryDate", "totalAmount", "notes"]
-    }
+    "records": { "list": "Record", "columns": ["name", "email", "status"], "open": "record" },
+    "record": { "form": "Record", "sections": [["name", "email"], ["status"]] }
   }
 }
 ```
 
-## 2. Projection to UIDL Surfaces
+Check and compile the exact example against the pinned compiler. Where the upgraded
+compiler supports `sectionTitles`, add an array parallel to `sections`, for example
+`["Identity", "Lifecycle"]`. Titles must be nonempty and unique. An older compiler
+rejects this new key; upgrade it before adding the metadata.
 
-Running `kerangka uidl <model.json> -o uidl-screens/` projects these view declarations into canonical UIDL 1.x documents:
+## Static documents
 
-### A. Dashboard Projections
-- Generates responsive metric cards using `Column` and `Card` nodes.
-- Attaches declarative `$query` data sources to aggregate metrics.
-- Formats currency, percentages, and numeric counts with proper typography hierarchy (Display/Title tokens).
+`kerangka uidl <model.json> -o uidl-screens/` generates lists and forms. Static
+form sections use registered Column/Text/Form widgets and supported spacing
+utilities. The upgraded projector emits shared `uidl-admin-*` presentation hooks,
+bounded width, and field groups. Older runtimes still need explicit layout and
+cannot be assumed to implement the new hooks.
 
-### B. List View Projections
-- Generates a `DataTable` widget with built-in server pagination (`page: { number, size }`), multi-column sorting, and full-text search.
-- Maps enum fields (such as `status`) to visual status pills/badges.
-- Injects row actions matching the entity's declared workflow transitions (e.g., `Approve`, `Reject`, `Cancel`).
+A static dashboard is refused with `DASHBOARD_NOT_STATIC`; aggregate values must be
+computed for the actual actor by the dynamic screen path. Do not document static
+dashboards as production-ready or bind the first record as an aggregate.
 
-### C. Form View Projections
-- Inspects entity field types and constraints to select the appropriate input widget:
-  - `string` -> `TextField`
-  - `enum` -> `Select`
-  - `bool` -> `Checkbox`
-  - `date` -> `DatePicker`
-- Wraps controls in a container capped at `max-inline-size: 36rem` (following the 480px–600px form max-width rule).
-- Generates reactive bindings (`props: { value: { "$bind": "state.form.customerName" } }`).
-- Generates submit actions executing the model's create or transition mutation.
+## Per-request screens
 
-### D. Application Navigation (Navbar)
-- When multiple views exist, the compiler synthesizes a `Navbar` node linking each view route.
-- The navbar renders at the top of the root container and highlights the currently active route based on the `$bind: "route.path"` state.
+The recipe projector uses `uidl-runtime/recipes`, which must remain React-free.
+Forms take record data and version; lists carry paging/query state; dashboards
+compute authorized aggregates. Preserve those host seams when changing presentation.
+Do not switch static documents to dynamic recipes just to fix a margin.
 
-## 3. Design System Alignment
+## Layout contract and verification
 
-Because the generated UIDL documents consume the semantic token registry of `uidl-runtime`:
-1. **Spatial Grid**: All generated containers, forms, and cards use the 8pt/4pt spatial scale tokens (`p-4` = 16px, `gap-4` = 16px, `gap-2` = 8px).
-2. **Accessible Form Controls**: Input fields receive full hit targets (minimum 44px height on touch devices) and clear focus rings.
-3. **Contrast and Themes**: Switching the host theme (e.g. to a dark or high-contrast preset) recolors all projected dashboards and data tables automatically without regenerating the UIDL files.
+Before authoring a view, identify its title, content width, meaningful sections,
+field order, action hierarchy, lookup boundary, and narrow-screen behavior.
+Presentation recipes own exact geometry; model metadata owns labels and grouping.
+Do not invent Card, Grid, DatePicker, or other unregistered widget names.
+
+Generated JSON validity is only the first gate. Render the emitted document with
+the exact host runtime and stylesheet. Check field/section gaps, bounded form
+width, wrapping actions, readable helper text, pagination geometry, focus, and
+loading/error/empty states at narrow and wide widths. Capture reviewed screenshots.

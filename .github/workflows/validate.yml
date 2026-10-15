@@ -87,3 +87,6 @@ jobs:
 
       - name: Routing accuracy and token budget benchmark
         run: python3 bin/harness.py benchmark
+
+      - name: Visual implementation routing fixtures
+        run: python3 bin/harness.py benchmark tests/ui-layout-scenarios.json

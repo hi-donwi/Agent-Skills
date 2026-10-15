@@ -50,6 +50,9 @@ how generated UI comes to look generated.
    large text and for UI boundaries). Check when defining the token, not when shipping.
 7. **Close the door behind you.** A lint rule that rejects raw hex and off-scale values in
    component code is what stops tier four from re-appearing next month.
+8. **Name spatial relationships.** Define label/control, field, action, section, and
+   gutter roles. Bind them through the renderer's supported API and verify computed gaps;
+   a declared token or CSS-looking JSON string does not prove it is applied.
 
 ## Red flags
 - A token named after its value (`--blue-500`) used as a semantic role

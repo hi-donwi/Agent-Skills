@@ -20,7 +20,7 @@ Build production-quality user interfaces that are accessible, performant, and vi
 - Adding interactivity or state management
 - Fixing visual or UX issues
 
-Do not use for schema-driven UIDL documents (`uidl-runtime`).
+Use `uidl-runtime` to author UIDL documents; retain these visual quality requirements.
 
 ## Hand off when
 | Need | Skill |
@@ -32,7 +32,7 @@ Do not use for schema-driven UIDL documents (`uidl-runtime`).
 | Verifying the built result against WCAG | `accessibility-audit` |
 
 ## Process
-1. **Confirm it is hand-built UI.** If the screen is a UIDL JSON document, stop and use `uidl-runtime`.
+1. **Identify the renderer.** Use `uidl-runtime` for UIDL authoring; apply the same layout, hierarchy, and visual review criteria to JSX and declarative UI.
 2. **Discover before inventing.** Grep the project's primitives, page-kit, and Storybook. Reuse or extend before adding a new component. See `references/component-reuse.md`.
 3. **Colocate, then decompose by responsibility.** Keep a small component in one file. Create a family directory when tests, stories, hooks, or subcomponents appear. Split when a file mixes visual regions, state, and data adaptation — 200 lines is a review threshold, not a target. Placement and composition: `references/component-structure.md`.
 4. **Choose the simplest state.** Local → lifted → URL (shareable) → server cache → context (read-heavy) → store; stop at the first rung that works, and avoid prop drilling deeper than three levels. Anything beyond that choice: `frontend-state`.
@@ -44,6 +44,8 @@ Do not use for schema-driven UIDL documents (`uidl-runtime`).
    success. Details and the anti-AI-aesthetic table: `references/visual-polish.md`. Review
    against `references/production-ui-checklist.md`, then verify with `accessibility-audit`.
 7. **Keep layers honest.** Components render. Hooks own state and effects. Services talk to APIs. Utilities stay pure.
+8. **Inspect the rendered layout.** Read `references/layout-quality.md` for spacing,
+   control anatomy, CSS diagnosis, and the narrow/wide visual acceptance gate.
 
 ## Red flags
 - Components over roughly 200 lines that have not been reviewed for decomposition
@@ -70,6 +72,7 @@ After building UI:
 - [ ] Responsive: works at 320px, 768px, 1024px, 1440px
 - [ ] Loading, error, and empty states all handled
 - [ ] Follows the project's design system (spacing, colors, typography)
+- [ ] Rendered evidence checks spacing, alignment, bounded widths, wrapping, and control geometry
 - [ ] No accessibility warnings in dev tools or axe-core
 - [ ] Architecture: no business logic in Components, no API calls in UI, no duplicated hooks
 - [ ] Architecture: Components consume Hooks, Hooks delegate to Services, Utilities are stateless
@@ -81,6 +84,7 @@ After building UI:
 - `references/component-reuse.md` — four-layer reuse (Component / Hook / Utility / Service)
 - `references/component-structure.md` — file layout, composition, and state
 - `references/visual-polish.md` — the AI-aesthetic table, loading and feedback states
+- `references/layout-quality.md` — layout contract, spacing, CSS diagnosis, and visual evidence
 - `references/production-ui-checklist.md` — review-mode checklist
 - `references/source-synthesis.md` — what the published sources behind this skill agree on
 - `references/headless-primitives-and-composition.md` — unstyled primitives, data-state attributes, and exit lifecycles

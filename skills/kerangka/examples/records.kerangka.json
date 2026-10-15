@@ -1,0 +1,36 @@
+{
+  "kerangka": "0.1",
+  "app": "record-management",
+  "entities": {
+    "Record": {
+      "fields": {
+        "name": "string!",
+        "email": "email",
+        "status": "enum(active, suspended) = active"
+      }
+    }
+  },
+  "views": {
+    "records": {
+      "list": "Record",
+      "columns": [
+        "name",
+        "email",
+        "status"
+      ],
+      "open": "record"
+    },
+    "record": {
+      "form": "Record",
+      "sections": [
+        [
+          "name",
+          "email"
+        ],
+        [
+          "status"
+        ]
+      ]
+    }
+  }
+}

@@ -43,6 +43,8 @@ The stack and the workflow are this skill's business; the interface is not.
      bold type, smooth micro-interactions."
    - If the work touches visible UI, also load `frontend-ui-engineering` and declare
      the UI design-system tokens before substantial code.
+     Use `uidl-runtime` for UIDL document authoring while retaining the shared visual
+     quality gate: grouped fields/actions, bounded forms, spacing, and control geometry.
    - Persist all of this in a rules file the agent reads on every turn
      (`AGENTS.md`, `.cursor/rules/*.mdc`, or `.kilocode/rules/`). See **Agent rules block** below.
 
@@ -67,6 +69,7 @@ The stack and the workflow are this skill's business; the interface is not.
 - LCP / INP / CLS budgets in the project rules still hold
 - `prefers-reduced-motion` is implemented for motion/3D
 - Diff was reviewed; no secrets or extra dependencies landed
+- Visible changes have reviewed narrow/wide render evidence, including theme contrast and wrapping
 
 ## Red flags
 - Prompting without a PRD / rules file → hallucinated structure and inconsistent output.
