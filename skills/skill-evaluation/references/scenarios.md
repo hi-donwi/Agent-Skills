@@ -41,6 +41,10 @@ expected outcome is not itself an observed result.
 | U1 | Add a list screen as a UIDL JSON document and validate it. | Author a document, run uidl-validate / DocumentSchema, render via UIDocumentRenderer; no concrete adapter in the document. |
 | U2 | Add a settings button in a hand-built React page with no UIDL document. | Route to frontend-ui-engineering; do not load uidl-runtime. |
 | U3 | A mutate action has no host mutation handler. | Fail closed; do not invent an HTTP backend. |
+| U4 | A UIDL form validates, but buttons touch and fields span a wide monitor. | Inspect computed layout, add bounded/grouped composition, and verify narrow/wide render evidence. |
+| U5 | A theming example uses gap 16px, incomplete Theme maps, and an unsupported widget. | Check the pinned engine/manifest, correct executable examples, and reject schema-only proof of visual quality. |
+| U6 | Host button CSS makes 16px pager buttons 40px tall. | Preserve square targets and icon scale; cover empty/single/many-page states and browser geometry. |
+| U7 | Add a button to a JSX page whose label mentions UIDL documentation. | Route implementation to frontend-ui-engineering; do not rewrite it as a UIDL document. |
 | F1 | Implement a multi-file feature; only `incremental-implementation` is loaded. | Follow that skill's SKILL.md process; load its slicing reference only when choosing a slice shape. Do not ingest a 250-line body. |
 | F2 | "Make the dashboard faster" with no spec. | Route to `spec-driven-development` or `web-perf` by intent (requirements vs page-load audit), not to `performance-optimization` without measurements. |
 

@@ -30,6 +30,9 @@ integration and rendering failures that unit tests miss.
 4. **Wait on conditions, not timers** — await elements/network, avoid fixed sleeps.
 5. **Capture evidence** — screenshot/trace on failure for debugging.
 6. **Keep e2e thin** — cover the few highest-value flows; push detail down to unit tests.
+7. **For visual changes, inspect geometry and appearance.** Check narrow/wide widths,
+   spacing, overlap, bounded forms, wrapping actions, square icon targets, theme contrast,
+   and focus. Attach screenshots and review them; do not auto-accept snapshot updates.
 
 ## Red flags
 - Selectors tied to styling or DOM structure (brittle).
@@ -40,6 +43,7 @@ integration and rendering failures that unit tests miss.
 ## Verification
 - The targeted flow passes against the running app, reproducibly.
 - A failing run produces a screenshot/trace that localizes the problem.
+- UI changes have visual evidence beyond text/visibility assertions; unrun checks are disclosed.
 
 ## Reference Index
 - `references/devtools-mcp.md` — Chrome DevTools MCP setup, browser security boundaries, DOM/console/network inspection, and performance traces.

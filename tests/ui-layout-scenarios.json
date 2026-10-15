@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "description": "Synthetic visual implementation routing; retrieval checks are not independent model execution.",
+  "scenarios": [
+    {
+      "id": "uidl-layout",
+      "query": "fix uidl layout spacing in a json ui document with touching buttons and pagination",
+      "expected_skill": "uidl-runtime",
+      "pack": "web"
+    },
+    {
+      "id": "uidl-styleintent",
+      "query": "review uidl styleintent and component registry defaults for a bounded form",
+      "expected_skill": "uidl-runtime",
+      "pack": "web"
+    },
+    {
+      "id": "kerangka-form",
+      "query": "fix kerangka uidl projection form sections and generated view layout",
+      "expected_skill": "kerangka",
+      "pack": "core"
+    },
+    {
+      "id": "jsx-button",
+      "query": "build a React JSX settings button component with hover loading and error states",
+      "expected_skill": "frontend-ui-engineering",
+      "pack": "web"
+    },
+    {
+      "id": "visual-browser",
+      "query": "use playwright browser test to verify rendered form layout and pagination geometry",
+      "expected_skill": "webapp-testing",
+      "pack": "web"
+    },
+    {
+      "id": "api-negative",
+      "query": "design an HTTP API endpoint contract for paginated resources",
+      "expected_skill": "api-design",
+      "pack": "core"
+    }
+  ]
+}

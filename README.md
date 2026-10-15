@@ -239,3 +239,11 @@ corrections, use the [business behavior evaluation protocol](skills/skill-evalua
 ## Licence
 
 MIT — see [LICENSE](LICENSE).
+
+## Visual UI quality
+
+Frontend and UIDL workflows share rendered layout acceptance: grouped fields/actions,
+bounded form widths, consistent spacing, control geometry, readable themes, and
+narrow/wide browser evidence. UIDL examples use the installed registry and utility
+vocabulary. Run `python3 bin/harness.py benchmark tests/ui-layout-scenarios.json` for
+the focused retrieval fixtures; this does not replace behavioral execution.

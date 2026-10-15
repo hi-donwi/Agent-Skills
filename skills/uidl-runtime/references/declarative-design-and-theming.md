@@ -1,125 +1,101 @@
-# Declarative Design Systems and Theming in UIDL-Runtime
+# Layout and theming against the installed runtime
 
-## Overview
+## Verify the artifact first
 
-In the UIDL ecosystem, UI/UX design rules are not hand-coded with ad-hoc CSS classes or inline style strings. Design systems are declared as structured token themes and applied to UIDL document nodes via semantic tokens, `StyleIntent` objects, and responsive value maps.
+Read the host import, package exports, lockfile, widget manifest, and actual CSS
+entry point. A local core checkout can differ from the published package used by
+a server projector. Do not infer capabilities from release notes or a skill alone.
 
-## 1. Token Architecture and Themes
+## Theme objects must satisfy the real type
 
-UIDL-Runtime separates token values across primitive and semantic layers:
+Extend a complete preset rather than inventing an incomplete Theme object:
 
 ```tsx
-import type { Theme, PrimitiveTokens, SemanticTokens } from "uidl-runtime";
+import { meridianLightTheme, type Theme } from "uidl-runtime";
 
-export const customBrandTheme: Theme = {
-  id: "brand-dark",
-  name: "Brand Dark Theme",
-  colorScheme: "dark",
+export const brandTheme: Theme = {
+  ...meridianLightTheme,
+  id: "brand-light",
+  name: "Brand Light",
+  mode: "light",
   primitives: {
+    ...meridianLightTheme.primitives,
     color: {
-      canvas: "#09090b",
-      surface: "#18181b",
-      "surface-elevated": "#27272a",
-      border: "#3f3f46",
-      primary: "#3b82f6",
-      "text-primary": "#f4f4f5",
-      "text-muted": "#a1a1aa",
-      danger: "#ef4444",
-      success: "#22c55e",
-      warning: "#f59e0b"
-    },
-    radius: {
-      none: "0px",
-      sm: "4px",
-      md: "8px",
-      lg: "12px",
-      full: "9999px"
-    },
-    spacing: {
-      1: "4px",
-      2: "8px",
-      3: "12px",
-      4: "16px",
-      6: "24px",
-      8: "32px"
-    }
-  },
-  semantics: {
-    color: {
-      "surface.canvas": "{primitives.color.canvas}",
-      "surface.card": "{primitives.color.surface}",
-      "border.subtle": "{primitives.color.border}",
-      "interactive.primary": "{primitives.color.primary}"
+      ...meridianLightTheme.primitives.color,
+      primary: "#1d4ed8",
+      "text-primary": "#172033",
+      "text-secondary": "#475569"
     }
   }
 };
 ```
 
-Documents reference tokens symbolically using bracketed paths (`{primitives.color.surface}`), allowing the runtime to switch from light to dark or branded themes with zero node modifications.
+The Theme contract uses `mode`, not `colorScheme`, and requires breakpoints,
+primitive and semantic maps, and variants. Import the runtime stylesheet once.
+A host's theme attribute, dark class, renderer theme, and token scope must agree.
 
-## 2. StyleIntent and Responsive Layouts
+## StyleIntent is not a plain CSS declaration
 
-Nodes control layout and spatial geometry using structured `StyleIntent` objects instead of string concatenation.
-
-### Multi-Breakpoint Values
-
-Every dimension in `StyleIntent` supports responsive breakpoint maps (`base`, `sm`, `md`, `lg`, `xl`):
+The React engine maps structural StyleIntent values to utility classes. Use
+`gap: "gap-4"`, `padding: "p-4"`, `width: "w-full"`, and
+`maxWidth: "max-w-xl"`. A value such as `gap: "16px"` becomes an ineffective class;
+`maxWidth: "36rem"` and `margin: "0 auto"` have the same problem.
 
 ```json
 {
-  "id": "content-container",
-  "type": "Container",
+  "id": "form-layout",
+  "type": "Form",
   "style": {
     "display": "flex",
-    "flexDirection": {
-      "base": "column",
-      "md": "row"
-    },
-    "gap": {
-      "base": "16px",
-      "md": "24px"
-    },
-    "padding": {
-      "base": "16px",
-      "md": "24px",
-      "lg": "32px"
-    },
-    "maxWidth": "1280px",
-    "margin": "0 auto"
+    "flexDirection": "column",
+    "gap": "gap-4",
+    "width": "w-full",
+    "maxWidth": "max-w-xl",
+    "padding": { "base": "p-4", "md": "p-6" }
   }
 }
 ```
 
-## 3. Implementing Layout Constraints in UIDL
+Use only utilities shipped by the installed stylesheet or explicitly compiled by
+the host. Responsive class generation does not guarantee that CSS exists.
+Primitive token references such as `{primitives.color.text-secondary}` can resolve
+to inline CSS variables. Verify each property: do not assume every semantic token
+reference or responsive token value is implemented. Node `props.style` is a React
+CSS object escape hatch, not the same interface as node `style`; keep it in a
+reviewed host or shared presentation recipe.
 
-When authoring UIDL documents, enforce the design system's spatial bounds:
+## Compose the page deliberately
 
-1. **Form Max-Width**: Never allow single-column form containers to expand across wide screens. Set `style: { maxWidth: "36rem", width: "100%" }` (576px limit).
-2. **Reading Line Length**: Constrain text or article blocks to `style: { maxWidth: "68ch" }` to guarantee 60–75 characters per line.
-3. **Screen Edge Margins**: Shell containers use responsive padding (`base: "16px"`, `md: "24px"`).
-4. **Touch Target Sizing**: Primary interactive buttons and inputs default to minimum 44px hit heights via standard component registry styling.
-5. **Card Insets**: Apply 16px padding on mobile (`base`) and 20px–24px on desktop (`md`).
+Row, Column, and Form names alone supply no default flex layout or gap. Declare
+layout explicitly or use a supported presentation composition. Scope internal
+spacing to the parent: field group, form section, action group, and page gutter
+are different relationships. A form normally has bounded width; a data table can
+use the available content width.
 
-## 4. Density Modes in UIDL Components
+Use `examples/admin-form.uidl.json` as a runtime-validated starting document. Keep
+lookup search, loading/retry, selection, and paging in one field group. Put save
+and return/reload controls in a wrapping action group. Display read-only counts as
+summaries where users cannot edit them.
 
-Data-dense widgets (like `DataTable` and grid cards) support explicit density configurations matching the design system tiers:
+Administration composition helpers (`createAdminHeader`, `createAdminSection`,
+`createAdminForm`, `createAdminActionBar`) and `uidl-admin-*` CSS hooks are additive
+in the upgraded runtime source. Confirm exports before importing them; published
+0.1.8 does not include these helpers. Generic widgets keep their original layout.
 
-```json
-{
-  "id": "orders-table",
-  "type": "DataTable",
-  "props": {
-    "density": "compact",
-    "columns": [
-      { "field": "id", "header": "Order ID", "width": "120px" },
-      { "field": "customer", "header": "Customer Name" },
-      { "field": "amount", "header": "Total Amount", "align": "right" },
-      { "field": "status", "header": "Status", "widget": "Badge" }
-    ]
-  }
-}
-```
+## Density and control geometry
 
-- `compact`: 32px row heights, 6px vertical cell padding (enterprise financial and logistics surfaces).
-- `comfortable`: 48px row heights, 12px vertical padding (default administration).
-- `relaxed`: 60px row heights, 18px vertical padding (touch tablets and consumer dashboards).
+The reference controls support their documented `small`/`large` size props.
+Do not assume DataTable supports a `density` prop, arbitrary column widgets, or
+32/48/60px density tiers unless its installed manifest and implementation do.
+
+Keep an icon's size separate from its pointer target. Pagination needs square
+controls, aligned status, correct empty/single/multiple-page behavior, and adequate
+spacing. Never fix internal pagination by applying height or padding to every
+button in the host. Prefer supported component hooks and theme tokens.
+
+## Evidence before completion
+
+Validate the document and registry, then render it. Inspect computed display,
+gap, width, height, token values, and the CSS cascade. Test narrow and wide widths,
+long text, loading/error/empty states, keyboard focus, and actual theme contrast.
+Capture screenshots; do not accept a new snapshot merely because a tool created it.

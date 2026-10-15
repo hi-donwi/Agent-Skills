@@ -58,6 +58,10 @@ loses what someone typed costs them the whole task, not a click.
 9. **Write messages people can act on.** Say what is wrong and what to do: "Password needs
    at least 8 characters", not "Invalid input". Keep them whole sentences for translation,
    not fragments concatenated in code.
+10. **Compose the form.** Bound one-column width, group fields under meaningful headings,
+    separate labels/helpers/errors, and use a wrapping action bar with explicit gaps.
+    Keep lookup search, loading/retry, and pagination inside the lookup group. Present
+    noneditable usage values as summaries when input styling would imply editability.
 
 ## Red flags
 - Placeholder used instead of a label — it disappears exactly when it is needed

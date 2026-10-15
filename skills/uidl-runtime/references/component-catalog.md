@@ -1,90 +1,65 @@
-# UIDL Component Catalog and Layout Registry
+# UIDL reference registry: use the actual widget contracts
 
-## Overview
+Inspect the installed registry and prop descriptors before authoring documents.
+The table below describes the React reference catalog; other runtimes are smaller.
 
-UIDL documents reference component widgets through standard registry strings. Components map directly to the `uidl-runtime` component registry, which provides accessibility attributes, keyboard navigation, and theme bindings out of the box.
+| Widget | Supported composition |
+|---|---|
+| Container, Row, Column, Stack | Plain containers; supply layout with supported StyleIntent or a shared recipe. |
+| Text | `value`; `heading: 1..6` renders a heading. There is no separate Heading widget. |
+| Button | `label`, `variant: "primary"` or `"secondary"`, icon props, native button type. |
+| TextField | `label`, `value`, `readOnly`, `disabled`, `error`, `obscureText`; verify native input props in the installed renderer. |
+| Select | `label`, `value`, `options: [{value, label}]`, disabled/error props. |
+| Checkbox, Switch | `checked`, with the widget's change event. |
+| Badge | `value` and supported `color`, not an invented semantic variant. |
+| DataTable | `rows` or named `dataSource`, `columns: [{key, label, format, align}]`. |
+| PageBar | Server `total`, `page`, `pageSize`; `onPageChange` and `onPageSizeChange`. |
+| Navbar, Sidebar, Toolbar | Registered navigation containers with their documented defaults. |
 
-## 1. Structural and Layout Nodes
+Card, Grid, Heading, Metric, NumberField, and DatePicker are not reference registry
+names. Compose registered containers/Text, or register a custom widget with a
+manifest. Do not silently emit an unsupported type.
 
-| Component Type | Role and Purpose | Common Props and Style Keys |
-|---|---|---|
-| `Container` | Main page shell or layout wrapper | `maxWidth`, `padding`, `margin: "0 auto"` |
-| `Card` | Tonal elevated surface container | `padding`, `borderRadius`, `background`, `shadow` |
-| `Column` | Vertical flexbox stack | `gap`, `alignItems`, `justifyContent` |
-| `Row` | Horizontal flexbox arrangement | `gap`, `alignItems`, `justifyContent`, `flexWrap` |
-| `Grid` | CSS Grid multi-column layout | `gridTemplateColumns`, `gap` |
-| `Divider` | Structural separating line | `orientation: "horizontal" \| "vertical"` |
+## Server-paginated collections
 
-## 2. Data Display and Typography Nodes
-
-| Component Type | Role and Purpose | Common Props and Bindings |
-|---|---|---|
-| `Text` | Standard body or label copy | `value: string`, `style: { fontSize, fontWeight, color }` |
-| `Heading` | Section or page title | `level: 1..6`, `value: string` |
-| `Badge` | Status indicator pill | `value`, `variant: "neutral" \| "success" \| "warning" \| "danger"` |
-| `Metric` | Key Performance Indicator card | `label`, `value`, `change`, `trend: "up" \| "down"` |
-| `Icon` | Vector symbol | `name`, `size: 16 \| 20 \| 24`, `color` |
-
-## 3. Form and Interactive Widgets
-
-| Component Type | Role and Purpose | State Binding Pattern |
-|---|---|---|
-| `TextField` | Text and email input | `props: { value: { "$bind": "state.form.field" } }` |
-| `NumberField` | Numeric and currency input | `props: { min, max, step, value: { "$bind": "..." } }` |
-| `Select` | Dropdown picker | `props: { options: [{ label, value }], value: { "$bind": "..." } }` |
-| `Checkbox` | Boolean toggle | `props: { checked: { "$bind": "state.form.agree" } }` |
-| `Switch` | Instantaneous toggle | `props: { checked: { "$bind": "state.settings.active" } }` |
-| `DatePicker` | Calendar date picker | `props: { format: "YYYY-MM-DD", value: { "$bind": "..." } }` |
-| `Button` | Interactive trigger | `props: { label, variant: "primary" \| "secondary" \| "danger" }` |
-
-## 4. Collections and Data Grids
-
-### `DataTable` Node Specification
+Declare a document-level data source using `$query.collection`, filters/sort
+arrays, and `page: {number, size}`. Bind `rows` to the result or use the supported
+named `dataSource`. A DataTable's own `paginate` option slices loaded rows locally;
+use a separate PageBar for server paging and avoid double pagination.
 
 ```json
 {
-  "id": "invoices-grid",
+  "id": "records",
   "type": "DataTable",
   "props": {
-    "data": { "$query": { "from": "Invoice", "sort": [{ "field": "date", "dir": "desc" }] } },
+    "rows": { "$bind": "state.$data.records.rows" },
+    "paginate": false,
     "columns": [
-      { "field": "invoiceNumber", "header": "Invoice #" },
-      { "field": "clientName", "header": "Client" },
-      { "field": "amount", "header": "Amount", "format": "currency", "align": "right" },
-      { "field": "status", "header": "Status", "widget": "Badge" }
-    ],
-    "pagination": { "pageSize": 15 },
-    "density": "comfortable"
-  }
-}
-```
-
-## 5. Event and Action Arrays Invariant
-
-In UIDL 1.x, event handlers must always provide an **array** of action descriptors. Single action objects are skipped by the interpreter:
-
-```json
-{
-  "id": "submit-button",
-  "type": "Button",
-  "props": { "label": "Save Changes" },
-  "events": {
-    "press": [
-      {
-        "action": "mutate",
-        "operation": "updateInvoice",
-        "payload": { "$bind": "state.form" }
-      },
-      {
-        "action": "toast",
-        "message": "Invoice updated successfully",
-        "type": "success"
-      },
-      {
-        "action": "navigate",
-        "path": "/invoices"
-      }
+      { "key": "name", "label": "Name" },
+      { "key": "amount", "label": "Amount", "format": "currency", "align": "right" },
+      { "key": "status", "label": "Status", "format": "status" }
     ]
   }
 }
 ```
+
+## Event arrays contain real action descriptors
+
+Use widget event names such as `onClick`, not `press`. Actions use discriminator
+objects, not `action: "mutate"` or an invented toast action:
+
+```json
+{
+  "id": "save",
+  "type": "Button",
+  "props": { "label": "Save", "variant": "primary" },
+  "events": {
+    "onClick": [
+      { "command": { "name": "SaveSettings", "payload": { "name": { "$expr": { "path": "state.form.name" } } } } }
+    ]
+  }
+}
+```
+
+The host must permit and implement the command. Error/success feedback belongs to
+its actual result contract; navigation must wait for successful completion.

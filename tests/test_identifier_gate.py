@@ -45,6 +45,14 @@ class IdentifierGateTests(unittest.TestCase):
         self.assertIn(f'a personal or client name reached a published file: {self.skills / "leaky" / "SKILL.md"}', result.stdout)
         self.assertNotIn(PRIVATE, result.stdout)
 
+    def test_private_token_does_not_match_inside_a_larger_word(self):
+        self.write_skill('clean', f'The prefix{PRIVATE}Suffix token is not a standalone identifier.')
+        self.assertEqual(0, self.run_gate().returncode)
+
+    def test_private_token_still_matches_as_a_path_or_hyphenated_name(self):
+        self.write_skill('leaky', f'Read /{PRIVATE}/notes and {PRIVATE}-service.')
+        self.assertEqual(1, self.run_gate().returncode)
+
     def test_public_name_passes(self):
         self.write_skill('clean', f'The {PUBLIC} package ships a uidl document.')
         result = self.run_gate()
@@ -88,7 +96,7 @@ class IdentifierGateTests(unittest.TestCase):
         self.assertIn('public identifier list is unreadable', result.stdout)
 
     def test_published_catalog_passes_with_the_repository_public_list(self):
-        pattern = 'donwi|hi-donwi|uidl-runtime'
+        pattern = 'donwi|hi-donwi|uidl-runtime|kerangka'
         env = dict(os.environ, PRIVATE_IDENTIFIERS=pattern)
         result = subprocess.run(
             ['bash', str(GATE), str(ROOT / 'skills')],

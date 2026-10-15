@@ -4,7 +4,7 @@ description: >-
   Author, validate, and render UIDL documents — schema-driven JSON UI for lists, forms, reports, dashboards, and settings with the uidl-runtime package.
 metadata:
   pack: web
-  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry
+  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry, uidl layout, uidl spacing, pagination, styleintent
 ---
 
 # UIDL Runtime
@@ -30,6 +30,8 @@ when none is permitted.
 2. **Read the spec first.** `spec/README.md`, then the relevant file under
    `spec/semantics/` (`state`, `bindings`, `expressions`, `queries`, `mutations`,
    `actions`). Do not invent node types or action kinds.
+   Identify the host import, lockfile, package exports, registry, and stylesheet;
+   source checkouts and published runtime versions can differ.
 3. **Keep the seams.** Documents and generators import no concrete adapter.
    Reads: `$query` → `DataAdapter`. Writes: `mutate` / `command` → host handler.
    Schema `$id` values are names, never fetch targets.
@@ -41,8 +43,13 @@ when none is permitted.
 6. **Pick the runtime honestly.** React (`packages/core`, npm `uidl-runtime`) is
    the full widget suite. Flutter and Android are semantic cores with smaller
    default catalogs — do not assume pixel parity with the React reference.
-7. **Verify.** Unit/conformance tests for schema and actions; Playwright only for
-   React surfaces. Load `webapp-testing` for browser journeys.
+7. **Compose before styling.** For visible changes, read
+   `references/declarative-design-and-theming.md` and `references/component-catalog.md`.
+   Declare field/section/action spacing, bounded width, lookup boundaries, and wrapping.
+   StyleIntent dimensions use supported utility values, not arbitrary CSS strings.
+8. **Verify the render.** Schema/action tests plus browser geometry and reviewed
+   screenshots at narrow/wide widths. Check theme contrast, focus, loading/error/empty
+   states, and pagination. Load `webapp-testing` for React browser journeys.
 
 See `references/document-model.md` for the document shape and
 `references/commands.md` for repo commands.
@@ -61,9 +68,11 @@ See `references/document-model.md` for the document shape and
 - Failure case: missing mutation handler → closed failure, no invented API.
 - Reads go through `DataAdapter`; writes through the host handler.
 - Conformance fixtures under `conformance/cases/` still pass for the changed area.
+- Visible changes have rendered evidence; valid JSON alone is not visual acceptance.
 
 ## References
 - `references/document-model.md` — document schema, seams, and spec reading order
 - `references/commands.md` — repository build, test, and validation commands
 - `references/component-catalog.md` — layout nodes, form widgets, tables, and action arrays
 - `references/declarative-design-and-theming.md` — themes, tokens, density modes, and layout constraints
+- `examples/admin-form.uidl.json` — executable field/section/action composition

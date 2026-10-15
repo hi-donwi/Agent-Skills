@@ -18,6 +18,7 @@ Use this for review mode or as a self-check before delivery.
 - Spacing follows the project scale; no arbitrary visual one-offs.
 - Radius, elevation, border, and icon stroke choices are consistent.
 - Dark mode values are designed, not just inverted.
+- Label/control, field, action, section, and page-gutter gaps have distinct roles.
 
 ## Component Architecture
 
@@ -53,6 +54,8 @@ Use this for review mode or as a self-check before delivery.
 - Text wraps cleanly without overlapping controls.
 - Fixed headers, bottom bars, and safe areas do not cover content.
 - Tables, charts, and dense grids have mobile-specific layouts.
+- One-column forms are bounded on wide screens; related actions wrap with a real gap.
+- Pagination has square targets, small centered glyphs, aligned status, and correct empty/one/many-page states.
 
 ## Performance and Polish
 
@@ -61,3 +64,4 @@ Use this for review mode or as a self-check before delivery.
 - Long lists are virtualized or paginated.
 - Animations use transform/opacity where possible and respect reduced motion.
 - Browser console is clean.
+- Computed geometry and reviewed screenshots support the visual claims for the actual rendered artifact.

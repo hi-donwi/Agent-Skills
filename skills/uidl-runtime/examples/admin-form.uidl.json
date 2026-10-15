@@ -1,0 +1,144 @@
+{
+  "version": "1.0",
+  "id": "admin-settings",
+  "name": "Administration settings",
+  "state": {
+    "name": ""
+  },
+  "root": {
+    "id": "page",
+    "type": "Container",
+    "style": {
+      "padding": {
+        "base": "p-4",
+        "md": "p-6"
+      }
+    },
+    "children": [
+      {
+        "id": "title",
+        "type": "Text",
+        "props": {
+          "value": "Settings",
+          "heading": 1
+        },
+        "style": {
+          "fontSize": "text-2xl",
+          "fontWeight": 600
+        }
+      },
+      {
+        "id": "form",
+        "type": "Form",
+        "style": {
+          "display": "flex",
+          "flexDirection": "column",
+          "gap": "gap-6",
+          "width": "w-full",
+          "maxWidth": "max-w-2xl",
+          "marginTop": "mt-6"
+        },
+        "events": {
+          "onSubmit": [
+            {
+              "command": {
+                "name": "SaveSettings",
+                "payload": {
+                  "name": {
+                    "$expr": {
+                      "path": "state.name"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "identity",
+            "type": "Column",
+            "style": {
+              "display": "flex",
+              "flexDirection": "column",
+              "gap": "gap-4"
+            },
+            "children": [
+              {
+                "id": "identity-title",
+                "type": "Text",
+                "props": {
+                  "value": "Identity",
+                  "heading": 2
+                }
+              },
+              {
+                "id": "name",
+                "type": "TextField",
+                "props": {
+                  "label": "Name",
+                  "value": {
+                    "$bind": "state.name"
+                  }
+                },
+                "events": {
+                  "onChange": [
+                    {
+                      "setState": {
+                        "path": "name",
+                        "value": null
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "actions",
+            "type": "Row",
+            "style": {
+              "display": "flex",
+              "alignItems": "center",
+              "gap": "gap-2"
+            },
+            "props": {
+              "style": {
+                "flexWrap": "wrap"
+              }
+            },
+            "children": [
+              {
+                "id": "save",
+                "type": "Button",
+                "props": {
+                  "label": "Save settings",
+                  "variant": "primary",
+                  "type": "submit"
+                }
+              },
+              {
+                "id": "return",
+                "type": "Button",
+                "props": {
+                  "label": "Return",
+                  "variant": "secondary",
+                  "type": "button"
+                },
+                "events": {
+                  "onClick": [
+                    {
+                      "navigate": {
+                        "route": "/"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

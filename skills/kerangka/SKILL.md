@@ -36,7 +36,10 @@ Kerangka turns a declarative JSON model (`.kerangka.json`) into production appli
 4. **Lint boundary invariants.** Run `kerangka lint <model.json>`. Verify entity naming rules, relation depths, and modular boundaries before compilation.
 5. **Compile to Canonical Intermediate Representation.** Run `kerangka build <model.json> -o build/app.kir.json`. KIR is the verified input for all downstream projections.
 6. **Project backend contracts.** Generate SQL DDL (`kerangka ddl`), OpenAPI 3.1 (`kerangka openapi`), and Model Context Protocol tools (`kerangka mcp`) directly from the model.
-7. **Project declarative UI screens.** Run `kerangka uidl <model.json> -o uidl-screens/`. This generates production-ready UIDL documents (dashboards, data tables, forms, navbars) rendered by `uidl-runtime`.
+7. **Choose the UI projection path.** Read `references/declarative-ui-design.md`.
+   Static `kerangka uidl <model.json> -o uidl-screens/` emits lists/forms; dashboards
+   require actor-aware dynamic screens. Check the host's exact runtime and stylesheet.
+   Use shared presentation hooks/recipes for grouped fields, bounded width, and actions.
 8. **Execute sidecar runtime.** Use `kerangka serve --stdio --session app.db` for transactional execution. State changes, CloudEvents, and host effects commit atomically.
 
 ## Red flags
@@ -51,9 +54,11 @@ Kerangka turns a declarative JSON model (`.kerangka.json`) into production appli
 - [ ] `kerangka lint` reports zero boundary or complexity violations.
 - [ ] Generated SQL DDL applies cleanly against target database (PostgreSQL/SQLite).
 - [ ] Generated UIDL documents validate successfully against `uidl-validate`.
+- [ ] Visible changes have browser evidence for spacing, wrapping, contrast, and controls.
 - [ ] Generated MCP tools expose correct parameter schemas and action permissions.
 
 ## References
 - `references/model-specification.md` — entity fields, expressions, rules, workflows, and decisions
 - `references/compiler-and-projections.md` — CLI commands, KIR compilation, OpenAPI, DDL, MCP, and sidecar runtime
 - `references/declarative-ui-design.md` — designing dashboards, lists, and forms via Kerangka UIDL projections
+- `examples/records.kerangka.json` — executable list/form model using supported view keys
