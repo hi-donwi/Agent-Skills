@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-66 skills, grouped into packs. Nothing here names a company, a client, or a private
+67 skills, grouped into packs. Nothing here names a company, a client, or a private
 codebase. Skills may be specific to a **technology** — that is what a pack is: `java` is
 Quarkus and Panache, `uidl-runtime` is the UIDL package and its spec. The line is whether
 someone outside this organisation, using that technology, could pick the skill up
@@ -46,6 +46,7 @@ plan, build, review, debug, ship, and preserve SaaS, ERP, and membership invaria
 | [`deprecation-and-migration`](skills/deprecation-and-migration/SKILL.md) | removing old systems, APIs, or features. migrating users from one implementation to another. deciding whether to maintain or sunset existing code |
 | [`documentation-and-adrs`](skills/documentation-and-adrs/SKILL.md) | making architectural decisions, changing public APIs, shipping features, or when you need to record context that future engineers and agents will… |
 | [`doubt-driven-development`](skills/doubt-driven-development/SKILL.md) | challenging consequential technical decisions with evidence and bounded review |
+| [`environmental-telemetry`](skills/environmental-telemetry/SKILL.md) | implementing environmental telemetry, Modbus RTU acquisition, Parshall flume volumetric flow, sensor calibration drift limits, or offline spooling |
 | [`erp-accounting`](skills/erp-accounting/SKILL.md) | posting balanced journals, locking fiscal periods, reversing entries, and reconciling open items |
 | [`erp-domain-design`](skills/erp-domain-design/SKILL.md) | defining ERP modules, master-data ownership, company boundaries, and business document lifecycles |
 | [`erp-inventory`](skills/erp-inventory/SKILL.md) | preserving stock movements, reservations, warehouse transfers, lots/serials, and valuation handoffs |

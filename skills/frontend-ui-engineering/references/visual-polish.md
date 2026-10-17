@@ -19,6 +19,9 @@ AI-generated UI has recognizable patterns. Avoid all of them:
 | Oversized padding everywhere | Equal generous padding destroys visual hierarchy and wastes screen space | Consistent spacing scale |
 | Stock card grids | Uniform grids are a layout shortcut that ignores information priority and scanning patterns | Purpose-driven layouts |
 | Shadow-heavy design | Layered shadows add depth that competes with content and slows rendering on low-end devices | Subtle or no shadows unless the design system specifies |
+| Emojis in enterprise controls | Casual emojis look unprofessional, degrade visual density, and disrupt enterprise credibility | Strictly zero emojis: use semantic SVG icons, typed badges, and clean tabular indicators |
+| Cramped element spacing (<16px) | Squeezing inputs and action buttons together leads to misclicks and touch targeting errors | Maintain minimum 16px vertical element spacing across form inputs, actions, and sections |
+| Arbitrary corner radii mixing | Randomly mixing sharp, subtle, and oversized radii destroys layout rhythm | Enforce uniform radius hierarchy: control radius (4-6px) and card radius (8-12px) |
 
 ## Loading and transitions
 
