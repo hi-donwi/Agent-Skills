@@ -47,6 +47,8 @@ Use `uidl-runtime` to author UIDL documents; retain these visual quality require
 8. **Inspect the rendered layout.** Read `references/layout-quality.md` for spacing,
    control anatomy, CSS diagnosis, and the narrow/wide visual acceptance gate.
 
+9. **CRUD Side Panel Drawer & Form Ergonomics.** For management consoles and master-detail screens, implement slide-over Drawers for creating and editing records. The drawer must have an accessible close button, clean label hierarchies, whisper-soft borders (#e8ecf1), helper hints below inputs, and sticky action footers. Never leave forms uncontained or stretched across excessive widths.
+
 ## Red flags
 - Components over roughly 200 lines that have not been reviewed for decomposition
 - Large components containing multiple visual regions, state concerns, and interaction flows

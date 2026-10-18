@@ -53,6 +53,12 @@ how generated UI comes to look generated.
 8. **Name spatial relationships.** Define label/control, field, action, section, and
    gutter roles. Bind them through the renderer's supported API and verify computed gaps;
    a declared token or CSS-looking JSON string does not prove it is applied.
+9. **Whisper-soft borders & border fallback prevention.** Never rely on browser or utility
+   fallbacks for borders. In modern web frameworks (e.g. Tailwind v4 where `--tw-border-style: solid`
+   is registered globally), omitting `border-color` defaults to `currentColor` (solid black text color).
+   Explicitly bind semantic border tokens (`--border-subtle`, `#e8ecf1`, `#f1f5f9`) at the root and
+   component layer. Pair micro card elevation (`shadow-sm` / `0 1px 3px rgba(0,0,0,0.04)`) with
+   whisper-soft borders rather than harsh dark outlines.
 
 ## Red flags
 - A token named after its value (`--blue-500`) used as a semantic role
@@ -62,6 +68,7 @@ how generated UI comes to look generated.
 - Contrast checked at review time, so the fix is a redesign rather than a value change
 - A new grey, a fourth radius, or a one-off spacing value added "just here"
 - Tokens declared but not enforced, so both systems run at once
+- Harsh black or unmapped solid borders falling back to currentColor
 
 ## Verification
 - [ ] Every colour, spacing, radius and type value in new code is a token
@@ -70,6 +77,7 @@ how generated UI comes to look generated.
 - [ ] Every foreground/background pair in the declaration meets its contrast ratio
 - [ ] A raw hex added to a component fails lint or review, not just taste
 - [ ] The declaration file exists and matches what the code actually does
+- [ ] Borders use whisper-soft tokens (#e8ecf1, #f1f5f9) and never fall back to black currentColor
 
 ## References
 - `references/token-architecture.md` — the three tiers, naming, and theming mechanics in CSS

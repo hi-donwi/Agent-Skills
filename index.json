@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-17T23:38:12Z",
+  "generated": "2026-10-18T01:23:48Z",
   "skills": [
     {"name": "accessibility-audit", "pack": "web", "path": "skills/accessibility-audit/SKILL.md", "references": 3, "resources": 0, "description": "Audit interfaces against WCAG 2.2 AA: keyboard navigation, ARIA semantics, accessible names, focus states, color contrast, and assistive tech support."},
     {"name": "agent-handoff", "pack": "agent", "path": "skills/agent-handoff/SKILL.md", "references": 0, "resources": 0, "description": "Resume another agent's work or prepare a handoff with repository state, evidence, ownership, and next steps. Use after an interrupted session or before stopping."},

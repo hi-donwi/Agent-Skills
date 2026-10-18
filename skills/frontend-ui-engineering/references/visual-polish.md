@@ -22,6 +22,7 @@ AI-generated UI has recognizable patterns. Avoid all of them:
 | Emojis in enterprise controls | Casual emojis look unprofessional, degrade visual density, and disrupt enterprise credibility | Strictly zero emojis: use semantic SVG icons, typed badges, and clean tabular indicators |
 | Cramped element spacing (<16px) | Squeezing inputs and action buttons together leads to misclicks and touch targeting errors | Maintain minimum 16px vertical element spacing across form inputs, actions, and sections |
 | Arbitrary corner radii mixing | Randomly mixing sharp, subtle, and oversized radii destroys layout rhythm | Enforce uniform radius hierarchy: control radius (4-6px) and card radius (8-12px) |
+| Harsh black / dark solid borders | Harsh black lines overpower content, break visual flow, and signal broken CSS fallbacks (e.g. Tailwind v4 currentColor fallback) | Strictly enforce whisper-soft borders (#e8ecf1, #f1f5f9, or rgba(255,255,255,0.08) in dark mode). Never let borders default to black currentColor. Use subtle card elevation (0 1px 3px rgba(0,0,0,0.04)) over heavy solid strokes |
 
 ## Loading and transitions
 

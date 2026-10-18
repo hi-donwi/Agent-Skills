@@ -99,3 +99,15 @@ Validate the document and registry, then render it. Inspect computed display,
 gap, width, height, token values, and the CSS cascade. Test narrow and wide widths,
 long text, loading/error/empty states, keyboard focus, and actual theme contrast.
 Capture screenshots; do not accept a new snapshot merely because a tool created it.
+
+
+## Whisper-soft borders and border-color safety
+
+Never allow borders to default to browser or `currentColor` fallbacks. In Tailwind v4,
+`--tw-border-style: solid` is registered globally; omitting a paired `border-color`
+causes cards, dividers, and tables to fall back to `currentColor` (harsh solid black).
+The upgraded `uidl-runtime/style.css` enforces universal whisper-soft defaults
+(`border-color: var(--color-gray-200, #e8ecf1)` in light mode, and `#262626` in dark mode)
+across shadow roots and document contexts. Host implementations should leverage
+subtle card elevation (`shadow-sm`, `0 1px 3px rgba(0,0,0,0.04)`) alongside soft borders
+rather than heavy outlines.

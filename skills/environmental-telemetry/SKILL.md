@@ -48,18 +48,27 @@ and durable against field network disruptions.
 5. **Enforce Idempotency and Auditability.** Assign monotonically increasing sequence numbers and
    hardware timestamps. Store raw sensor millivolts/registers alongside transformed engineering
    units for verifiable compliance audits.
+6. **Telemetry Simulation & Demo Isolation.** When testing or running telemetry simulations
+   (such as moving sensor streams per 5 seconds), persist synthetic telemetry strictly at the
+   local database layer (`target_storage = "database"`). Never forward simulated readings to
+   third-party endpoints or regulatory gateways (`forward_third_party = 0`). High-frequency live
+   simulation (<= 5s) must generate realistic sensor jitter without saturating remote external
+   quotas or contaminating production telemetry archives.
 
 ## Red flags
 - Trusting Modbus registers without CRC validation or range sanity checks.
 - Assuming free-flow discharge when downstream water backs up into the Parshall throat.
 - Suppressing calibration drift errors or rounding drift values to bypass the 2.5% threshold.
 - Dropping telemetry packets when edge networking disconnects instead of queuing to disk.
+- Forwarding simulated or synthetic test telemetry to third-party APIs or regulatory gateways.
+- Telemetry simulation intervals exceeding 5 seconds during active live monitoring demo sessions.
 
 ## Verification
 - Unit test CRC-16 calculation against known test vectors (`0xFFFF` initial seed).
 - Verify Parshall flume calculation matches empirical tables for 1-inch through 3-foot throats.
 - Drift calculation unit tests confirm Pass at 2.49% and Fail at 2.51%.
 - Edge spooling recovers gracefully across process restarts and simulated network partitions.
+- Telemetry simulation confirms readings persist to database with target_storage = "database" and forward_third_party = 0.
 
 ## References
 - `references/telemetry-standards.md` - Modbus CRC-16 vectors, Parshall equations, and drift algorithms.
