@@ -12,7 +12,14 @@ Categorize viewport width into three standardized window classes to govern macro
 |---|---|---|---|
 | **Compact** | `< 600px` | Phones, narrow portrait panes | Bottom navigation bar, modal slide-over drawers, single-column stacks |
 | **Medium** | `600px - 840px` | Small tablets, split-screen desktop windows | Compact navigation rail, collapsible side drawers, two-pane layouts |
-| **Expanded** | `> 840px` | Large tablets, laptops, widescreen monitors | Permanent navigation sidebar, persistent multi-pane workspaces |
+| **Expanded** | `840px - 1200px` | Large tablets, small laptops | Permanent navigation sidebar, persistent multi-pane workspaces |
+| **Large** | `1200px - 1600px` | Desktop monitors | Expanded panes; supporting pane docks as a fixed column |
+| **Extra-large** | `>= 1600px` | Widescreen monitors | Three-pane workspaces; cap content measure with a centered shell |
+
+These are the Material 3 window size classes (verified breakpoints), computed from the
+available window area rather than the device model — a 700px split-screen phone is not a
+compact device. Class boundaries are architecture thresholds, not the fluid breakpoints
+that reflow inside a component (`references/intrinsic-and-container.md`).
 
 ## 2. Canonical Multi-Pane Archetypes
 
@@ -62,6 +69,14 @@ Focuses attention on a primary canvas while providing a contextual inspector or 
 - **Compact Viewport**: Supporting pane opens as an overlay bottom sheet or full-width modal.
 - **Medium Viewport**: Supporting pane docks as a slide-over drawer that overlays secondary content.
 - **Expanded Viewport**: Supporting pane embeds persistently on the trailing edge (e.g., 300px width), reflowing canvas content without occlusion.
+
+### D. Feed Archetype
+
+The third canonical archetype alongside list-detail and supporting pane: an adaptive grid
+of comparable content items (social feeds, news, catalogs). Columns increase with window
+class while preserving a bounded item width; cards need not span uniformly — let
+information priority decide spans, and never let the grid force equal visual weight on all
+items (`grid-auto-flow: dense` when spans must not leave holes).
 
 ### C. Bento Grid and Dashboard Cards
 

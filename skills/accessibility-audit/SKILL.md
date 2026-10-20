@@ -52,7 +52,11 @@ Work in this order. Each pass finds a class of defect the next one cannot see.
    at 400% with no horizontal scroll and nothing clipped.
 7. **Dynamic behaviour.** Loading, error, empty and success states announced, not merely
    rendered. An error that only turns a border red does not exist for a screen-reader user.
-8. **Scan last, then judge.** Run axe. Every finding is triaged, not auto-fixed: some are
+8. **Check the 2.2 additions.** Target size (24px floor, 2.5.8), dragging movements
+   (2.5.7), focus not obscured (2.4.11), consistent help (3.2.6), redundant entry (3.3.7),
+   and accessible authentication (3.3.8) are new in WCAG 2.2 and miss-able by habits formed
+   on 2.1. Details and thresholds: `references/wcag-22-additions.md`.
+9. **Scan last, then judge.** Run axe. Every finding is triaged, not auto-fixed: some are
    false positives and some point at a deeper structural problem than the rule describes.
 9. **Report by impact.** "Checkout cannot be completed by keyboard" is a different item from
    "decorative icon missing `aria-hidden`". Order by who is blocked, not by rule count.
@@ -78,9 +82,11 @@ Work in this order. Each pass finds a class of defect the next one cannot see.
 - [ ] State changes and errors are announced, not just rendered
 - [ ] Usable at 400% zoom, and with `prefers-reduced-motion` set
 - [ ] Walked once with a real screen reader, not only with a scanner
+- [ ] Target size, drag alternatives, and the other WCAG 2.2 additions pass
 - [ ] Findings are reported by user impact with a concrete fix each
 
 ## References
 - `references/audit-procedure.md` — the nine passes with exact checks and what each one catches
 - `references/common-failures.md` — the recurring defects, their WCAG criterion, and the fix
 - `references/assistive-tech.md` — screen readers, reduced motion, forced colors, zoom
+- `references/wcag-22-additions.md` — the nine criteria added in 2.2, threshold numbers, and level

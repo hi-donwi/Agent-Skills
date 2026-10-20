@@ -4,7 +4,7 @@ description: >-
   Author, validate, and render UIDL documents — schema-driven JSON UI for lists, forms, reports, dashboards, and settings with the uidl-runtime package.
 metadata:
   pack: web
-  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry, uidl layout, uidl spacing, pagination, styleintent
+  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry, uidl layout, uidl spacing, pagination, styleintent, design system, theming, tokens, density, breakpoint
 ---
 
 # UIDL Runtime
@@ -74,5 +74,5 @@ See `references/document-model.md` for the document shape and
 - `references/document-model.md` — document schema, seams, and spec reading order
 - `references/commands.md` — repository build, test, and validation commands
 - `references/component-catalog.md` — layout nodes, form widgets, tables, and action arrays
-- `references/declarative-design-and-theming.md` — themes, tokens, density modes, and layout constraints
+- `references/declarative-design-and-theming.md` — themes, tokens, StyleIntent vocabulary, density modes, and layout constraints
 - `examples/admin-form.uidl.json` — executable field/section/action composition

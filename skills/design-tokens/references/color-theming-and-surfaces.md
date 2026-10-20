@@ -103,3 +103,30 @@ Theme switching should execute via a single root attribute without requiring ful
   --color-button-hover: color-mix(in oklch, var(--color-interactive-primary) 85%, black);
 }
 ```
+
+## 6. OKLCH, Pairing Invariants, and Tailwind v4 Exposure
+
+Orthodox current practice, verified against the shadcn/ui theming documentation:
+
+- **Define colors in OKLCH.** Perceptually uniform and P3-ready: `--background: oklch(1 0 0)`. Hold lightness and chroma relationships constant when deriving hover, muted, or dark variants instead of inventing each shade by eye.
+- **Every surface token is paired.** Nothing ships as `--primary` alone; each field owns its text and icon partner: `--primary` / `--primary-foreground`, `--card` / `--card-foreground`, `--muted` / `--muted-foreground`. The pair is the invariant — contrast is checked once per pair, never re-argued per component.
+- **Expose tokens through Tailwind v4 `@theme inline`.** The inline form maps `--color-primary: var(--primary)` so generated utilities resolve the referenced variable directly and re-theme without a rebuild. Keep tokens as plain custom properties; a config file is a generator, not the source of truth.
+- **State derivations use `color-mix()`** in a uniform space at runtime — Tailwind v4 does the same internally for opacity modifiers.
+
+### Radius from one number
+
+A whole radius scale derives from a single base. The shadcn `--radius` scaffold pairs it with `sm` and `md` subtractions and multiplicative variants up the scale (`xl`, `2xl`); declare the multipliers explicitly in the design declaration (for example `sm 0.6x, md 0.8x, lg 1x, xl 1.4x, 2xl 1.8x`) so components cannot choose freehand. One base plus declared derivation is what prevents the three-radius drift.
+
+### A 12-step hue scale assigns a job to every step
+
+Radix Colors' mapping, useful as a starting scale when a palette must span backgrounds, components, borders, and text from one hue:
+
+| Steps | Job |
+|---|---|
+| 1-2 | Page and subtle backgrounds |
+| 3-5 | Component backgrounds: normal, hover, pressed/selected |
+| 6-8 | Borders: subtle, interactive hover, focus |
+| 9-10 | Solid fill and its hover |
+| 11-12 | Low-contrast and high-contrast text on solid fills |
+
+Step 9 is the scale's most saturated color, and text contrast varies by hue — check pairs rather than trusting the table. Promote steps into the semantic tier by renaming to the job (`--color-border-subtle: var(--green-6)`); the numbering is scaffold, not API.

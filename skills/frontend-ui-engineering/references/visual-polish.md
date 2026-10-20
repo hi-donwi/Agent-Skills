@@ -24,6 +24,25 @@ AI-generated UI has recognizable patterns. Avoid all of them:
 | Arbitrary corner radii mixing | Randomly mixing sharp, subtle, and oversized radii destroys layout rhythm | Enforce uniform radius hierarchy: control radius (4-6px) and card radius (8-12px) |
 | Harsh black / dark solid borders | Harsh black lines overpower content, break visual flow, and signal broken CSS fallbacks (e.g. Tailwind v4 currentColor fallback) | Strictly enforce whisper-soft borders (#e8ecf1, #f1f5f9, or rgba(255,255,255,0.08) in dark mode). Never let borders default to black currentColor. Use subtle card elevation (0 1px 3px rgba(0,0,0,0.04)) over heavy solid strokes |
 
+## Adopt 2026 aesthetics deliberately, not by default
+
+Current web-design trends are legitimate vocabulary, but each fits only some products.
+Adopt with a reason recorded in the design declaration; drop without one.
+
+| Trend | Adopt when | Reject when |
+|---|---|---|
+| Dopamine / high-chroma colour | Brand-led consumer surfaces; used as accent on a controlled token | Any data-dense or compliance surface; as the default palette |
+| Neo-brutalism | Brand personality that owns it (dev tools, creative studios) | Professional or enterprise products; mixed into an otherwise neutral system |
+| 3D / WebGL scenes | One hero moment on a marketing or creative surface; loaded lazily, reduced-motion aware | Dashboards, applications, anything above-the-fold on a utility screen |
+| Experimental navigation | Exploratory or artistic sites | Applications; discoverability and keyboard support are non-negotiable |
+| Dark mode | Ships only at full parity: checked pairs, tonal surfaces, updated imagery and charts | Inverted with naive filters, or pairs never re-checked |
+| Soft / organic shapes and oversized radii | Consumer-friendly products with the radius scale declared first | When radius values start being chosen per component |
+| AI-driven interfaces (agentic chat, voice, adaptive smart forms) | When the task genuinely benefits from delegation or capture speed | Bolted on as a widget; voice without a visible transcript and an exit |
+
+Aesthetic-Usability (Law of UX): users judge a beautiful interface as more usable even when
+it is not. That is a risk to manage — never accept a hand-test failure because the surface
+looks good — and never an excuse to ship unpolished work either.
+
 ## Loading and transitions
 
 ```tsx

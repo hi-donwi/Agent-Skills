@@ -23,12 +23,18 @@ Load when triaging findings. These account for most of what an audit turns up.
 | Auto-advancing carousel | 2.2.2 Pause, Stop, Hide | Pause control, and stop under `prefers-reduced-motion` |
 | Content clipped at 400% zoom | 1.4.10 Reflow | Remove fixed heights; let the layout reflow to one column |
 | Text unreadable at 200% text-only zoom | 1.4.4 Resize Text | Use `rem`; avoid fixed-height text containers |
-| Tap target under 24px | 2.5.8 Target Size | Pad the target, not the glyph |
+| Tap target under 24px | 2.5.8 Target Size (AA) | Pad the target, not the glyph; 40-44px is the practical target |
+| Target under 24px with no spacing exception | 2.5.8 | 24px or a size+spacing clearance; larger targets per platform (44pt/48dp) |
 | Form control with no visible label | 3.3.2 | Visible labels; floating labels must remain readable when filled |
 | Tab order set with positive `tabindex` | 2.4.3 | Use `0` or `-1` and fix the DOM order instead |
 | `title` attribute as the only name | 4.1.2 | Not exposed reliably; use a real label |
 | Table without headers | 1.3.1 | `th` with `scope`, or `headers`/`id` for complex tables |
 | Autoplaying audio | 1.4.2 Audio Control | Do not; if unavoidable, a control within the first tab stop |
+| Drag-only reordering or slider | 2.5.7 Dragging Movements | Offer a single-pointer alternative: buttons, arrows, or a mode toggle |
+| Focus fully hidden behind a sticky header or banner | 2.4.11 Focus Not Obscured (Min) | Scroll focused elements clear; `scroll-padding` and non-sticky overlays |
+| Help/contact in a different spot on each page | 3.2.6 Consistent Help | Same relative order across pages for contact, self-help, and chat |
+| Retyping already-provided data in one process | 3.3.7 Redundant Entry | Auto-populate or offer selection for previously given information |
+| Auth requiring memory or puzzles with no alternative | 3.3.8 Accessible Authentication | Allow paste, password managers, email links, or user-supplied content |
 
 ## Two that are frequently misread
 

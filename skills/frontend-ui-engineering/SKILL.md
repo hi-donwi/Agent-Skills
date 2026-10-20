@@ -4,7 +4,7 @@ description: >-
   Build production-quality UIs: reusable primitives, responsibility decomposition, robust state handling, and complete visual states (hover, loading, error).
 metadata:
   pack: web
-  keywords: component, ui, interface, react, jsx, tsx, vue, svelte, page, dashboard, card, modal, dialog, button, loading state, empty state, error state, skeleton, design system adherence, component library, storybook, reuse, decompose, hook, presentation
+  keywords: component, ui, interface, react, jsx, tsx, vue, svelte, page, dashboard, card, modal, dialog, button, loading state, empty state, error state, skeleton, design system adherence, component library, storybook, reuse, decompose, hook, presentation, design trend, aesthetic, radix, shadcn
 ---
 
 # Frontend UI Engineering
@@ -30,6 +30,7 @@ Use `uidl-runtime` to author UIDL documents; retain these visual quality require
 | Inputs, validation, submit states | `forms-and-validation` |
 | Where a piece of state belongs, or untangling it | `frontend-state` |
 | Verifying the built result against WCAG | `accessibility-audit` |
+| Matching a published system's conventions (HIG, M3, Atlassian) | `uiux-design-systems` |
 
 ## Process
 1. **Identify the renderer.** Use `uidl-runtime` for UIDL authoring; apply the same layout, hierarchy, and visual review criteria to JSX and declarative UI.
@@ -85,7 +86,7 @@ After building UI:
 ## References
 - `references/component-reuse.md` — four-layer reuse (Component / Hook / Utility / Service)
 - `references/component-structure.md` — file layout, composition, and state
-- `references/visual-polish.md` — the AI-aesthetic table, loading and feedback states
+- `references/visual-polish.md` — the AI-aesthetic table, 2026 trends adopted deliberately, loading and feedback states
 - `references/layout-quality.md` — layout contract, spacing, CSS diagnosis, and visual evidence
 - `references/production-ui-checklist.md` — review-mode checklist
 - `references/source-synthesis.md` — what the published sources behind this skill agree on

@@ -4,7 +4,7 @@ Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
 loads only when it needs the detail.
 
-67 skills, grouped into packs. Nothing here names a company, a client, or a private
+68 skills, grouped into packs. Nothing here names a company, a client, or a private
 codebase. Skills may be specific to a **technology** — that is what a pack is: `java` is
 Quarkus and Panache, `uidl-runtime` is the UIDL package and its spec. The line is whether
 someone outside this organisation, using that technology, could pick the skill up
@@ -105,6 +105,7 @@ browser.
 | [`frontend-ui-engineering`](skills/frontend-ui-engineering/SKILL.md) | building or modifying user-facing interfaces, components, or stateful interactions |
 | [`responsive-layout`](skills/responsive-layout/SKILL.md) | a component must work in more than one context, when a layout breaks at a width or at large text, when adding breakpoints, or when a design must… |
 | [`uidl-runtime`](skills/uidl-runtime/SKILL.md) | creating or changing a UIDL document, the document schema, DataAdapter seam, $bind/$query/$expr/mutate behaviour, uidl-validate, or uidl-compile |
+| [`uiux-design-systems`](skills/uiux-design-systems/SKILL.md) | choosing or refreshing a design direction for a product or platform, matching published-system conventions (HIG, Material 3, Atlassian, Primer), or judging enterprise density, targets, and fidelity |
 | [`web-development`](skills/web-development/SKILL.md) | the user wants to scaffold, design, or iterate on a website or web app with an AI agent, asks about vibe coding, AI-first IDEs (Cursor, Windsurf,… |
 | [`web-perf`](skills/web-perf/SKILL.md) | asked to audit, profile, debug, or optimize page load performance, Lighthouse scores, or site speed |
 | [`webapp-testing`](skills/webapp-testing/SKILL.md) | asked to verify a feature works in the browser, reproduce a UI bug, or add e2e coverage |

@@ -82,6 +82,34 @@ Administration composition helpers (`createAdminHeader`, `createAdminSection`,
 in the upgraded runtime source. Confirm exports before importing them; published
 0.1.8 does not include these helpers. Generic widgets keep their original layout.
 
+## Translate a design-system decision into the actual vocabulary
+
+A document carries design decisions only if they fit the real reference vocabulary
+(`StyleIntent` in `packages/core/src/types/theme.ts`) and the installed theme engine.
+Supported dimensions include gap, padding/margin per side and shorthand, width and
+min/max-sizes, flex direction/justify/align, display, positioning (relative through
+sticky, inset, z-index), background, color, fontSize/fontWeight/lineHeight/letterSpacing,
+borderRadius, borderWidth/borderColor, shadow, opacity, and a single typography token
+reference. Anything else is not a decision the document can state.
+
+1. **Values are intent values, not literal CSS.** Structural fields take the engine's
+   utility-class values (`gap-4`, `max-w-xl`) and colour/typography may take token
+   references (`{primitives.color.primary}`, `{semantics.typography.headline-medium}`).
+   A raw `16px` in `gap` renders nothing — the design decision died in translation.
+2. **Responsive decisions use the object form.** `{ "base": "p-4", "md": "p-6" }` is how
+   a window-class or breakpoint decision lands. Use the host's declared breakpoints —
+   check `theme.breakpoints` instead of assuming Tailwind's.
+3. **A design system lands in three places, nowhere else.**
+   - Colour roles and pairing -> `primitives.color` / semantic colour tokens on the Theme.
+   - Type scale -> semantic `typography` tokens applied with the `typography` field.
+   - Spatial rhythm -> spacing `primitives` referenced through `gap`/`padding` values.
+   Elevation by surface tint or tonal level must be expressed with the supported
+   `background`/`shadow` fields; inventing an `elevation` key renders nothing.
+4. **Trends and system conventions stop at the boundary.** Something Apple HIG or M3
+   "says" only applies if the installed StyleIntent/theme can state it. Record the delta
+   in the design declaration instead of sneaking CSS into documents. Context-level
+   system choice lives in `uiux-design-systems`; token tiers live in `design-tokens`.
+
 ## Density and control geometry
 
 The reference controls support their documented `small`/`large` size props.

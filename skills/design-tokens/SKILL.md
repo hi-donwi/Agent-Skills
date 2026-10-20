@@ -4,7 +4,7 @@ description: >-
   Define and apply design tokens: naming by role, semantic tiers, theming, and dark mode switches. Use when establishing UI design tokens or themes.
 metadata:
   pack: web
-  keywords: design token, design system, palette, colour, color, theme, theming, dark mode, light mode, contrast, spacing scale, type scale, radius, elevation, css variable, custom property, semantic token, hardcoded hex, hardcoded colour, hardcoded color, inconsistent spacing, tailwind config, brand
+  keywords: design token, design system, palette, colour, color, theme, theming, dark mode, light mode, contrast, spacing scale, type scale, radius, elevation, css variable, custom property, semantic token, hardcoded hex, hardcoded colour, hardcoded color, inconsistent spacing, tailwind config, tailwind v4, theme inline, oklch, shadcn, radix colors, tonal surface, pairing, brand
 ---
 
 # Design Tokens
@@ -27,6 +27,7 @@ how generated UI comes to look generated.
 | Building or splitting a component | `frontend-ui-engineering` |
 | Sizing, breakpoints, fluid type mechanics | `responsive-layout` |
 | Auditing a built page against WCAG | `accessibility-audit` |
+| Choosing which published system to imitate | `uiux-design-systems` |
 
 ## Process
 
@@ -46,8 +47,11 @@ how generated UI comes to look generated.
    redefines semantic tokens; nothing below it knows a theme exists. Never fork a component
    for dark mode.
 6. **Treat contrast as a constraint, not a review note.** Every semantic foreground token
-   is paired with the backgrounds it is allowed on, and each pair meets 4.5:1 (3:1 for
-   large text and for UI boundaries). Check when defining the token, not when shipping.
+   is paired with the backgrounds it is allowed on — `--card` with `--card-foreground`,
+   `--muted` with `--muted-foreground` — and each pair meets 4.5:1 (3:1 for large text and
+   UI boundaries). Define colours in OKLCH so derivations stay perceptually uniform, and
+   expose pairs through Tailwind v4 `@theme inline` so utilities re-theme without a rebuild.
+   Check when defining the token, not when shipping.
 7. **Close the door behind you.** A lint rule that rejects raw hex and off-scale values in
    component code is what stops tier four from re-appearing next month.
 8. **Name spatial relationships.** Define label/control, field, action, section, and
@@ -68,6 +72,8 @@ how generated UI comes to look generated.
 - Contrast checked at review time, so the fix is a redesign rather than a value change
 - A new grey, a fourth radius, or a one-off spacing value added "just here"
 - Tokens declared but not enforced, so both systems run at once
+- A surface token without its paired foreground token
+- One radius used here and an arbitrary pixel value there instead of the declared scale
 - Harsh black or unmapped solid borders falling back to currentColor
 
 ## Verification
@@ -75,6 +81,8 @@ how generated UI comes to look generated.
 - [ ] Token names describe role; no value words outside the primitive tier
 - [ ] Switching the root theme attribute recolours the whole surface with no component change
 - [ ] Every foreground/background pair in the declaration meets its contrast ratio
+- [ ] Colors defined in OKLCH (or another perceptual space) and derivations use `color-mix()`
+- [ ] Tailwind utilities resolve tokens via `@theme inline`, so theming needs no rebuild
 - [ ] A raw hex added to a component fails lint or review, not just taste
 - [ ] The declaration file exists and matches what the code actually does
 - [ ] Borders use whisper-soft tokens (#e8ecf1, #f1f5f9) and never fall back to black currentColor
@@ -83,7 +91,9 @@ how generated UI comes to look generated.
 - `references/token-architecture.md` — the three tiers, naming, and theming mechanics in CSS
 - `references/contrast.md` — pairing tokens, the ratios, and checking them as you define
 - `references/adoption.md` — introducing tokens into a codebase that already has values
-- `references/color-theming-and-surfaces.md` — semantic color roles, tonal surface hierarchy, and dark mode
+- `references/color-theming-and-surfaces.md` — semantic color roles, tonal surfaces,
+  dark mode, OKLCH pairing invariants, Tailwind v4 exposure, radius math, and the
+  Radix 12-step scale
 - `references/spatial-geometry-and-density.md` — 8pt grid, density modes, touch ergonomics, and typography
 
 ## Bundle contents

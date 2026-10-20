@@ -58,18 +58,17 @@ loses what someone typed costs them the whole task, not a click.
 9. **Write messages people can act on.** Say what is wrong and what to do: "Password needs
    at least 8 characters", not "Invalid input". Keep them whole sentences for translation,
    not fragments concatenated in code.
-10. **Compose the form.** Bound one-column width, group fields under meaningful headings,
-    separate labels/helpers/errors, and use a wrapping action bar with explicit gaps.
-    Keep lookup search, loading/retry, and pagination inside the lookup group. Present
-    noneditable usage values as summaries when input styling would imply editability.
-
-
-6. **Modern CRUD Drawer Side Panel Architecture.** For enterprise management consoles and list views, prefer right-side drawer panels over full-page redirects for entity creation and quick edits:
-   - **Context preservation:** Sliding the drawer over the list keeps the user in their active workflow (table scroll position, filters, page offset).
-   - **Header structure:** Clear entity title, explanatory subtitle/description, and an explicit accessible close button (✕).
-   - **Field grouping & ergonomics:** Vertical stack with minimum 16px field gap, uppercase or medium-weight label with required indicator (*), input field with whisper-soft border (#e8ecf1) and smooth focus ring, and helper text directly below the field.
-   - **Sticky action footer:** Pinned to drawer bottom with subtle top hairline divider, containing Cancel (closes drawer) and Primary Submit (with loading spinner/pending state).
-   - **Route parity:** Standalone form views (/resource/new) render as centered, max-w-2xl elevated cards with identical fieldset structure.
+10. **Compose the form.** Bound one-column width, group fields under headings, separate
+    labels/helpers/errors, and wrap actions in an explicit action bar; keep lookup search
+    and pagination inside its group. Present noneditable usage values as summaries.
+11. **CRUD drawer forms.** In consoles and list views, entity creation and quick edits
+    open a right-side drawer sliding over the list, preserving scroll position,
+    filters, and pagination. Header: entity title and subtitle with an explicit
+    accessible close button. Fields: vertical stack, minimum 16px field gap, labels
+    with a required indicator, whisper-soft borders (#e8ecf1), smooth focus ring,
+    and helper text below each field. A sticky footer holds Cancel and Primary
+    Submit with its pending state. A standalone route form renders as a centered,
+    bounded-width card with the identical fieldset structure.
 
 ## Red flags
 - Placeholder used instead of a label — it disappears exactly when it is needed

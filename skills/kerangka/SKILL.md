@@ -26,6 +26,7 @@ Kerangka turns a declarative JSON model (`.kerangka.json`) into production appli
 | Hand-coding freeform UI outside a schema | `frontend-ui-engineering` |
 | Rendering or styling raw UIDL documents in React/Flutter | `uidl-runtime` |
 | Custom token palettes, contrast, and themes | `design-tokens` |
+| Choosing and matching a published design system | `uiux-design-systems` |
 | Designing non-modelled public REST APIs | `rest-api-contract` |
 
 ## Process
@@ -40,6 +41,8 @@ Kerangka turns a declarative JSON model (`.kerangka.json`) into production appli
    Static `kerangka uidl <model.json> -o uidl-screens/` emits lists/forms; dashboards
    require actor-aware dynamic screens. Check the host's exact runtime and stylesheet.
    Use shared presentation hooks/recipes for grouped fields, bounded width, and actions.
+   Skin them from the design declaration's tokens — StyleIntent values and theme tokens,
+   never inline CSS — per `uidl-runtime`'s theming reference.
 8. **Execute sidecar runtime.** Use `kerangka serve --stdio --session app.db` for transactional execution. State changes, CloudEvents, and host effects commit atomically.
 
 ## Red flags
