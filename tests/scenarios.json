@@ -93,6 +93,12 @@
       "pack": "web"
     },
     {
+      "id": "scenario-uidl-presentation-preset-1",
+      "query": "extract a reusable UIDL presentation preset catalog with semantic light and dark themes, target support, and cross-host conformance",
+      "expected_skill": "uidl-runtime",
+      "pack": "web"
+    },
+    {
       "id": "scenario-web-perf-1",
       "query": "optimize Core Web Vitals to fix poor Largest Contentful Paint (LCP) and render-blocking scripts",
       "expected_skill": "web-perf",
