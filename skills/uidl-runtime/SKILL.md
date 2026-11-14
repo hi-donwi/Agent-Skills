@@ -1,10 +1,10 @@
 ---
 name: uidl-runtime
 description: >-
-  Author, validate, and render UIDL documents — schema-driven JSON UI for lists, forms, reports, dashboards, and settings with the uidl-runtime package.
+  Author, validate, and render UIDL documents and presentation presets — schema-driven JSON UI for lists, forms, reports, dashboards, and settings with the uidl-runtime package.
 metadata:
   pack: web
-  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry, uidl layout, uidl spacing, pagination, styleintent, design system, theming, tokens, density, breakpoint
+  keywords: uidl, schema driven ui, json ui, document renderer, dataadapter, bind, query, expr, mutate, uidl-validate, uidl-compile, document schema, component registry, uidl layout, uidl spacing, pagination, styleintent, design system, theming, tokens, density, breakpoint, presentation preset, preset catalog, conformance
 ---
 
 # UIDL Runtime
@@ -19,6 +19,8 @@ when none is permitted.
 
 ## When to use
 - Authoring or editing a UIDL JSON document or page generator.
+- Extracting or consuming a reusable presentation preset across a reference app, runtime,
+  projection, builder, or host boundary.
 - Changing schema, bindings, expressions, queries, or actions.
 - Wiring `UIDocumentRenderer` / `DocumentSchema` in a React host.
 - Validating documents with `uidl-validate` or compiling with `uidl-compile`.
@@ -47,7 +49,11 @@ when none is permitted.
    `references/declarative-design-and-theming.md` and `references/component-catalog.md`.
    Declare field/section/action spacing, bounded width, lookup boundaries, and wrapping.
    StyleIntent dimensions use supported utility values, not arbitrary CSS strings.
-8. **Verify the render.** Schema/action tests plus browser geometry and reviewed
+8. **Separate ownership before extraction.** Keep domain fixtures and business semantics in
+   their source repositories. Put reusable tokens, recipes, widgets, and the versioned preset
+   manifest in the runtime; consumers discover the catalog instead of copying definitions. For
+   the boundary matrix and manifest fields, read `references/presentation-presets.md`.
+9. **Verify the render.** Schema/action tests plus browser geometry and reviewed
    screenshots at narrow/wide widths. Check theme contrast, focus, loading/error/empty
    states, and pagination. Load `webapp-testing` for React browser journeys.
 
@@ -61,6 +67,9 @@ See `references/document-model.md` for the document shape and
 - Assuming Flutter or Compose render the full React catalog.
 - Fetching `https://uidl.dev/schema/...` — those `$id`s are not URLs to retrieve.
 - Treating reference consoles as production-ready products.
+- Copying a reference app's branded or domain-specific preset into a shared catalog.
+- Calling a preset reusable without declaring target support, required widgets, host capabilities,
+  provenance, and a pinned version.
 
 ## Verification
 - `uidl-validate` (or `DocumentSchema.safeParse`) succeeds on the document.
@@ -69,10 +78,13 @@ See `references/document-model.md` for the document shape and
 - Reads go through `DataAdapter`; writes through the host handler.
 - Conformance fixtures under `conformance/cases/` still pass for the changed area.
 - Visible changes have rendered evidence; valid JSON alone is not visual acceptance.
+- Preset manifests validate, consumers resolve the catalog without a duplicate definition, and
+  cross-repository fixtures agree on schema, theme, accessibility, and host boundaries.
 
 ## References
 - `references/document-model.md` — document schema, seams, and spec reading order
 - `references/commands.md` — repository build, test, and validation commands
 - `references/component-catalog.md` — layout nodes, form widgets, tables, and action arrays
 - `references/declarative-design-and-theming.md` — themes, tokens, StyleIntent vocabulary, density modes, and layout constraints
+- `references/presentation-presets.md` — ownership boundaries, manifest contract, extraction workflow, and conformance matrix
 - `examples/admin-form.uidl.json` — executable field/section/action composition
