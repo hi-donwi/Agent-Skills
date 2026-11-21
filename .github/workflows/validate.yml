@@ -6,11 +6,11 @@ on:
   pull_request:
 
 # Secret + dependency gate via the pinned agent-secure engine (see
-# hi-donwi/Agent-Secure). Skills are prose, so the scan is mostly a supply-
+# hi-donwi/Donwi-Secure). Skills are prose, so the scan is mostly a supply-
 # chain tripwire; no allow entries - the verdict must be a clean pass.
 jobs:
   security:
-    uses: hi-donwi/Agent-Secure/.github/workflows/agent-secure-gate.yml@458f9e5d9f0ba9bc626999116451e316b2626e04
+    uses: hi-donwi/Donwi-Secure/.github/workflows/agent-secure-gate.yml@458f9e5d9f0ba9bc626999116451e316b2626e04
     with:
       root: .
       engine_version: v0.1.6

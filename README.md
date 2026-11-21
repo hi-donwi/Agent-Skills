@@ -1,4 +1,4 @@
-# Agent Skills
+# DONWI Skills
 
 Portable, agent-agnostic **skills** in the open Agent Skills format: a `SKILL.md` entry
 point with YAML frontmatter and concise instructions, plus a `references/` folder an agent
@@ -18,7 +18,7 @@ some packs are named after one. Keeping skills in their own repository means one
 one history, and one place to improve them — and lets a workspace pull **only the packs it
 needs** rather than carrying all of them.
 
-Consumed by [Agent-Workspace](https://github.com/hi-donwi/Agent-Workspace) via
+Consumed by [DONWI Workspace](https://github.com/hi-donwi/Donwi-Workspace) via
 `ws skills add <name>` / `ws skills sync`, which materialises the selected skills with a
 sparse checkout pinned to a commit. It works standalone too — clone it and point your agent
 at `skills/`.
